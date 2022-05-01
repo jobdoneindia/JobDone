@@ -6,42 +6,114 @@
     android:layout_height="match_parent"
     tools:context=".PhoneLoginActivity">
 
-    <com.hbb20.CountryCodePicker
-        android:id="@+id/ccp"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
-        android:layout_weight="1"
-        android:background="@drawable/spinner_login"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextPhone"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:padding="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="E.g. 9999999999"
-        android:background="@drawable/spinner_login"
-        app:layout_constraintBottom_toBottomOf="@+id/ccp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/phoneLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ccp"
-        app:layout_constraintTop_toTopOf="@+id/ccp"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/ccp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_weight="1"
+            android:background="@drawable/spinner_login"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextPhone"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:padding="8dp"
+            android:ems="10"
+            android:inputType="number"
+            android:hint="E.g. 9999999999"
+            android:maxLength="10"
+            android:background="@drawable/spinner_login"
+            app:layout_constraintBottom_toBottomOf="@+id/ccp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ccp"
+            app:layout_constraintTop_toTopOf="@+id/ccp"
+            />
+
+        <TextView
+            android:id="@+id/enter_otp_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:textAlignment="center"
+            android:text="Enter your 10 digit mobile number to get OTP."
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/editTextPhone"
+            app:layout_constraintTop_toBottomOf="@id/editTextPhone" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="8dp"
+        android:indeterminate="true"
+        android:progressTint="@color/purple_200"
+        android:indeterminateTint="@color/purple_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/otp_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/firstPinView"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:text="Enter OTP"
+        android:visibility="gone"/>
+
+    <com.chaos.view.PinView
+        android:id="@+id/firstPinView"
+        style="@style/PinWidget.PinView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        android:cursorVisible="true"
+        android:hint=""
+        android:inputType="text"
+        android:itemBackground="@color/white"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cursorColor="@color/black"
+        app:cursorWidth="2dp"
+        app:hideLineWhenFilled="false"
+        app:itemCount="5"
+        app:itemHeight="48dp"
+        app:itemRadius="4dp"
+        app:itemSpacing="0dp"
+        app:itemWidth="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phoneLayout"
+        app:lineColor="@color/black"
+        app:lineWidth="2dp"
+        app:viewType="rectangle" />
+
 
     <ImageView
         android:id="@+id/imageView"
@@ -50,7 +122,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ccp"
+        app:layout_constraintTop_toBottomOf="@id/phoneLayout"
         app:srcCompat="@drawable/log_with_shapes_faded" />
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Small"
+        android:id="@+id/skip_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Skip"
+        android:layout_margin="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

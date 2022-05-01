@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/tools_bg">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -19,33 +20,36 @@
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="26dp"
         android:layout_marginBottom="112dp"
-        app:cornerRadius="16dp"
-        android:backgroundTint="#F7D202"
+        android:backgroundTint="#e91e64"
         android:drawableLeft="@drawable/ic_google"
         android:text="CONTINUE WITH GOOGLE"
         android:textColor="@color/white"
+        android:padding="12dp"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/phn_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="26dp"
         android:layout_marginBottom="47dp"
-        app:cornerRadius="16dp"
-        android:backgroundTint="#8402E0"
-        android:text="CONTINUE WITH PHONE"
+        android:padding="12dp"
+        android:backgroundTint="#8bc24a"
         android:drawableLeft="@drawable/ic_phone_white"
+        android:text="CONTINUE WITH PHONE"
         android:textColor="@color/white"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
