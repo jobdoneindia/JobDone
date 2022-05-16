@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.chaos.view.PinView
 import com.hbb20.CountryCodePicker
-import org.w3c.dom.Text
 
 class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChangeListener {
 
@@ -87,7 +86,7 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
 
         // Skip button
         skipButton!!.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
 

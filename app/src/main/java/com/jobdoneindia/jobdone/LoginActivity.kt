@@ -23,7 +23,7 @@ class LoginActivity: AppCompatActivity() {
         }
 
         skipButton!!.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
 
