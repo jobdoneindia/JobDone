@@ -25,6 +25,10 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
     private var otpTitle: TextView? = null
     private var skipButton: Button? = null
 
+    private val 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_phone_login)
@@ -34,7 +38,7 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
         phoneEditText = findViewById<EditText>(R.id.editTextPhone)
         firstPinView = findViewById<View>(R.id.firstPinView) as PinView
         phoneLayout = findViewById<View>(R.id.phoneLayout) as ConstraintLayout
-        otpTitle = findViewById<View>(R.id.otp_title) as TextView
+
         skipButton = findViewById<View>(R.id.skip_button) as Button
 
         // country code picker
@@ -44,14 +48,18 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
         phoneEditText!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
+
+
+
+
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
                 if (s.toString().length == 10) {
-                    Toast.makeText(this@PhoneLoginActivity, "10 digits detected", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@PhoneLoginActivity, "OTP Sent", Toast.LENGTH_SHORT).show()
                     phoneLayout!!.visibility = View.GONE
                     firstPinView!!.visibility = View.VISIBLE
-                    otpTitle!!.visibility = View.VISIBLE
                 }
             }
 
@@ -63,11 +71,13 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
         // OTP Watcher
         firstPinView!!.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.toString().length == 5) {
-                    Toast.makeText(this@PhoneLoginActivity, "5 digit pin", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@PhoneLoginActivity, "Verified", Toast.LENGTH_SHORT).show()
                 }
             }
 

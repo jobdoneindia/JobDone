@@ -60,18 +60,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"/>
 
-    <TextView
-        android:id="@+id/otp_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/firstPinView"
-        android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:text="Enter OTP"
-        android:visibility="gone"/>
-
     <com.chaos.view.PinView
         android:id="@+id/firstPinView"
         style="@style/PinWidget.PinView"
@@ -81,7 +69,7 @@
         android:visibility="gone"
         android:cursorVisible="true"
         android:hint=""
-        android:inputType="text"
+        android:inputType="number"
         android:itemBackground="@color/white"
         android:padding="8dp"
         android:textColor="@color/black"
@@ -90,7 +78,7 @@
         app:cursorColor="@color/black"
         app:cursorWidth="2dp"
         app:hideLineWhenFilled="false"
-        app:itemCount="5"
+        app:itemCount="4"
         app:itemHeight="48dp"
         app:itemRadius="4dp"
         app:itemSpacing="0dp"
@@ -105,12 +93,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="406dp"
+        android:layout_height="696dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.68"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phoneLayout"
+        app:layout_constraintTop_toBottomOf="@+id/phoneLayout"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/log_with_shapes_faded" />
 
     <Button
