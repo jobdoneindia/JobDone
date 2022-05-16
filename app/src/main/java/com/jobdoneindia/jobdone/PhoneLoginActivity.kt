@@ -24,7 +24,6 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
     private var otpTitle: TextView? = null
     private var skipButton: Button? = null
 
-    private val 
 
 
 

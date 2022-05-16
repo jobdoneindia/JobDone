@@ -3,25 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/ic_account.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/ic_settings.xml" value="0.1" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/header_background.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_google.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_phone_white.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/layout_button_login.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/spinner_login.xml" value="0.1" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_dashboard.xml" value="0.25" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_phone_login.xml" value="0.33" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_splash.xml" value="0.22" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/navheader.xml" value="0.19022289766970618" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/navigation_menu.xml" value="0.38645833333333335" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/navmenu.xml" value="0.26851851851851855" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/sidenav_menu.xml" value="0.2675925925925926" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/sidenavmenu.xml" value="0.2391304347826087" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable-v24/ic_home.xml" value="0.295" />
+        <entry key="app/src/main/res/drawable/header_background.xml" value="0.295" />
+        <entry key="app/src/main/res/drawable/ic_chat.xml" value="0.295" />
+        <entry key="app/src/main/res/drawable/ic_facebook.xml" value="0.295" />
+        <entry key="app/src/main/res/drawable/ic_gift.xml" value="0.295" />
+        <entry key="app/src/main/res/drawable/ic_google.xml" value="0.295" />
+        <entry key="app/src/main/res/drawable/ic_phone_white.xml" value="0.295" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.536" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2984375" />
         <entry key="app/src/main/res/layout/activity_phone_login.xml" value="0.264" />
