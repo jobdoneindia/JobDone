@@ -5,14 +5,16 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.chaos.view.PinView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hbb20.CountryCodePicker
+
 
 class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChangeListener {
 
@@ -20,8 +22,12 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
     private var selected_country_code: String = "+91"
     private var firstPinView: PinView? = null
     private var phoneLayout: ConstraintLayout? = null
+    private var nameLayout: ConstraintLayout? = null
+    private var otpLayout: ConstraintLayout? = null
     private var phoneEditText: EditText? = null
     private var skipButton: Button? = null
+    private var backButtonOtp: LinearLayout? = null
+    private var fabButton: FloatingActionButton? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +37,14 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
         ccp = findViewById(R.id.ccp)
         phoneEditText = findViewById<EditText>(R.id.editTextPhone)
         firstPinView = findViewById<View>(R.id.firstPinView) as PinView
+
         phoneLayout = findViewById<View>(R.id.phoneLayout) as ConstraintLayout
+        nameLayout = findViewById<View>(R.id.nameLayout) as ConstraintLayout
+        otpLayout = findViewById<View>(R.id.otp_layout) as ConstraintLayout
 
         skipButton = findViewById<View>(R.id.skip_button) as Button
+        backButtonOtp = findViewById<View>(R.id.back_button_otp) as LinearLayout
+        fabButton = findViewById<View>(R.id.fab_button) as FloatingActionButton?
 
         // country code picker
         ccp!!.setOnCountryChangeListener(this)
@@ -42,13 +53,22 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
         phoneEditText!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
+
+
+
+
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
                 if (s.toString().length == 10) {
-                    Toast.makeText(this@PhoneLoginActivity, "10 digits detected", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@PhoneLoginActivity, "OTP Sent", Toast.LENGTH_SHORT).show()
                     phoneLayout!!.visibility = View.GONE
-                    firstPinView!!.visibility = View.VISIBLE
+                    otpLayout!!.visibility = View.VISIBLE
+                    skipButton!!.visibility = View.GONE
+
+                    // hide keyboard
+                    phoneEditText!!.onEditorAction(EditorInfo.IME_ACTION_NEXT)
                 }
             }
 
@@ -60,11 +80,18 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
         // OTP Watcher
         firstPinView!!.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().length == 5) {
-                    Toast.makeText(this@PhoneLoginActivity, "OTP Sent", Toast.LENGTH_SHORT).show()
+                if (s.toString().length == 4) {
+                    Toast.makeText(this@PhoneLoginActivity, "Verified", Toast.LENGTH_SHORT).show()
+                    otpLayout!!.visibility = View.GONE
+                    nameLayout!!.visibility = View.VISIBLE
+
+                    // hide keyboard
+                    firstPinView!!.onEditorAction(EditorInfo.IME_ACTION_NEXT)
                 }
             }
 
@@ -74,6 +101,20 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
 
         // Skip button
         skipButton!!.setOnClickListener{
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+        }
+
+        //Back button in OTP screen
+        backButtonOtp!!.setOnClickListener {
+            phoneLayout!!.visibility = View.VISIBLE
+            otpLayout!!.visibility = View.GONE
+            skipButton!!.visibility = View.VISIBLE
+            phoneEditText!!.text = null
+        }
+
+        // FAB
+        fabButton!!.setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }

@@ -9,7 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="colorPrimary">#176aff</color>
-    <color name="colorPrimaryDark">#176aff</color>
+    <color name="colorPrimaryDark">#114DB8</color>
+    <color name="orange_300">#FA683A</color>
     <color name="colorAccent">#333333</color>
     <color name="colorPrimaryLight">#E9F1F8</color>
     <color name="colorWhite">#FFFFFF</color>
