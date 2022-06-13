@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
@@ -13,6 +14,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.chaos.view.PinView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.FirebaseException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
 import com.hbb20.CountryCodePicker
 
 
@@ -28,10 +34,22 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
     private var skipButton: Button? = null
     private var backButtonOtp: LinearLayout? = null
     private var fabButton: FloatingActionButton? = null
+    private var progressBar : ProgressBar? = null
+
+    ////firebase auth////
+    lateinit var mVerificationId : String
+    lateinit var mResentToken: PhoneAuthProvider.ForceResendingToken
+    private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    lateinit var mAuth: FirebaseAuth
+    ////////////////////
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_phone_login)
+
+
         supportActionBar?.hide()
 
         ccp = findViewById(R.id.ccp)
@@ -45,6 +63,8 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
         skipButton = findViewById<View>(R.id.skip_button) as Button
         backButtonOtp = findViewById<View>(R.id.back_button_otp) as LinearLayout
         fabButton = findViewById<View>(R.id.fab_button) as FloatingActionButton?
+       // ProgressBar = findViewById<View>(R.id.progressBar)
+        mAuth=FirebaseAuth.getInstance()
 
         // country code picker
         ccp!!.setOnCountryChangeListener(this)
@@ -66,6 +86,7 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
                     phoneLayout!!.visibility = View.GONE
                     otpLayout!!.visibility = View.VISIBLE
                     skipButton!!.visibility = View.GONE
+                    sendOtp();
 
                     // hide keyboard
                     phoneEditText!!.onEditorAction(EditorInfo.IME_ACTION_NEXT)
@@ -85,7 +106,7 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().length == 4) {
+                if (s.toString().length == 6) {
                     Toast.makeText(this@PhoneLoginActivity, "Verified", Toast.LENGTH_SHORT).show()
                     otpLayout!!.visibility = View.GONE
                     nameLayout!!.visibility = View.VISIBLE
@@ -119,10 +140,54 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
             startActivity(intent)
         }
 
+        /////////////otp callbacks///////////////
+        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+               var code = PhoneAuthCredential.CREATOR
+            }
+
+            override fun onVerificationFailed(e: FirebaseException) {
+                Toast.makeText(applicationContext, "Failed", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onCodeSent(
+                verificationId: String,
+                token: PhoneAuthProvider.ForceResendingToken
+            ) {
+
+                mVerificationId = mVerificationId
+                mResentToken = token
+
+                Toast.makeText(applicationContext, "6 digit otp sent", Toast.LENGTH_LONG).show()
+
+
+                Log.d("TAG","onCodeSent:$verificationId")
+              //  var intent = Intent(applicationContext,Verify::class.java)
+              //  intent.putExtra("storedVerificationId",storedVerificationId)
+                startActivity(intent)
+            }
+        }
+
+        /////////////otp callbacks///////////////
+
     }
+
+    private fun sendOtp() {
+       // var phoneNumber = selected_country_code+phoneEditText.getText().toString()
+
+      // PhoneAuthOptions options =
+            PhoneAuthOptions.newBuilder()
+        }
 
     override fun onCountrySelected() {
-        selected_country_code = ccp!!.selectedCountryCodeWithPlus
+        TODO("Not yet implemented")
     }
-
 }
+
+
+    //override fun onCountrySelected() {
+       // selected_country_code = ccp!!.selectedCountryCodeWithPlus
+    //}
+
+//}

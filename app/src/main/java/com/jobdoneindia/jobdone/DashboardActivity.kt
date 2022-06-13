@@ -2,6 +2,7 @@ package com.jobdoneindia.jobdone
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
@@ -43,6 +44,8 @@ class DashboardActivity : AppCompatActivity() {
                 }
 
                 R.id.rewards_nav -> {
+                    val intent = Intent(this,RewardActivity::class.java)
+                    startActivity(intent)
                     Toast.makeText(this, "Rewards", Toast.LENGTH_SHORT).show()
                     true
                 }

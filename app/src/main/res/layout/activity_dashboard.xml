@@ -277,7 +277,7 @@
             android:id="@+id/bottomNavigationDrawer"
             android:backgroundTint="@color/colorWhite"
             app:itemIconSize="30dp"
-            app:labelVisibilityMode="unlabeled"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/navigation_menu"/>
 

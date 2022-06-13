@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "162887418565",
+    "project_id": "jobdone-phone-auth",
+    "storage_bucket": "jobdone-phone-auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162887418565:android:db7d2ccf89470103da66ac",
+        "android_client_info": {
+          "package_name": "com.jobdoneindia.jobdone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162887418565-p3ukbkks4vlj1a3j0oeo2s343kimkp9i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDILs7EgpRhrIYiIbHxri3Kay7C4ZHZyC0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162887418565-p3ukbkks4vlj1a3j0oeo2s343kimkp9i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

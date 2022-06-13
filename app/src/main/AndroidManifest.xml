@@ -10,6 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JobDone">
         <activity
+            android:name=".RewardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Reward"
+            android:exported="false"
+            android:label="@string/title_activity_reward"
+            android:theme="@style/Theme.JobDone.NoActionBar" />
+        <activity
+            android:name=".activity_rewards"
+            android:exported="false" />
+        <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
