@@ -27,8 +27,10 @@
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/sidenav_menu.xml" value="0.2675925925925926" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/sidenavmenu.xml" value="0.2391304347826087" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/ic_twotone_phone_iphone_24.xml" value="0.2225" />
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.264" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.4" />
+        <entry key="app/src/main/res/layout/activity_phone_auth_login.xml" value="0.4" />
         <entry key="app/src/main/res/layout/activity_phone_login.xml" value="0.264" />
         <entry key="app/src/main/res/layout/activity_reward.xml" value="0.4" />
         <entry key="app/src/main/res/layout/activity_rewards.xml" value="0.32135416666666666" />

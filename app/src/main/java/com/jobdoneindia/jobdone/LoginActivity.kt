@@ -18,7 +18,7 @@ class LoginActivity: AppCompatActivity() {
 
         val phoneButton = findViewById<Button>(R.id.phn_button)
         phoneButton.setOnClickListener{
-            val intent = Intent(this, PhoneLoginActivity::class.java)
+            val intent = Intent(this, Phone_auth_login::class.java)
             startActivity(intent)
         }
 

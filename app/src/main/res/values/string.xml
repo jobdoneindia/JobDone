@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="JobDone">Firebase Phone Auth</string>
+    <string name="Didn_t_receive_otp_resend">Didn\'t get OTP?  <b>Resend</b></string>
+</resources>

@@ -63,7 +63,7 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
         skipButton = findViewById<View>(R.id.skip_button) as Button
         backButtonOtp = findViewById<View>(R.id.back_button_otp) as LinearLayout
         fabButton = findViewById<View>(R.id.fab_button) as FloatingActionButton?
-       // ProgressBar = findViewById<View>(R.id.progressBar)
+       // progressBar = findViewById<View>(R.id.progressBar)
         mAuth=FirebaseAuth.getInstance()
 
         // country code picker
@@ -163,8 +163,8 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
 
 
                 Log.d("TAG","onCodeSent:$verificationId")
-              //  var intent = Intent(applicationContext,Verify::class.java)
-              //  intent.putExtra("storedVerificationId",storedVerificationId)
+                //var intent = Intent(applicationContext,Verify::class.java)
+                //intent.putExtra("storedVerificationId",storedVerificationId)
                 startActivity(intent)
             }
         }
@@ -174,7 +174,7 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
     }
 
     private fun sendOtp() {
-       // var phoneNumber = selected_country_code+phoneEditText.getText().toString()
+     //   var phoneNumber = selected_country_code+phoneEditText.getText().toString()
 
       // PhoneAuthOptions options =
             PhoneAuthOptions.newBuilder()
@@ -186,8 +186,8 @@ class PhoneLoginActivity : AppCompatActivity(), CountryCodePicker.OnCountryChang
 }
 
 
-    //override fun onCountrySelected() {
-       // selected_country_code = ccp!!.selectedCountryCodeWithPlus
+   // override fun onCountrySelected() {
+     //   selected_country_code = ccp!!.selectedCountryCodeWithPlus
     //}
 
 //}
