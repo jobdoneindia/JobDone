@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/empty_dp" />
+        android:src="@drawable/img_empty_dp" />
 
     <TextView
         android:layout_marginTop="20dp"

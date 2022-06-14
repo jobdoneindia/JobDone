@@ -23,7 +23,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_weight="1"
-            android:background="@drawable/spinner_login"
+            android:background="@drawable/shp_spinner_login"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +38,7 @@
             android:inputType="number"
             android:hint="Enter Mobile Number"
             android:maxLength="10"
-            android:background="@drawable/spinner_login"
+            android:background="@drawable/shp_spinner_login"
             app:layout_constraintBottom_toBottomOf="@+id/ccp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/ccp"
@@ -186,7 +186,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneLayout"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/log_with_shapes_faded" />
+        app:srcCompat="@drawable/img_logo_with_shapes_faded" />
 
     <Button
         style="@style/Widget.AppCompat.Button.Small"
