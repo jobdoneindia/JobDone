@@ -1,18 +1,16 @@
 package com.jobdoneindia.jobdone
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.MotionEvent
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 
 class DashboardActivity : AppCompatActivity() {
@@ -21,6 +19,7 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var actionBarToggle: ActionBarDrawerToggle
     private lateinit var navView: NavigationView
     private lateinit var imgMenuToggle: ImageView
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +32,10 @@ class DashboardActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(actionBarToggle)
         navView = findViewById(R.id.navdrawermenu)
         imgMenuToggle = findViewById(R.id.imageMenu)
+        bottomNavigationView = findViewById(R.id.bottomNavigationDrawer)
 
+        // Set Accounts selected
+        bottomNavigationView.selectedItemId = R.id.menuHome
 
         // Click listener for items of Navigation Drawer items
         navView.setNavigationItemSelectedListener { menuItem ->
@@ -44,7 +46,7 @@ class DashboardActivity : AppCompatActivity() {
                 }
 
                 R.id.rewards_nav -> {
-                    val intent = Intent(this,RewardActivity::class.java)
+                    val intent = Intent(this,RewardsActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(this, "Rewards", Toast.LENGTH_SHORT).show()
                     true
@@ -73,6 +75,37 @@ class DashboardActivity : AppCompatActivity() {
             } else {
                 super.onBackPressed()
             }
+        }
+
+        // Perform item selected listener
+        bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menuHome -> {
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.menuFreelance -> {
+                    startActivity(Intent(applicationContext, FreelanceActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.menuRewards -> {
+                    startActivity(Intent(applicationContext, RewardsActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.menuChat -> {
+                    startActivity(Intent(applicationContext, ChatsActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.menuAccount -> {
+                    startActivity(Intent(applicationContext, AccountsActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    return@setOnItemSelectedListener true
+                }
+
+            }
+            false
         }
 
     }

@@ -10,19 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JobDone">
         <activity
+            android:name=".ChatsActivity"
+            android:exported="false"
+            android:label="Inbox"/>
+        <activity
+            android:name=".AccountsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_accounts" />
+        <activity
+            android:name=".FreelanceActivity"
+            android:exported="false"
+            android:label="Freelance"/>
+        <activity
             android:name=".Phone_auth_login"
             android:exported="false" />
         <activity
-            android:name=".RewardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Reward"
+            android:name=".RewardsActivity"
             android:exported="false"
-            android:label="@string/title_activity_reward"
-            android:theme="@style/Theme.JobDone.NoActionBar" />
-        <activity
-            android:name=".activity_rewards"
-            android:exported="false" />
+            android:label="Rewards"/>
+
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -34,9 +40,6 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".PhoneLoginActivity"
             android:exported="true" />
         <activity
             android:name=".DashboardActivity"
