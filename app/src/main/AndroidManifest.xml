@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JobDone">
         <activity
+            android:name=".EditProfileActivity"
+            android:exported="false"
+            android:label="Edit Profile"/>
+        <activity
             android:name=".ChatsActivity"
             android:exported="false"
-            android:label="Inbox"/>
+            android:label="Inbox" />
         <activity
             android:name=".AccountsActivity"
             android:exported="false"
@@ -20,15 +24,14 @@
         <activity
             android:name=".FreelanceActivity"
             android:exported="false"
-            android:label="Freelance"/>
+            android:label="Freelance" />
         <activity
             android:name=".Phone_auth_login"
             android:exported="false" />
         <activity
             android:name=".RewardsActivity"
             android:exported="false"
-            android:label="Rewards"/>
-
+            android:label="Rewards" />
         <activity
             android:name=".SplashActivity"
             android:exported="true">

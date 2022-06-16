@@ -8,9 +8,13 @@
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/ic_settings.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/icons.xml" value="0.339" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/search_icon_background.xml" value="0.157" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/shp_search_icon_background.xml" value="0.1" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/shp_white_rectangle_background.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/white_rectangle_background.xml" value="0.339" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/header_background.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_chat.xml" value="0.157" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_circle.xml" value="0.1" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_edit.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_facebook.xml" value="0.157" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_google.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_laptop.xml" value="0.157" />
@@ -18,10 +22,15 @@
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/icons.xml" value="0.339" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/layout_button_login.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/orange_border_background.xml" value="0.157" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/rounded_bottom_rect.xml" value="0.1" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/shp_blue_rounded_rect.xml" value="0.1" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/shp_spinner_login.xml" value="0.1" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/shp_white_rectangle_background_border.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/spinner_login.xml" value="0.1" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_accounts.xml" value="0.1" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_accounts.xml" value="0.33" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_chats.xml" value="0.10648148148148148" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_dashboard.xml" value="0.33" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_edit_profile.xml" value="0.2875905797101449" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_freelance.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_main.xml" value="0.33" />

@@ -4,14 +4,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class AccountsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_accounts)
+        supportActionBar?.hide()
 
         // Initialize and assign variables
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationDrawer)
+        val editButton = findViewById<FloatingActionButton>(R.id.edit_button)
 
         // Set Accounts selected
         bottomNavigationView.selectedItemId = R.id.menuAccount
@@ -52,6 +55,11 @@ class AccountsActivity : AppCompatActivity() {
 
             }
             false
+        }
+
+        // edit button (fab) onClick listener
+        editButton.setOnClickListener {
+            startActivity(Intent(applicationContext, EditProfileActivity::class.java))
         }
 
     }
