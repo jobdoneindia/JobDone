@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_dashboard"
+    app:startDestination="@id/fragmentMainButton">
+    <fragment
+        android:id="@+id/fragmentMainButton"
+        android:name="com.jobdoneindia.jobdone.fragment.FragmentMainButton"
+        android:label="fragment_mainbutton"
+        tools:layout="@layout/fragment_mainbutton" >
+        <action
+            android:id="@+id/action_fragmentMainButton_to_fragmentTags"
+            app:destination="@id/fragmentTags" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentTags"
+        android:name="com.jobdoneindia.jobdone.fragment.FragmentTags"
+        android:label="FragmentTags" >
+        <action
+            android:id="@+id/action_fragmentTags_to_fragmentMainButton"
+            app:destination="@id/fragmentMainButton" />
+    </fragment>
+</navigation>

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="#f7f7f7"
     android:layout_height="match_parent"
-    tools:context=".Phone_auth_login">
+    tools:context=".activity.Phone_auth_login">
 
 
     <ImageView

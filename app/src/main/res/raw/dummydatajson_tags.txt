@@ -1,0 +1,54 @@
+[{
+  "tag": "AC Repair",
+  "count": "1234"
+},
+{
+  "tag": "Fridge Repair",
+  "count": "1234"
+},
+{
+  "tag": "RO Repair",
+  "count": "1234"
+},
+{
+  "tag": "Brain Repair",
+  "count": "1234"
+},
+{
+  "tag": "TV Repair",
+  "count": "1234"
+},{
+    "tag": "Phone Repair",
+    "count": "1234"
+  },
+  {
+    "tag": "PC Repair",
+    "count": "1234"
+  },
+  {
+    "tag": "Home Repair",
+    "count": "1234"
+  },
+  {
+    "tag": "Geaser Repair",
+    "count": "1234"
+  },
+  {
+    "tag": "Treasure Repair",
+    "count": "1234"
+  },
+  {
+    "tag": "Heart Repair",
+    "count": "1234"
+  },
+  {
+    "tag": "Case Repair",
+    "count": "1234"
+  },
+  {
+    "tag": "Haircut",
+    "count": "1234"
+  },
+
+
+]

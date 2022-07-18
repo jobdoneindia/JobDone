@@ -1,20 +1,21 @@
-package com.jobdoneindia.jobdone
+package com.jobdoneindia.jobdone.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.jobdoneindia.jobdone.R
 
-class FreelanceActivity : AppCompatActivity() {
+class ChatsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_freelance)
+        setContentView(R.layout.activity_chats)
 
         // Initialize and assign variables
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationDrawer)
 
         // Set Accounts selected
-        bottomNavigationView.selectedItemId = R.id.menuFreelance
+        bottomNavigationView.selectedItemId = R.id.menuChat
 
         // Perform item selected listener
         bottomNavigationView.setOnItemSelectedListener {
@@ -25,10 +26,6 @@ class FreelanceActivity : AppCompatActivity() {
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
                 }
 
-                R.id.menuFreelance -> {
-                    return@setOnItemSelectedListener true
-                }
-
                 R.id.menuRewards -> {
                     startActivity(
                         Intent(applicationContext, RewardsActivity::class.java).setFlags(
@@ -37,9 +34,6 @@ class FreelanceActivity : AppCompatActivity() {
                 }
 
                 R.id.menuChat -> {
-                    startActivity(
-                        Intent(applicationContext, ChatsActivity::class.java).setFlags(
-                            Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     return@setOnItemSelectedListener true
                 }
 

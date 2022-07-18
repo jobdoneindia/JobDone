@@ -10,30 +10,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JobDone">
         <activity
-            android:name=".EditProfileActivity"
+            android:name=".activity.EditProfileActivity"
             android:exported="false"
             android:label="Edit Profile"/>
         <activity
-            android:name=".ChatsActivity"
+            android:name=".activity.ChatsActivity"
             android:exported="false"
             android:label="Inbox" />
         <activity
-            android:name=".AccountsActivity"
+            android:name=".activity.AccountsActivity"
             android:exported="false"
             android:label="@string/title_activity_accounts" />
         <activity
-            android:name=".FreelanceActivity"
-            android:exported="false"
-            android:label="Freelance" />
-        <activity
-            android:name=".Phone_auth_login"
+            android:name=".activity.Phone_auth_login"
             android:exported="false" />
         <activity
-            android:name=".RewardsActivity"
+            android:name=".activity.RewardsActivity"
             android:exported="false"
             android:label="Rewards" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,11 +38,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".DashboardActivity"
+            android:name=".activity.DashboardActivity"
             android:exported="true" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

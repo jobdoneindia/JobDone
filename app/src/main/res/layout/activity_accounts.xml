@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    tools:context=".AccountsActivity">
+    tools:context=".activity.AccountsActivity">
 
     <View
         android:layout_width="match_parent"
@@ -26,7 +26,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Profile"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textStyle="bold"
         android:textColor="@color/white"
         app:layout_constraintTop_toTopOf="parent"

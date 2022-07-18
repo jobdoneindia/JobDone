@@ -1,20 +1,21 @@
-package com.jobdoneindia.jobdone
+package com.jobdoneindia.jobdone.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.jobdoneindia.jobdone.R
 
-class ChatsActivity : AppCompatActivity() {
+class RewardsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chats)
+        setContentView(R.layout.activity_reward)
 
         // Initialize and assign variables
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationDrawer)
 
         // Set Accounts selected
-        bottomNavigationView.selectedItemId = R.id.menuChat
+        bottomNavigationView.selectedItemId = R.id.menuRewards
 
         // Perform item selected listener
         bottomNavigationView.setOnItemSelectedListener {
@@ -25,21 +26,14 @@ class ChatsActivity : AppCompatActivity() {
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
                 }
 
-                R.id.menuFreelance -> {
-                    startActivity(
-                        Intent(applicationContext, FreelanceActivity::class.java).setFlags(
-                            Intent.FLAG_ACTIVITY_NO_ANIMATION))
-                    return@setOnItemSelectedListener true
-                }
-
                 R.id.menuRewards -> {
-                    startActivity(
-                        Intent(applicationContext, RewardsActivity::class.java).setFlags(
-                            Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     return@setOnItemSelectedListener true
                 }
 
                 R.id.menuChat -> {
+                    startActivity(
+                        Intent(applicationContext, ChatsActivity::class.java).setFlags(
+                            Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     return@setOnItemSelectedListener true
                 }
 

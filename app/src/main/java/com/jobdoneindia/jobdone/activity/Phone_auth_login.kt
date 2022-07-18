@@ -1,8 +1,7 @@
-package com.jobdoneindia.jobdone
+package com.jobdoneindia.jobdone.activity
 
 import android.app.ProgressDialog
 import android.content.Intent
-import android.media.tv.TvContract
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -14,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
-import com.jobdoneindia.jobdone.databinding.ActivityDashboardBinding
 import com.jobdoneindia.jobdone.databinding.ActivityPhoneAuthLoginBinding
 import java.util.concurrent.TimeUnit
 
@@ -190,7 +188,7 @@ class Phone_auth_login : AppCompatActivity() {
                 Toast.makeText(this,"Logged In as $phone", Toast.LENGTH_SHORT).show()
 
                 //start profile activity
-                val intent = Intent(this,DashboardActivity::class.java)
+                val intent = Intent(this, DashboardActivity::class.java)
                 startActivity(intent)
             }
             .addOnFailureListener {
