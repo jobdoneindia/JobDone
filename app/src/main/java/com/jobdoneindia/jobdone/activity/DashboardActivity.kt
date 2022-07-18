@@ -9,7 +9,6 @@ import com.jobdoneindia.jobdone.R
 
 class DashboardActivity : AppCompatActivity() {
 
-    private lateinit var drawerLayout: DrawerLayout
     private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -75,7 +75,7 @@
                         android:id="@+id/hi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/poppins"
                         android:text="Hi,"
                         android:textColor="@color/black"
                         android:textSize="30sp" />
@@ -85,7 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/poppins"
                         android:text="Siraj Alam"
                         android:textColor="@color/colorPrimaryDark"
                         android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium" />
@@ -96,6 +96,7 @@
                     android:id="@+id/services"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="Find the best services \nfrom the comfort of your home."
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
@@ -119,8 +120,8 @@
 
         <ImageButton
             android:id="@+id/main_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="275dp"
+            android:layout_height="275dp"
             app:tint="@null"
             app:srcCompat="@drawable/img_jobdone_round"
             android:scaleType="fitCenter"
@@ -147,7 +148,7 @@
             android:fontFamily="casual"
             android:text="Get your Job done \nin one click!"
             android:textStyle="bold"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textColor="@color/orange_300"
             app:layout_constraintBottom_toBottomOf="@id/arrow_img"
             app:layout_constraintStart_toEndOf="@id/arrow_img" />

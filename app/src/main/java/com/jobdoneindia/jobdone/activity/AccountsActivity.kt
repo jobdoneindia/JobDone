@@ -10,7 +10,7 @@ import com.jobdoneindia.jobdone.R
 class AccountsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_accounts)
+        setContentView(R.layout.activity_userprofile)
         supportActionBar?.hide()
 
         // Initialize and assign variables
