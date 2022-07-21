@@ -20,5 +20,12 @@
         <action
             android:id="@+id/action_fragmentTags_to_fragmentMainButton"
             app:destination="@id/fragmentMainButton" />
+        <action
+            android:id="@+id/action_fragmentTags_to_fragmentSearchResults"
+            app:destination="@id/fragmentSearchResults" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentSearchResults"
+        android:name="com.jobdoneindia.jobdone.fragment.FragmentSearchResults"
+        android:label="FragmentSearchResults" />
 </navigation>

@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/SUBHAJIT/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_tags.xml" value="0.2185" />
+        <entry key="..\:/Users/SUBHAJIT/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ripple_effect.xml" value="0.2185" />
+        <entry key="..\:/Users/SUBHAJIT/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_choosetags.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_searchresults.xml" value="0.253125" />
+        <entry key="..\:/Users/SUBHAJIT/AndroidStudioProjects/JobDone/app/src/main/res/layout/item_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/AndroidStudioProjects/JobDone/app/src/main/res/layout/search_item_view.xml" value="0.253125" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/ic_account.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/ic_settings.xml" value="0.1" />
