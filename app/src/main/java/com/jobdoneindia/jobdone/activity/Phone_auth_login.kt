@@ -188,7 +188,7 @@ class Phone_auth_login : AppCompatActivity() {
                 Toast.makeText(this,"Logged In as $phone", Toast.LENGTH_SHORT).show()
 
                 //start profile activity
-                val intent = Intent(this, DashboardActivity::class.java)
+                val intent = Intent(this@Phone_auth_login, DashboardActivity::class.java)
                 startActivity(intent)
             }
             .addOnFailureListener {

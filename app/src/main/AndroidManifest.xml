@@ -10,9 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JobDone">
         <activity
+            android:name=".activity.WorkerDashboardActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.EditProfileActivity"
             android:exported="false"
-            android:label="Edit Profile"/>
+            android:label="Edit Profile" />
         <activity
             android:name=".activity.ChatsActivity"
             android:exported="false"
