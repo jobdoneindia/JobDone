@@ -14,7 +14,7 @@ import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.SearchResultsAdapter
 import com.jobdoneindia.jobdone.adapter.TagsAdapter
 
-data class SearchItem( val name: String, val bio: String, val overall_rating: String, val level: String, val description: String)
+data class SearchItem(val name: String, val bio: String, val overall_rating: String, val distance: String, val description: String)
 
 class FragmentSearchResults: Fragment()  {
 
@@ -28,23 +28,23 @@ class FragmentSearchResults: Fragment()  {
         val root = inflater.inflate(R.layout.fragment_searchresults, container, false)
 
         // storing data
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5/5","Level 1","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","A Production Worker is responsible for meeting quality standards and deadlines for products. They check for defects, assemble products, monitor manufacturing equipment, and closely follow safety procedures to prevent accidents in environments where materials may be hazardous."))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
 
         // OnClick listener for recyclerview items
         var adapter = SearchResultsAdapter(mySearchItems)

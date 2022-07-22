@@ -3,7 +3,6 @@ package com.jobdoneindia.jobdone.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jobdoneindia.jobdone.fragment.Categories
@@ -23,7 +22,7 @@ class TagsAdapter(val category: MutableList<Categories>): RecyclerView.Adapter<T
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_view, parent, false)
+        val view = inflater.inflate(R.layout.tag_item_view, parent, false)
         return MyViewHolder(view, mListener)
     }
 

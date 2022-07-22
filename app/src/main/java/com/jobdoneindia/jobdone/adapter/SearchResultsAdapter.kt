@@ -1,6 +1,5 @@
 package com.jobdoneindia.jobdone.adapter
 
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +32,7 @@ class SearchResultsAdapter(val searchItems: MutableList<SearchItem>): RecyclerVi
         holder.name.text = searchItems[position].name
         holder.bio.text = searchItems[position].bio
         holder.overall_rating.text = searchItems[position].overall_rating
-        holder.level.text = searchItems[position].level
+        holder.level.text = searchItems[position].distance
         holder.description.text = searchItems[position].description
     }
 
@@ -42,10 +41,10 @@ class SearchResultsAdapter(val searchItems: MutableList<SearchItem>): RecyclerVi
     }
 
     inner class MyViewHolder(itemView: View, listener: onItemClickListener): RecyclerView.ViewHolder(itemView){
-        var name = itemView.findViewById<TextView>(R.id.name)
+        var name = itemView.findViewById<TextView>(R.id.worker_name)
         var bio = itemView.findViewById<TextView>(R.id.bio)
         var overall_rating = itemView.findViewById<TextView>(R.id.rating)
-        var level = itemView.findViewById<TextView>(R.id.item_level)
+        var level = itemView.findViewById<TextView>(R.id.distance_from_user)
         var description = itemView.findViewById<TextView>(R.id.desc)
 
         var expandButton = itemView.findViewById<ImageButton>(R.id.downarrowBtn)
