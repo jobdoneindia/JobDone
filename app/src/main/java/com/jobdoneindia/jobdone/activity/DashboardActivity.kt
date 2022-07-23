@@ -3,7 +3,6 @@ package com.jobdoneindia.jobdone.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jobdoneindia.jobdone.R
 
@@ -40,7 +39,7 @@ class DashboardActivity : AppCompatActivity() {
                 }
 
                 R.id.menuAccount -> {
-                    startActivity(Intent(applicationContext, AccountsActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    startActivity(Intent(applicationContext, ProfileActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     return@setOnItemSelectedListener true
                 }
 

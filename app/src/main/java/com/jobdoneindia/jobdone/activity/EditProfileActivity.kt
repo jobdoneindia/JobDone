@@ -22,7 +22,7 @@ class EditProfileActivity : AppCompatActivity() {
         // Done fab button
         val doneButton: FloatingActionButton = findViewById(R.id.done_button)
         doneButton.setOnClickListener {
-            startActivity(Intent(applicationContext, AccountsActivity::class.java))
+            startActivity(Intent(applicationContext, ProfileActivity::class.java))
         }
 
 
