@@ -24,7 +24,7 @@ class FragmentEnterName : Fragment() {
         exitTransition = transitionInflater.inflateTransition(R.transition.fade)
 
         // Next Button
-        root.findViewById<Button>(R.id.next_button).setOnClickListener {
+        root.findViewById<Button>(R.id.btnCustomerMode).setOnClickListener {
             view: View ->
             Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentChooseMode)
         }

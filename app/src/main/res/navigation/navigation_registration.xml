@@ -27,5 +27,14 @@
         android:id="@+id/fragmentSetBio"
         android:name="com.jobdoneindia.jobdone.fragment.FragmentSetBio"
         android:label="fragment_set_bio"
-        tools:layout="@layout/fragment_set_bio" />
+        tools:layout="@layout/fragment_set_bio" >
+        <action
+            android:id="@+id/action_fragmentSetBio_to_fragmentSelectTags"
+            app:destination="@id/fragmentSelectTags" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSelectTags"
+        android:name="com.jobdoneindia.jobdone.fragment.FragmentSelectTags"
+        android:label="fragment_select_tags"
+        tools:layout="@layout/fragment_select_tags" />
 </navigation>

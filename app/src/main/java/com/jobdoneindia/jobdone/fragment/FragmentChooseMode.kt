@@ -23,10 +23,10 @@ class FragmentChooseMode : Fragment() {
         val transitionInflater = TransitionInflater.from(requireContext())
         exitTransition = transitionInflater.inflateTransition(R.transition.fade)
 
-        // Next Button
-        root.findViewById<Button>(R.id.next_button).setOnClickListener {
+        // Customer-Mode Button
+        root.findViewById<Button>(R.id.btnCustomerMode).setOnClickListener {
                 view: View ->
-            Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentChooseMode)
+            Navigation.findNavController(view).navigate(R.id.action_fragmentChooseMode_to_fragmentSetBio)
         }
 
         return root

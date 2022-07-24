@@ -19,11 +19,17 @@ class EditProfileActivity : AppCompatActivity() {
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
+        // TODO: Feature to select DP and update in database
+
+        // TODO: Feature to set current location
+
         // Done fab button
         val doneButton: FloatingActionButton = findViewById(R.id.done_button)
         doneButton.setOnClickListener {
             startActivity(Intent(applicationContext, ProfileActivity::class.java))
         }
+
+        // TODO: Update Database - OnClick Listener for FAB button
 
 
     }

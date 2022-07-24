@@ -1,60 +1,84 @@
 package com.jobdoneindia.jobdone.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
+import androidx.fragment.app.Fragment
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.jobdoneindia.jobdone.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentSelectTags.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FragmentSelectTags : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private val items = mutableListOf("Plumber", "Ac Repairer", "Fridge Repairer","Fan Repairer", "Socket Change", "Teacher", "Dance Teacher", "Artist", "RO Repairer")
+
+    private lateinit var autoCompleteTextView: AutoCompleteTextView
+    private lateinit var adapterItems: ArrayAdapter<String>
+    private lateinit var chipGroup: ChipGroup
+    private lateinit var btnAdd: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_select_tags, container, false)
+        val root = inflater.inflate(R.layout.fragment_select_tags, container, false)
+
+        // variables init
+        autoCompleteTextView = root.findViewById(R.id.auto_complete_tag)
+        chipGroup = root.findViewById(R.id.chip_group_tags)
+        btnAdd = root.findViewById(R.id.btnAdd)
+
+        // autocompleteTextView
+        var tagList = mutableListOf<String>()
+        adapterItems = ArrayAdapter(requireContext(), R.layout.dropdown_item,items)
+        autoCompleteTextView.setAdapter(adapterItems)
+        autoCompleteTextView.setOnItemClickListener { adapterView, view, position, id ->
+            val item: String = adapterView.getItemAtPosition(position).toString()
+            Toast.makeText(requireContext(), "Item: $item", Toast.LENGTH_SHORT).show()
+        }
+
+        // onClickListener for btnAdd
+        btnAdd.setOnClickListener {
+            if (autoCompleteTextView.text.isBlank()) {
+                Toast.makeText(requireContext(), "Please enter a tag!", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            if (tagList.size < 3) {
+                tagList.add(autoCompleteTextView.text.toString())
+                updateTags(tagList)
+                autoCompleteTextView.text = null
+            } else {
+                Toast.makeText(requireContext(), "Limit exceeded.",Toast.LENGTH_LONG).show()
+            }
+        }
+
+        return root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FragmentSelectTags.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentSelectTags().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun updateTags(tagList: MutableList<String>) {
+        chipGroup.removeAllViews()
+        for (index in tagList.indices) {
+            val tagName = tagList[index]
+            val chip = Chip(requireContext())
+            val paddingDp = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 10f,
+                resources.displayMetrics
+            ).toInt()
+            chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp)
+            chip.text = tagName
+            chip.isCloseIconEnabled = true
+            //Added click listener on close icon to remove tag from ChipGroup
+            chip.setOnCloseIconClickListener {
+                tagList.remove(tagName)
+                chipGroup.removeView(chip)
             }
+            chipGroup.addView(chip)
+        }
     }
 }

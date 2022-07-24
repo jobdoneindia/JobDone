@@ -19,7 +19,7 @@
             android:scaleType="centerCrop"/>
 
         <TextView
-            android:id="@+id/txtChooseMode"
+            android:id="@+id/txtSelectTags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Choose Mode:"
@@ -27,11 +27,11 @@
             android:fontFamily="@font/poppins_semibold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/next_button"
+            app:layout_constraintBottom_toTopOf="@id/btnCustomerMode"
             />
 
         <Button
-            android:id="@+id/next_button"
+            android:id="@+id/btnCustomerMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Customer Mode"
@@ -44,16 +44,16 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <Button
-            android:id="@+id/worker_mode"
+            android:id="@+id/btnWorkerMode"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Worker Mode"
             android:paddingHorizontal="50dp"
             android:drawableLeft="@drawable/ic_work"
             android:drawableTint="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/next_button"
-            app:layout_constraintStart_toStartOf="@id/next_button"
-            app:layout_constraintEnd_toEndOf="@id/next_button"/>
+            app:layout_constraintTop_toBottomOf="@id/btnCustomerMode"
+            app:layout_constraintStart_toStartOf="@id/btnCustomerMode"
+            app:layout_constraintEnd_toEndOf="@id/btnCustomerMode"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.Navigation
 import com.jobdoneindia.jobdone.R
 
 class FragmentSetBio : Fragment() {
@@ -20,6 +22,12 @@ class FragmentSetBio : Fragment() {
         // Exit Transition
         val transitionInflater = TransitionInflater.from(requireContext())
         exitTransition = transitionInflater.inflateTransition(R.transition.fade)
+
+        // Next Button
+        root.findViewById<Button>(R.id.btnNext).setOnClickListener {
+                view: View ->
+            Navigation.findNavController(view).navigate(R.id.action_fragmentSetBio_to_fragmentSelectTags)
+        }
 
         return root
     }

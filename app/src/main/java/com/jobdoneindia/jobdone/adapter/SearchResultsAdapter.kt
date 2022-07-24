@@ -55,7 +55,9 @@ class SearchResultsAdapter(val searchItems: MutableList<SearchItem>): RecyclerVi
                 listener.onItemClick(absoluteAdapterPosition)
             }
 
-            // TODO: Add worker to inbox and redirect to ChatActivity
+            // TODO: Onclick listener for message-button will Add worker to inbox and redirect to ChatActivity
+
+            // TODO: Call-button will make a call
 
             expandButton.setOnClickListener {
                 if (expandableView.visibility == View.VISIBLE) {
