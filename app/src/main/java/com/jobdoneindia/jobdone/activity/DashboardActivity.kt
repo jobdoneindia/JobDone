@@ -18,10 +18,10 @@ class DashboardActivity : AppCompatActivity() {
         // Bottom Nav bar
         bottomNavigationView = findViewById(R.id.bottomNavigationDrawer)
 
-        // Set Accounts selected
+        // Set Home selected (in bottom nav bar)
         bottomNavigationView.selectedItemId = R.id.menuHome
 
-        // Perform item selected listener
+        // Perform item selected listener (bottom nav bar)
         bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menuHome -> {

@@ -10,7 +10,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/img_geometric_shapes_grey"
+        android:src="@drawable/img_tools_bg"
+        android:alpha="0.45"
         android:scaleType="centerCrop"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,10 +21,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:background="#FFFFFF"
-            android:paddingVertical="15dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,9 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:orientation="vertical"
                 android:gravity="center">
 
@@ -59,13 +58,13 @@
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:layout_marginStart="18dp"
-                app:layout_constraintStart_toEndOf="@id/dp_plus_flag"
-                app:layout_constraintTop_toTopOf="@id/dp_plus_flag"
-                app:layout_constraintBottom_toBottomOf="@id/dp_plus_flag">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dp_plus_flag">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -85,10 +84,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:fontFamily="@font/poppins"
+                        android:fontFamily="@font/poppins_semibold"
                         android:text="Siraj Alam"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium" />
+                        android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                        android:textColor="@color/colorPrimaryDark" />
 
                 </LinearLayout>
 
@@ -97,7 +96,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
                     android:text="Find the best services \nfrom the comfort of your home."
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="#8F8E8E"
@@ -125,33 +125,35 @@
             app:tint="@null"
             app:srcCompat="@drawable/img_jobdone_round"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/shp_bigroundbutton"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            android:layout_marginTop="20dp"
+            android:background="@null"
             android:elevation="5dp"/>
 
         <ImageView
             android:scaleType="fitCenter"
             android:id="@+id/arrow_img"
-            android:layout_width="88dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="-20dp"
             android:src="@drawable/img_curled_arrow"
             app:layout_constraintTop_toBottomOf="@id/main_button"
-            app:layout_constraintStart_toStartOf="parent"
-            android:rotation="-60"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="casual"
-            android:text="Get your Job done \nin one click!"
-            android:textStyle="bold"
+            android:text="Get your Job done \nin one click"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textColor="@color/orange_300"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/arrow_img"
-            app:layout_constraintStart_toEndOf="@id/arrow_img" />
+            app:layout_constraintStart_toEndOf="@id/arrow_img"
+            app:layout_constraintTop_toBottomOf="@+id/arrow_img" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
