@@ -30,7 +30,7 @@ class DashboardActivity : AppCompatActivity() {
                 }
 
                 R.id.menuRewards -> {
-                    startActivity(Intent(applicationContext, RewardsActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    startActivity(Intent(applicationContext, WorkerDashboardActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     return@setOnItemSelectedListener true
                 }
 
