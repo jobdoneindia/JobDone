@@ -64,7 +64,7 @@ class Phone_auth_login : AppCompatActivity() {
             override fun onVerificationFailed(e: FirebaseException) {
                 //This callback is invoked when invalid code is entered
                 progressDialog.dismiss()
-                Toast.makeText(this@Phone_auth_login,"{e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@Phone_auth_login,"Error try again!", Toast.LENGTH_SHORT).show()
             }
 
             override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
@@ -188,13 +188,13 @@ class Phone_auth_login : AppCompatActivity() {
                 Toast.makeText(this,"Logged In as $phone", Toast.LENGTH_SHORT).show()
 
                 //start profile activity
-                val intent = Intent(this@Phone_auth_login, DashboardActivity::class.java)
+                val intent = Intent(this,DashboardActivity::class.java)
                 startActivity(intent)
             }
             .addOnFailureListener {
                 //login failed
                 progressDialog.dismiss()
-                Toast.makeText(this,"{e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Error try again!", Toast.LENGTH_SHORT).show()
             }
 
     }
