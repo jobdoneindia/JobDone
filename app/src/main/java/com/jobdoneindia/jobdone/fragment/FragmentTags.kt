@@ -29,11 +29,12 @@ class FragmentTags: Fragment() {
         //Inflate layout for this fragment
         val root = inflater.inflate(R.layout.fragment_choosetags, container, false)
 
-        // Enter Transition
+        // Exit Transition
         val transitionInflater = TransitionInflater.from(requireContext())
-        enterTransition = transitionInflater.inflateTransition(R.transition.fade)
+        exitTransition = transitionInflater.inflateTransition(R.transition.fade)
 
         // Storing Data
+        // TODO: Read tags and number of users in those tags from database and store it in myCategories array
         myCategories.add(Categories( "Plumber", 20))
         myCategories.add(Categories( "Ac Repairer", 20))
         myCategories.add(Categories( "Fan Repairer", 21))
@@ -52,19 +53,26 @@ class FragmentTags: Fragment() {
         myCategories.add(Categories( "RO Repairer", 30))
         myCategories.add(Categories( "RO Repairer", 30))
 
+        // TODO: Use search bar to filter search results
+
+        // TODO: "Add a new tag" button and it's function
+
+        // TODO: Fix Duplicating recyclerview items on restart
         // OnClick listener for recyclerview items
         var adapter = TagsAdapter(myCategories)
-        adapter.setOnItemClickListener(object : TagsAdapter.onItemClickListener{
-            override fun onItemClick(position: Int) {
-                Toast.makeText(context, "You Clicked on item no. $position", Toast.LENGTH_SHORT).show()
-                Navigation.findNavController(view!!).navigate(R.id.action_fragmentTags_to_fragmentSearchResults)
-            }
-        })
 
         // Services list RecyclerView Setup
         val servicesList: RecyclerView = root.findViewById(R.id.ServicesList)
         servicesList.adapter = adapter
         servicesList.layoutManager = LinearLayoutManager(activity)
+
+        adapter.setOnItemClickListener(object : TagsAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                Toast.makeText(context, "You Clicked on item no. $position", Toast.LENGTH_SHORT).show()
+                // TODO: Pass data (which item was selected) to the next fragment
+                Navigation.findNavController(view!!).navigate(R.id.action_fragmentTags_to_fragmentSearchResults)
+            }
+        })
 
         // OnClick for back button
         root.findViewById<ImageButton>(R.id.back_button).setOnClickListener {

@@ -7,16 +7,28 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.FirebaseException
+import com.google.firebase.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
+
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.databinding.ActivityPhoneAuthLoginBinding
 import java.util.concurrent.TimeUnit
 
 class Phone_auth_login : AppCompatActivity() {
+
+    lateinit var editTextPhone: EditText
+    lateinit var otpContinueBtn : Button
+
+    val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+    val reference : DatabaseReference = database.reference.child("Users")
 
     //binding
     private lateinit var binding: ActivityPhoneAuthLoginBinding
@@ -38,6 +50,7 @@ class Phone_auth_login : AppCompatActivity() {
         binding = ActivityPhoneAuthLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         binding.phoneLl.visibility= View.VISIBLE
         binding.otpLl.visibility=View.GONE
 
@@ -55,17 +68,11 @@ class Phone_auth_login : AppCompatActivity() {
                 //This callback will be invoked in two situation
                 //1.Instant-Verification
                 //2.Auto-Retrieval
-
                 signInWithPhoneCredential(phoneAuthCredential)
 
-
             }
 
-            override fun onVerificationFailed(e: FirebaseException) {
-                //This callback is invoked when invalid code is entered
-                progressDialog.dismiss()
-                Toast.makeText(this@Phone_auth_login,"Error try again!", Toast.LENGTH_SHORT).show()
-            }
+
 
             override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
                 //SMS verification code is sent to the input phone number
@@ -82,10 +89,17 @@ class Phone_auth_login : AppCompatActivity() {
 
             }
 
+            override fun onVerificationFailed(e: FirebaseException) {
+                //This callback is invoked when invalid code is entered
+                progressDialog.dismiss()
+                Toast.makeText(this@Phone_auth_login,"Error try again!", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
+
         //phone Continue button listener
-        binding.phoneContinueBtn.setOnClickListener(){
+        binding.otpSendBtn.setOnClickListener(){
 
             //input phone number
             val phone = binding.phonEt.text.toString().trim()
@@ -113,7 +127,7 @@ class Phone_auth_login : AppCompatActivity() {
             }
         }
 
-        //code submit button
+        //code submit button002sa2\
         binding.otpContinueBtn.setOnClickListener(){
 
             //input verification code
@@ -126,6 +140,7 @@ class Phone_auth_login : AppCompatActivity() {
         }
 
 
+
     }
 
     private fun startPhoneNumberVerification(phone: String){
@@ -133,12 +148,15 @@ class Phone_auth_login : AppCompatActivity() {
         progressDialog.show()
 
         val options = mCallBacks?.let {
-            PhoneAuthOptions.newBuilder(firebaseAuth)
-                .setPhoneNumber(phone)
-                .setTimeout(60L,TimeUnit.SECONDS)
-                .setActivity(this)
-                .setCallbacks(it)
-                .build()
+            mCallBacks?.let { it1 ->
+                PhoneAuthOptions.newBuilder(firebaseAuth)
+                    .setPhoneNumber(phone)
+                    .setTimeout(60L,TimeUnit.SECONDS)
+                    .setActivity(this)
+                    .setCallbacks(it1)
+                    .build()
+            }
+
         }
 
         if (options != null) {
@@ -151,14 +169,17 @@ class Phone_auth_login : AppCompatActivity() {
         progressDialog.setMessage("Resending Code....")
         progressDialog.show()
 
-        val options = mCallBacks?.let {
-            PhoneAuthOptions.newBuilder(firebaseAuth)
-                .setPhoneNumber(phone)
-                .setTimeout(60L,TimeUnit.SECONDS)
-                .setActivity(this)
-                .setCallbacks(it)
-                .setForceResendingToken(token)
-                .build()
+        val options = mCallBacks.let {
+            mCallBacks?.let { it1 ->
+                PhoneAuthOptions.newBuilder(firebaseAuth)
+                    .setPhoneNumber(phone)
+                    .setTimeout(60L,TimeUnit.SECONDS)
+                    .setActivity(this)
+                    .setCallbacks(it1)
+                    .setForceResendingToken(token)
+                    .build()
+            }
+
         }
 
         if (options != null) {
@@ -166,6 +187,7 @@ class Phone_auth_login : AppCompatActivity() {
         }
 
     }
+
 
     private fun verifyPhoneNumberWithCode(verificationId: String?, code:String){
         progressDialog.setMessage("Verifying Code....")
@@ -175,6 +197,7 @@ class Phone_auth_login : AppCompatActivity() {
         if (credential != null) {
             signInWithPhoneCredential(credential)
         }
+
     }
 
     private fun signInWithPhoneCredential(credential: PhoneAuthCredential) {
@@ -188,13 +211,14 @@ class Phone_auth_login : AppCompatActivity() {
                 Toast.makeText(this,"Logged In as $phone", Toast.LENGTH_SHORT).show()
 
                 //start profile activity
-                val intent = Intent(this,DashboardActivity::class.java)
+                val intent = Intent(this,RegistrationActivity::class.java)
                 startActivity(intent)
+
             }
-            .addOnFailureListener {
+            .addOnFailureListener {e->
                 //login failed
                 progressDialog.dismiss()
-                Toast.makeText(this,"Error try again!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Error try again", Toast.LENGTH_SHORT).show()
             }
 
     }

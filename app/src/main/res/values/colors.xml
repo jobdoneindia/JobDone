@@ -16,5 +16,7 @@
     <color name="colorPrimaryLight">#E9F1F8</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBackground">#EBEBEB</color>
+    <color name="textGrey">#767E8C</color>
+    <color name="textGreyLight">#BEC9DF</color>
 
 </resources>

@@ -39,7 +39,7 @@ class RewardsActivity : AppCompatActivity() {
 
                 R.id.menuAccount -> {
                     startActivity(
-                        Intent(applicationContext, AccountsActivity::class.java).setFlags(
+                        Intent(applicationContext, ProfileActivity::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     return@setOnItemSelectedListener true
                 }

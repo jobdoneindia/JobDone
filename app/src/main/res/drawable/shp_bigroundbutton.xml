@@ -11,7 +11,10 @@
     <item
         android:state_pressed="true">
         <shape android:shape="oval">
-            <solid android:color="@color/orange_300"/>
+            <solid android:color="#3A80FD"/>
+        </shape>
+        <shape android:shape="oval">
+            <solid android:color="#6098FB"/>
         </shape>
     </item>
 </selector>

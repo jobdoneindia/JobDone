@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_registration"
+    app:startDestination="@id/fragmentEnterName">
+
+    <fragment
+        android:id="@+id/fragmentEnterName"
+        android:name="com.jobdoneindia.jobdone.fragment.FragmentEnterName"
+        android:label="fragment_enter_name"
+        tools:layout="@layout/fragment_enter_name" >
+        <action
+            android:id="@+id/action_fragmentEnterName_to_fragmentChooseMode"
+            app:destination="@id/fragmentChooseMode" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentChooseMode"
+        android:name="com.jobdoneindia.jobdone.fragment.FragmentChooseMode"
+        android:label="fragment_choose_mode"
+        tools:layout="@layout/fragment_choose_mode" >
+        <action
+            android:id="@+id/action_fragmentChooseMode_to_fragmentSetBio"
+            app:destination="@id/fragmentSetBio" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSetBio"
+        android:name="com.jobdoneindia.jobdone.fragment.FragmentSetBio"
+        android:label="fragment_set_bio"
+        tools:layout="@layout/fragment_set_bio" />
+</navigation>

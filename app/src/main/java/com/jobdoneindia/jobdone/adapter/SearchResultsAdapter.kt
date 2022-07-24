@@ -47,18 +47,23 @@ class SearchResultsAdapter(val searchItems: MutableList<SearchItem>): RecyclerVi
         var level = itemView.findViewById<TextView>(R.id.distance_from_user)
         var description = itemView.findViewById<TextView>(R.id.desc)
 
-        var expandButton = itemView.findViewById<ImageButton>(R.id.downarrowBtn)
+        var expandButton = itemView.findViewById<ImageButton>(R.id.btnExpand)
         var expandableView = itemView.findViewById<ConstraintLayout>(R.id.expandableView)
 
         init {
             itemView.setOnClickListener {
                 listener.onItemClick(absoluteAdapterPosition)
             }
+
+            // TODO: Add worker to inbox and redirect to ChatActivity
+
             expandButton.setOnClickListener {
                 if (expandableView.visibility == View.VISIBLE) {
                     expandableView.visibility = View.GONE
+                    expandButton.rotation = -90F
                 } else {
                     expandableView.visibility = View.VISIBLE
+                    expandButton.rotation = 0F
                 }
             }
         }

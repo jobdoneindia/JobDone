@@ -5,26 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:id="@+id/constraint_layout_profile"
-    tools:context=".activity.ProfileActivity">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/onethirdline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25"/>
+    android:id="@+id/worker_profile_layout"
+    tools:context=".activity.WorkerProfileActivity">
 
     <LinearLayout
         android:id="@+id/main_div"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryLight"
+        android:background="@color/colorPrimaryDark"
         android:elevation="11dp"
         android:orientation="horizontal"
         android:paddingHorizontal="15dp"
-        android:paddingTop="20dp"
         android:paddingBottom="30dp"
+        android:paddingTop="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -41,7 +34,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/ic_account"
-                app:tint="#8C8C8C"
+                app:tint="#DCDADA"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -75,6 +68,7 @@
                 android:inputType="textPersonName"
                 android:text="Ramesh Kumar"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
@@ -87,7 +81,7 @@
                 android:inputType="text"
                 android:text="Matigara, West Bengal"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="#7C7C7C" />
+                android:textColor="#DAD9D9" />
 
         </LinearLayout>
 
@@ -119,17 +113,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:checked="true" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--  Scheduled Jobs  -->
+    <!-- Description -->
     <TextView
-        android:id="@+id/txtYourScheduledJobs"
+        android:id="@+id/txtAboutYou"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scheduled Jobs"
+        android:text="About You"
         app:layout_constraintTop_toBottomOf="@id/toggle_section"
         android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
         android:fontFamily="@font/poppins"
@@ -140,17 +135,115 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtYourScheduledJobs"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="The Jobs you post will be shown here!"
-        android:textColor="@color/textGreyLight"
-        android:drawablePadding="5dp"
-        app:drawableStartCompat="@drawable/ic_work"
-        app:drawableTint="@color/textGreyLight" />
+        app:layout_constraintTop_toBottomOf="@id/txtAboutYou"
+        app:layout_constraintStart_toStartOf="@id/txtAboutYou"
+        android:text="Production Worker"
+        android:textStyle="bold"
+        android:id="@+id/worker_bio"/>
+    <TextView
+        android:id="@+id/txtWorkerDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I check for defects, assemble products, monitor manufacturing equipment, and closely follow safety procedures to prevent accidents in environments where materials may be hazardous."
+        app:layout_constraintTop_toBottomOf="@+id/worker_bio"
+        app:layout_constraintStart_toStartOf="@id/worker_bio"
+        />
 
+    <!-- Ratings section -->
+    <TextView
+        android:id="@+id/txtYourRatings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Ratings"
+        app:layout_constraintTop_toBottomOf="@id/txtWorkerDescription"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+        android:fontFamily="@font/poppins"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toStartOf="parent"/>
+        <!--Overall Rating-->
+        <TextView
+            android:id="@+id/txtOverall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Overall: "
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtYourRatings"
+            app:layout_constraintStart_toStartOf="@id/txtYourRatings"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:textColor="@color/textGrey"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/txtOverall"
+            app:layout_constraintTop_toTopOf="@id/txtOverall"
+            android:text="4.5"
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            app:drawableLeftCompat="@drawable/ic_star" />
+
+        <!--Tag 1 Rating-->
+    <TextView
+        android:id="@+id/txtTag1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 1: "
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/textGrey"
+        app:layout_constraintStart_toStartOf="@+id/txtOverall"
+        app:layout_constraintTop_toBottomOf="@+id/txtOverall" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/txtOverall"
+            app:layout_constraintTop_toTopOf="@id/txtTag1"
+            android:text="4.5"
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            app:drawableStartCompat="@drawable/ic_star" />
+
+        <!--Tag 2 Rating-->
+    <TextView
+        android:id="@+id/txtTag2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 2: "
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/textGrey"
+        app:layout_constraintStart_toStartOf="@+id/txtTag1"
+        app:layout_constraintTop_toBottomOf="@+id/txtTag1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/txtOverall"
+            app:layout_constraintTop_toTopOf="@id/txtTag2"
+            android:text="4.5"
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            app:drawableLeftCompat="@drawable/ic_star" />
+
+        <!--Tag 3 Rating-->
+    <TextView
+        android:id="@+id/txtTag3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 3: "
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/textGrey"
+        app:layout_constraintStart_toStartOf="@+id/txtTag2"
+        app:layout_constraintTop_toBottomOf="@+id/txtTag2" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/txtOverall"
+            app:layout_constraintTop_toTopOf="@id/txtTag3"
+            android:text="4.5"
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            app:drawableLeftCompat="@drawable/ic_star" />
+
+    <!--LOG OUT Button-->
     <Button
         android:id="@+id/logout_button"
         android:layout_width="wrap_content"
@@ -166,6 +259,7 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         />
 
+    <!-- FAB -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/edit_button"
         android:layout_width="wrap_content"
@@ -177,6 +271,7 @@
         android:src="@drawable/ic_edit"
         />
 
+    <!-- Bottom Nav Bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -185,6 +280,6 @@
         app:itemIconSize="30dp"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/navigation_menu"/>
+        app:menu="@menu/worker_menu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
