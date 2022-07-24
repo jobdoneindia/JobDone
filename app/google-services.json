@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "162887418565-dl669q64cehnhvvg5t7holpmgsbjgl23.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jobdoneindia.jobdone",
+            "certificate_hash": "7a43e3a85b210c2b0bb6317877c2aa721a5c2415"
+          }
+        },
+        {
           "client_id": "162887418565-s44bm2rrtr01fatijo9q8fdkek28qv58.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

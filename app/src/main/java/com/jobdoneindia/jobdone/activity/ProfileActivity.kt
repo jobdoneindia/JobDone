@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.widget.Switch
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.jobdoneindia.jobdone.R
 
 class ProfileActivity : AppCompatActivity() {
@@ -28,6 +30,7 @@ class ProfileActivity : AppCompatActivity() {
         val editButton = findViewById<FloatingActionButton>(R.id.edit_button)
         val workerToggle = findViewById<SwitchMaterial>(R.id.worker_toggle)
         val profileLayout = findViewById<ConstraintLayout>(R.id.constraint_layout_profile)
+
 
         // workerToggle switch on
         workerToggle.isChecked = false
