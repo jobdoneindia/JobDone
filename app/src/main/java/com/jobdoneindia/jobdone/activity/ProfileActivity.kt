@@ -7,11 +7,13 @@ import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.Switch
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.jobdoneindia.jobdone.R
 
 class ProfileActivity : AppCompatActivity() {
@@ -40,6 +42,7 @@ class ProfileActivity : AppCompatActivity() {
             val intent = Intent(this@ProfileActivity,LoginActivity::class.java)
             startActivity(intent)
         }
+
 
         // workerToggle switch on
         workerToggle.isChecked = false
