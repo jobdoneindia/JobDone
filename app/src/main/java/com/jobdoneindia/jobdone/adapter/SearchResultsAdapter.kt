@@ -47,7 +47,7 @@ class SearchResultsAdapter(val searchItems: MutableList<SearchItem>): RecyclerVi
         var level = itemView.findViewById<TextView>(R.id.distance_from_user)
         var description = itemView.findViewById<TextView>(R.id.desc)
 
-        var expandButton = itemView.findViewById<ImageButton>(R.id.downarrowBtn)
+        var expandButton = itemView.findViewById<ImageButton>(R.id.btnExpand)
         var expandableView = itemView.findViewById<ConstraintLayout>(R.id.expandableView)
 
         init {
@@ -57,8 +57,10 @@ class SearchResultsAdapter(val searchItems: MutableList<SearchItem>): RecyclerVi
             expandButton.setOnClickListener {
                 if (expandableView.visibility == View.VISIBLE) {
                     expandableView.visibility = View.GONE
+                    expandButton.rotation = -90F
                 } else {
                     expandableView.visibility = View.VISIBLE
+                    expandButton.rotation = 0F
                 }
             }
         }

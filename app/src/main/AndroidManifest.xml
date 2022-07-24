@@ -10,8 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JobDone">
         <activity
-            android:name=".activity.WorkerDashboardActivity"
+            android:name=".activity.RegistrationActivity"
+            android:label="Registration"
             android:exported="false" />
+        <activity
+            android:name=".activity.EditWorkerProfileActivity"
+            android:exported="true"
+            android:label="Edit Profile"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.WorkerDashboardActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.WorkerProfileActivity"
+            android:exported="true" />
         <activity
             android:name=".activity.EditProfileActivity"
             android:exported="false"
@@ -21,7 +33,7 @@
             android:exported="false"
             android:label="Inbox" />
         <activity
-            android:name=".activity.AccountsActivity"
+            android:name=".activity.ProfileActivity"
             android:exported="false"
             android:label="@string/title_activity_accounts" />
         <activity
@@ -45,7 +57,8 @@
             android:exported="true" />
         <activity
             android:name=".activity.DashboardActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
 
         <meta-data
             android:name="preloaded_fonts"

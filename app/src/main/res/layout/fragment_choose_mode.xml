@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.FragmentChooseMode">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/img_tools_bg"
+            android:alpha="0.4"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/txtChooseMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose Mode:"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:fontFamily="@font/poppins_semibold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/customer_mode"
+            />
+
+        <Button
+            android:id="@+id/customer_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Mode"
+            android:paddingHorizontal="50dp"
+            android:drawableLeft="@drawable/ic_account"
+            android:drawableTint="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Button
+            android:id="@+id/worker_mode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Worker Mode"
+            android:paddingHorizontal="50dp"
+            android:drawableLeft="@drawable/ic_work"
+            android:drawableTint="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/customer_mode"
+            app:layout_constraintStart_toStartOf="@id/customer_mode"
+            app:layout_constraintEnd_toEndOf="@id/customer_mode"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

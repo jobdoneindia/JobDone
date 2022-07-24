@@ -2,4 +2,15 @@
 <resources>
     <string name="JobDone">Firebase Phone Auth</string>
     <string name="Didn_t_receive_otp_resend">Didn\'t get OTP?  <b>Resend</b></string>
+
+    <string-array name="tags">
+        <item>AC Repair</item>
+        <item>Fridge Repair</item>
+        <item>Appliances</item>
+        <item>RO</item>
+        <item>Computer</item>
+        <item>Plumbing</item>
+        <item>Washing Machine</item>
+        <item>Painting</item>
+    </string-array>
 </resources>

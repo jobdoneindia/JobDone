@@ -3,7 +3,6 @@ package com.jobdoneindia.jobdone.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jobdoneindia.jobdone.R
 
@@ -19,10 +18,10 @@ class DashboardActivity : AppCompatActivity() {
         // Bottom Nav bar
         bottomNavigationView = findViewById(R.id.bottomNavigationDrawer)
 
-        // Set Accounts selected
+        // Set Home selected (in bottom nav bar)
         bottomNavigationView.selectedItemId = R.id.menuHome
 
-        // Perform item selected listener
+        // Perform item selected listener (bottom nav bar)
         bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menuHome -> {
@@ -40,7 +39,7 @@ class DashboardActivity : AppCompatActivity() {
                 }
 
                 R.id.menuAccount -> {
-                    startActivity(Intent(applicationContext, AccountsActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    startActivity(Intent(applicationContext, ProfileActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     return@setOnItemSelectedListener true
                 }
 

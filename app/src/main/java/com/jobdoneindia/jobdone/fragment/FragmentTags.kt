@@ -29,9 +29,9 @@ class FragmentTags: Fragment() {
         //Inflate layout for this fragment
         val root = inflater.inflate(R.layout.fragment_choosetags, container, false)
 
-        // Enter Transition
+        // Exit Transition
         val transitionInflater = TransitionInflater.from(requireContext())
-        enterTransition = transitionInflater.inflateTransition(R.transition.fade)
+        exitTransition = transitionInflater.inflateTransition(R.transition.explode)
 
         // Storing Data
         myCategories.add(Categories( "Plumber", 20))
