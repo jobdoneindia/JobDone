@@ -55,7 +55,7 @@ class FragmentTags: Fragment() {
 
         // TODO: Use search bar to filter search results
 
-        // TODO: Add a new tag button and it's function
+        // TODO: "Add a new tag" button and it's function
 
         // TODO: Fix Duplicating recyclerview items on restart
         // OnClick listener for recyclerview items
@@ -69,7 +69,7 @@ class FragmentTags: Fragment() {
         adapter.setOnItemClickListener(object : TagsAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
                 Toast.makeText(context, "You Clicked on item no. $position", Toast.LENGTH_SHORT).show()
-                // TODO: Pass data (which item was selected
+                // TODO: Pass data (which item was selected) to the next fragment
                 Navigation.findNavController(view!!).navigate(R.id.action_fragmentTags_to_fragmentSearchResults)
             }
         })

@@ -54,6 +54,9 @@ class SearchResultsAdapter(val searchItems: MutableList<SearchItem>): RecyclerVi
             itemView.setOnClickListener {
                 listener.onItemClick(absoluteAdapterPosition)
             }
+
+            // TODO: Add worker to inbox and redirect to ChatActivity
+
             expandButton.setOnClickListener {
                 if (expandableView.visibility == View.VISIBLE) {
                     expandableView.visibility = View.GONE

@@ -243,6 +243,22 @@
             android:drawablePadding="5dp"
             app:drawableLeftCompat="@drawable/ic_star" />
 
+    <!--LOG OUT Button-->
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log Out"
+        android:gravity="center"
+        android:textColor="#FF3030"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationDrawer"
+        android:layout_margin="10dp"
+        android:drawableLeft="@drawable/ic_power"
+        android:drawableTint="#FF3030"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        />
+
     <!-- FAB -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/edit_button"

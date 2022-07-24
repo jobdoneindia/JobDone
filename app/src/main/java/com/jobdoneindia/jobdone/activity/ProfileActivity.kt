@@ -32,6 +32,11 @@ class ProfileActivity : AppCompatActivity() {
         // workerToggle switch on
         workerToggle.isChecked = false
 
+        // TODO: Logout button function
+
+        // TODO: Setup a recyclerview for sheduled jobs
+        // TODO: Fetch data from database and display in scheduled jobs
+
         // Set Accounts selected
         bottomNavigationView.selectedItemId = R.id.menuAccount
 
