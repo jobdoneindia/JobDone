@@ -1,14 +1,16 @@
 package com.jobdoneindia.jobdone.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.transition.TransitionInflater
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.jobdoneindia.jobdone.R
+import com.jobdoneindia.jobdone.activity.DashboardActivity
 
 class FragmentChooseMode : Fragment() {
 
@@ -23,10 +25,14 @@ class FragmentChooseMode : Fragment() {
         val transitionInflater = TransitionInflater.from(requireContext())
         exitTransition = transitionInflater.inflateTransition(R.transition.fade)
 
-        // Next Button
-        root.findViewById<Button>(R.id.next_button).setOnClickListener {
+        val intent = Intent(this@FragmentChooseMode.requireContext(),DashboardActivity::class.java)
+
+        // Choose Button
+        root.findViewById<Button>(R.id.customer_mode_btn).setOnClickListener {
                 view: View ->
-            Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentChooseMode)
+          startActivity(intent)
+
+
         }
 
         return root

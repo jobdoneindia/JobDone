@@ -197,14 +197,14 @@ class Phone_auth_login : AppCompatActivity() {
                 Toast.makeText(this,"Logged In as $phone", Toast.LENGTH_SHORT).show()
 
                 //start profile activity
-                val intent = Intent(this,DashboardActivity::class.java)
+                val intent = Intent(this,RegistrationActivity::class.java)
                 startActivity(intent)
 
             }
             .addOnFailureListener {e->
                 //login failed
                 progressDialog.dismiss()
-                Toast.makeText(this,"${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Error try again", Toast.LENGTH_SHORT).show()
             }
 
     }
