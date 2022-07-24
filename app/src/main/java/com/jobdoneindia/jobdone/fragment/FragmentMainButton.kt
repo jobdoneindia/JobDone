@@ -31,6 +31,11 @@ class FragmentMainButton: Fragment() {
         val transitionInflater = TransitionInflater.from(requireContext())
         exitTransition = transitionInflater.inflateTransition(R.transition.fade)
 
+        // Enter Transition
+        enterTransition = transitionInflater.inflateTransition(R.transition.explode)
+
+        // TODO: Set user name in `worker name` textview from local database
+
         // Main Button Onclick listener
         mainButton = root.findViewById<ImageButton>(R.id.main_button)
         mainButton.setOnClickListener {

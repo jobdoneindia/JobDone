@@ -27,11 +27,11 @@
             android:fontFamily="@font/poppins_semibold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/customer_mode"
+            app:layout_constraintBottom_toTopOf="@id/next_button"
             />
 
         <Button
-            android:id="@+id/customer_mode"
+            android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Customer Mode"
@@ -51,9 +51,9 @@
             android:paddingHorizontal="50dp"
             android:drawableLeft="@drawable/ic_work"
             android:drawableTint="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/customer_mode"
-            app:layout_constraintStart_toStartOf="@id/customer_mode"
-            app:layout_constraintEnd_toEndOf="@id/customer_mode"/>
+            app:layout_constraintTop_toBottomOf="@id/next_button"
+            app:layout_constraintStart_toStartOf="@id/next_button"
+            app:layout_constraintEnd_toEndOf="@id/next_button"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

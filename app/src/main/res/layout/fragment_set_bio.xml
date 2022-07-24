@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.FragmentEnterName">
+    tools:context=".fragment.FragmentSetBio">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:id="@+id/txtChooseMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter Name:"
+            android:text="Your Bio:"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:fontFamily="@font/poppins_semibold"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,11 +34,12 @@
             />
 
         <EditText
-            android:id="@+id/input_name"
+            android:id="@+id/input_bio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/txtChooseMode"
-            android:hint="E.g. Ramesh Kumar"/>
+            android:hint="E.g. Electrician"
+            android:maxLength="23"/>
 
         <Button
             android:id="@+id/next_button"
@@ -46,6 +47,15 @@
             android:layout_height="wrap_content"
             android:text="Next"
             app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(max length: 23 characters)"
+            android:textColor="#B1B2B3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_bio"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
