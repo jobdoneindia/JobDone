@@ -2,18 +2,37 @@ package com.jobdoneindia.jobdone.activity
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.EditText
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
 
 class EditProfileActivity : AppCompatActivity() {
+
+    lateinit var editTextName : EditText
+    lateinit var editTextLocation : EditText
+    lateinit var doneButton : Button
+    lateinit var editTextPhone: EditText
+    lateinit var otpContinueBtn : Button
+
+    val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+    val reference : DatabaseReference = database.reference.child("Users")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
+
+
+
+
 
         // Add back button in Action Bar
         val actionBar: ActionBar? = supportActionBar
@@ -24,12 +43,27 @@ class EditProfileActivity : AppCompatActivity() {
         // TODO: Feature to set current location
 
         // Done fab button
-        val doneButton: FloatingActionButton = findViewById(R.id.done_button)
-        doneButton.setOnClickListener {
-            startActivity(Intent(applicationContext, ProfileActivity::class.java))
+        var doneButton: FloatingActionButton = findViewById(R.id.done_button)
+        // TODO: Editing And Saving To Database
+        editTextName = findViewById(R.id.editTextName)
+        editTextLocation = findViewById(R.id.editTextLocation)
+        doneButton = findViewById(R.id.done_button)
+
+        //TODO: sending data to dtabase
+
+            doneButton.setOnClickListener{
+            val userName: String = editTextName.text.toString()
+            val location: String = editTextLocation.text.toString()
+
+            reference.child("UserName").setValue(userName)
+            reference.child("Location").setValue(location)
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
         }
 
         // TODO: Update Database - OnClick Listener for FAB button
+
+
 
 
     }
@@ -60,4 +94,5 @@ class EditProfileActivity : AppCompatActivity() {
             }
             return super.onOptionsItemSelected(item)
     }
+
 }

@@ -1,60 +1,74 @@
 package com.jobdoneindia.jobdone.activity
 
-import android.content.Intent
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Switch
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.switchmaterial.SwitchMaterial
+import android.os.PersistableBundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jobdoneindia.jobdone.R
+import com.jobdoneindia.jobdone.adapter.CustomerPreviewAdapter
+import com.jobdoneindia.jobdone.adapter.ScheduledJobsPreviewAdapter
+import java.util.*
+import java.util.zip.Inflater
 
+data class CustomersPreview( val customers_name: String, val customer_message: String)
+data class ScheduledJobsPreview(val workers_name: String, val schedule_date: String, val schedule_location: String, val time: String)
 class WorkerDashboardActivity : AppCompatActivity() {
+    private val customersPreview = mutableListOf<CustomersPreview>()
+    private val scheduledJobsPreview = mutableListOf<ScheduledJobsPreview>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_worker_dashboard)
+        supportActionBar?.hide()
 
-        // Initialize and assign variables
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationDrawer)
-        val editButton = findViewById<FloatingActionButton>(R.id.edit_button)
 
-        // Set Accounts selected
-        bottomNavigationView.selectedItemId = R.id.menuAccount
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
 
-        // Perform item selected listener
-        bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.menuHome -> {
-                    startActivity(
-                        Intent(applicationContext, DashboardActivity::class.java).setFlags(
-                            Intent.FLAG_ACTIVITY_NO_ANIMATION))
-                }
+        val customersList: RecyclerView = findViewById(R.id.recyclerview_customers_preview)
+        customersList.adapter = CustomerPreviewAdapter(customersPreview)
+        customersList.layoutManager = LinearLayoutManager(this)
 
-                R.id.menuRewards -> {
-                    startActivity(
-                        Intent(applicationContext, RewardsActivity::class.java).setFlags(
-                            Intent.FLAG_ACTIVITY_NO_ANIMATION))
-                    return@setOnItemSelectedListener true
-                }
 
-                R.id.menuChat -> {
-                    startActivity(
-                        Intent(applicationContext, ChatsActivity::class.java).setFlags(
-                            Intent.FLAG_ACTIVITY_NO_ANIMATION))
-                    return@setOnItemSelectedListener true
-                }
 
-                R.id.menuAccount -> {
-                    return@setOnItemSelectedListener true
-                }
+        scheduledJobsPreview.add(ScheduledJobsPreview("Avinash Prasad", "28-07-2022", "Matigara, Sukti Godown", "10:30 AM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Siraj Alam", "30-07-2022", "Matigara, Sukti Godown", "10:00 AM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chettri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Subhajit Chowdhury", "28-07-2022", "Matigara, Sukti Godown", "11:30 AM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Avinash Prasad", "28-07-2022", "Matigara, Sukti Godown", "10:30 AM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Siraj Alam", "30-07-2022", "Matigara, Sukti Godown", "10:00 AM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chettri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Subhajit Chowdhury", "28-07-2022", "Matigara, Sukti Godown", "11:30 AM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Avinash Prasad", "28-07-2022", "Matigara, Sukti Godown", "10:30 AM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Siraj Alam", "30-07-2022", "Matigara, Sukti Godown", "10:00 AM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chettri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Subhajit Chowdhury", "28-07-2022", "Matigara, Sukti Godown", "11:30 AM"))
 
-            }
-            false
-        }
+        val workersList: RecyclerView = findViewById((R.id.recyclerview_workers_preview))
+        workersList.adapter = ScheduledJobsPreviewAdapter(scheduledJobsPreview)
+        workersList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        // edit button (fab) onClick listener
-        editButton.setOnClickListener {
-            startActivity(Intent(applicationContext, EditProfileActivity::class.java))
-        }
     }
+
+
+
 }

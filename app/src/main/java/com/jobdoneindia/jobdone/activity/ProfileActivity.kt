@@ -5,17 +5,24 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.Switch
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.jobdoneindia.jobdone.R
 
 class ProfileActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_userprofile)
         supportActionBar?.hide()
@@ -28,6 +35,14 @@ class ProfileActivity : AppCompatActivity() {
         val editButton = findViewById<FloatingActionButton>(R.id.edit_button)
         val workerToggle = findViewById<SwitchMaterial>(R.id.worker_toggle)
         val profileLayout = findViewById<ConstraintLayout>(R.id.constraint_layout_profile)
+        val logoutBtn = findViewById<Button>(R.id.logout_button)
+
+        //logout Button listener
+        logoutBtn.setOnClickListener{
+            val intent = Intent(this@ProfileActivity,LoginActivity::class.java)
+            startActivity(intent)
+        }
+
 
         // workerToggle switch on
         workerToggle.isChecked = false
@@ -82,6 +97,8 @@ class ProfileActivity : AppCompatActivity() {
         workerToggle.setOnClickListener {
             profileLayout.startAnimation(animation)
             startActivity(Intent(applicationContext, WorkerProfileActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+
+
         }
 
     }

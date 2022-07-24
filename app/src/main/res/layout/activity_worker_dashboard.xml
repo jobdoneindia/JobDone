@@ -101,31 +101,52 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tablayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/header" >
+    <TextView
+        android:id="@+id/workersCustomer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Customer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppins"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_customers_preview"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/workersCustomer"/>
+    <TextView
+        android:id="@+id/jobsforyou"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jobs For You"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerview_customers_preview"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppins"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"/>
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Your Customers"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_workers_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/jobsforyou"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-             <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 android:text="Jobs for You"/>
 
-        </com.google.android.material.tabs.TabLayout>
 
-        <androidx.viewpager.widget.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tablayout"/>
 
 
 

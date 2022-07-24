@@ -21,10 +21,10 @@ class LoginActivity: AppCompatActivity() {
 
         firebaseUser = FirebaseAuth.getInstance().currentUser
 
-        if(firebaseUser != null){
-            val intent = Intent(this,DashboardActivity::class.java)
-            startActivity(intent)
-        }
+//        if(firebaseUser != null){
+//            val intent = Intent(this,DashboardActivity::class.java)
+//            startActivity(intent)
+//        }
 
         skipButton = findViewById<View>(R.id.skip_button) as Button
 

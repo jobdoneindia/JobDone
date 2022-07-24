@@ -7,17 +7,28 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.FirebaseException
+import com.google.firebase.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.databinding.ActivityPhoneAuthLoginBinding
 import java.util.concurrent.TimeUnit
 
 class Phone_auth_login : AppCompatActivity() {
+
+    lateinit var editTextPhone: EditText
+    lateinit var otpContinueBtn : Button
+
+    val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+    val reference : DatabaseReference = database.reference.child("Users")
 
     //binding
     private lateinit var binding: ActivityPhoneAuthLoginBinding
@@ -38,6 +49,7 @@ class Phone_auth_login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPhoneAuthLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         binding.phoneLl.visibility= View.VISIBLE
         binding.otpLl.visibility=View.GONE
@@ -85,6 +97,7 @@ class Phone_auth_login : AppCompatActivity() {
 
         }
 
+
         //phone Continue button listener
         binding.otpSendBtn.setOnClickListener(){
 
@@ -125,6 +138,7 @@ class Phone_auth_login : AppCompatActivity() {
                 verifyPhoneNumberWithCode(mVerificationId,code)
             }
         }
+
 
 
     }
@@ -197,14 +211,14 @@ class Phone_auth_login : AppCompatActivity() {
                 Toast.makeText(this,"Logged In as $phone", Toast.LENGTH_SHORT).show()
 
                 //start profile activity
-                val intent = Intent(this,DashboardActivity::class.java)
+                val intent = Intent(this,RegistrationActivity::class.java)
                 startActivity(intent)
 
             }
             .addOnFailureListener {e->
                 //login failed
                 progressDialog.dismiss()
-                Toast.makeText(this,"${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Error try again", Toast.LENGTH_SHORT).show()
             }
 
     }
