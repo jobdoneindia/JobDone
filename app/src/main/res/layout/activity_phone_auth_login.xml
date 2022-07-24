@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="#fff"
-            android:hint="+91xxxxxxxxx"
+            android:hint="Enter Phone Number +91"
             android:inputType="phone"
             android:padding="10dp"
             android:textAlignment="center"
@@ -55,8 +55,10 @@
             android:textColorHint="#c5c5c5"
             />
 
+
+
         <Button
-            android:id="@+id/phoneContinueBtn"
+            android:id="@+id/otpSendBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -87,7 +89,7 @@
         style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Please enter the verification we sent to your m"
+        android:text="Please enter the verification we sent to your mobile"
         android:textAlignment="center"
         android:textColor="#777777"
         />
@@ -99,7 +101,7 @@
         android:layout_marginTop="10dp"
         android:background="#fff"
         android:hint="XXXXXX"
-        android:inputType="phone"
+        android:inputType="number"
         android:padding="10dp"
         android:textAlignment="center"
         android:textColor="#000"
@@ -126,11 +128,5 @@
 
     </LinearLayout>
 
-
-
-
-
-
-    
 
 </LinearLayout>

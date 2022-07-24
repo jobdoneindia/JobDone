@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "162887418565",
+    "firebase_url": "https://jobdone-phone-auth-default-rtdb.firebaseio.com",
     "project_id": "jobdone-phone-auth",
     "storage_bucket": "jobdone-phone-auth.appspot.com"
   },
