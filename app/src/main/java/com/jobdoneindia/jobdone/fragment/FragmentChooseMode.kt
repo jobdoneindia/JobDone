@@ -9,13 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.DashboardActivity
-import com.jobdoneindia.jobdone.activity.WorkerDashboardActivity
-import com.jobdoneindia.jobdone.activity.WorkerProfileActivity
 
 class FragmentChooseMode : Fragment() {
 
@@ -30,31 +25,10 @@ class FragmentChooseMode : Fragment() {
         val transitionInflater = TransitionInflater.from(requireContext())
         exitTransition = transitionInflater.inflateTransition(R.transition.fade)
 
-
-
-        // Customer Button
+        // Choose Button
         root.findViewById<Button>(R.id.customer_mode_btn).setOnClickListener {
                 view: View ->
-            val intent = Intent(this@FragmentChooseMode.requireContext(),DashboardActivity::class.java)
-
-            val database : FirebaseDatabase = FirebaseDatabase.getInstance()
-            val reference : DatabaseReference = database.reference.child("Users")
-
-            reference.child("Customer").setValue("YES")
-            reference.child("Worker").setValue("NO")
-
-          startActivity(intent)
-
-        }
-
-        //Worker Button
-        root.findViewById<Button>(R.id.worker_mode_btn).setOnClickListener {
-                view: View ->
-
-            val intent = Intent(this@FragmentChooseMode.requireContext(),WorkerDashboardActivity::class.java)
-
-            startActivity(intent)
-
+            Navigation.findNavController(view).navigate(R.id.action_fragmentChooseMode_to_fragmentSetBio)
         }
 
         return root

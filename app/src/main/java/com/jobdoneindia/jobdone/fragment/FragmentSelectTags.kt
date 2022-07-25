@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.jobdoneindia.jobdone.R
@@ -56,6 +57,12 @@ class FragmentSelectTags : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Limit exceeded.",Toast.LENGTH_LONG).show()
             }
+        }
+
+        // Next Button
+        root.findViewById<Button>(R.id.btnNext).setOnClickListener {
+                view: View ->
+            Navigation.findNavController(view).navigate(R.id.action_fragmentSelectTags_to_fragmentSetDP)
         }
 
         return root
