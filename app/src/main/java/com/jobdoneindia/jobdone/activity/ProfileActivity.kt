@@ -47,6 +47,8 @@ class ProfileActivity : AppCompatActivity() {
         // workerToggle switch on
         workerToggle.isChecked = false
 
+        // TODO: Fetch data and display Name and Address
+
         // TODO: Logout button function
 
         // TODO: Setup a recyclerview for sheduled jobs

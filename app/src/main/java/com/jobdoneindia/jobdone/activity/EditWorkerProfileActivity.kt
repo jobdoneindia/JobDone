@@ -56,6 +56,12 @@ class EditWorkerProfileActivity : AppCompatActivity() {
         selectorTag2.setAdapter(adapter)
         selectorTag3.setAdapter(adapter)
 
+        // TODO: Feature to select DP and update in database
+
+        // TODO: Feature to set current location
+
+        // TODO: Update Database - OnClick Listener for FAB button
+
 
 
     }

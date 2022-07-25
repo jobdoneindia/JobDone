@@ -27,6 +27,8 @@ class WorkerProfileActivity : AppCompatActivity() {
         // workerToggle switch on
         workerToggle.isChecked = true
 
+        // TODO: Logout button function
+
         // animation init
         val animation = AnimationUtils.loadAnimation(this, R.anim.fade_out)
 
