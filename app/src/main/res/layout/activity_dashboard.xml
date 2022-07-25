@@ -9,7 +9,7 @@
     android:background="@color/colorBackground"
     tools:context=".activity.DashboardActivity">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navhostfragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"

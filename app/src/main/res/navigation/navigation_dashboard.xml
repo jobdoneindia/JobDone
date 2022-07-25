@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_fragmentTags_to_fragmentSearchResults"
             app:destination="@id/fragmentSearchResults" />
+        <action
+            android:id="@+id/action_fragmentTags_to_fragmentMainButton2"
+            app:destination="@id/fragmentMainButton" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSearchResults"
@@ -31,5 +34,8 @@
         <action
             android:id="@+id/action_fragmentSearchResults_to_fragmentTags"
             app:destination="@id/fragmentTags" />
+        <action
+            android:id="@+id/action_fragmentSearchResults_to_fragmentMainButton"
+            app:destination="@id/fragmentMainButton" />
     </fragment>
 </navigation>
