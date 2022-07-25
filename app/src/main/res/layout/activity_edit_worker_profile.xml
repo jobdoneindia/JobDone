@@ -61,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:text="Name"/>
             <EditText
+                android:id="@+id/workerName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="E.g Ramesh Kumar"
@@ -73,6 +74,7 @@
                 android:layout_height="wrap_content"
                 android:text="Bio"/>
             <EditText
+                android:id="@+id/workerBio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"

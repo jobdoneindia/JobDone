@@ -7,10 +7,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import android.widget.ScrollView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
 
 class EditWorkerProfileActivity : AppCompatActivity() {
@@ -22,9 +26,23 @@ class EditWorkerProfileActivity : AppCompatActivity() {
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
+        //database reference
+        val database :FirebaseDatabase = FirebaseDatabase.getInstance()
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        val reference:DatabaseReference = database.reference.child(uid.toString()).child("Worker-Details")
+
+
         // Done fab button
         val doneButton: FloatingActionButton = findViewById(R.id.done_button)
         doneButton.setOnClickListener {
+
+            val workerName = findViewById<EditText>(R.id.workerName).text.toString().trim()
+            val workerBio = findViewById<EditText>(R.id.workerBio).text.toString().trim()
+
+            reference.child("Workername").setValue(workerName)
+            reference.child("Workerbio").setValue(workerBio)
+
+
             startActivity(Intent(applicationContext, WorkerProfileActivity::class.java))
         }
 

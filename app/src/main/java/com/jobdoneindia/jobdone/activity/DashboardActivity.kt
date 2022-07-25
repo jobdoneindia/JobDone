@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
 
 class DashboardActivity : AppCompatActivity() {
@@ -14,6 +16,10 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         supportActionBar?.hide()
+
+        // database
+        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+        val reference : DatabaseReference = database.reference.child("Users")
 
         // Bottom Nav bar
         bottomNavigationView = findViewById(R.id.bottomNavigationDrawer)

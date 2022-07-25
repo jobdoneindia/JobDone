@@ -38,7 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/txtChooseMode"
-            android:hint="E.g. Ramesh Kumar"/>
+            android:hint="E.g. Ram Kumar"
+            />
 
         <Button
             android:id="@+id/next_button"
