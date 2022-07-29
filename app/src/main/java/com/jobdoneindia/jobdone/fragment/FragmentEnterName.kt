@@ -41,7 +41,7 @@ class FragmentEnterName : Fragment() {
 
 
 //        // Next Button
-        root.findViewById<Button>(R.id.btnNext).setOnClickListener {
+        root.findViewById<Button>(R.id.nextButton).setOnClickListener {
                 view: View ->
 
             val database : FirebaseDatabase = FirebaseDatabase.getInstance()

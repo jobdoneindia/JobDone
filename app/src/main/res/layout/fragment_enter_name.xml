@@ -12,15 +12,18 @@
         android:layout_margin="15dp">
 
         <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/graphicLogo"
-            android:layout_width="367dp"
-            android:layout_height="704dp"
+
             android:alpha="0.4"
             android:src="@drawable/img_logo_with_shapes_faded"
+
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -46,7 +49,7 @@
             tools:layout_editor_absoluteX="4dp" />
 
         <Button
-            android:id="@+id/btnNext"
+            android:id="@+id/nextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Next"
