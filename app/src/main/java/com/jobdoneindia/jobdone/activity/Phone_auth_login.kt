@@ -212,6 +212,7 @@ class Phone_auth_login : AppCompatActivity() {
 
                 //start profile activity
                 val intent = Intent(this,RegistrationActivity::class.java)
+                intent.putExtra("phoneNumber",phone)
                 startActivity(intent)
 
             }

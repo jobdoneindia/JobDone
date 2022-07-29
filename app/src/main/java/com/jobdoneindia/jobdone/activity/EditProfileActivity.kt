@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -38,6 +39,7 @@ class EditProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
+
         // Add back button in Action Bar
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -57,18 +59,24 @@ class EditProfileActivity : AppCompatActivity() {
         // TODO: Editing And Saving To Database
         editTextName = findViewById(R.id.editTextName)
         editTextLocation = findViewById(R.id.editTextLocation)
-        doneButton = findViewById(R.id.done_button)
+
 
         //TODO: sending data to dtabase
 
             doneButton.setOnClickListener{
-            val userName: String = editTextName.text.toString()
-            val location: String = editTextLocation.text.toString()
 
-            reference.child("UserName").setValue(userName)
-            reference.child("Location").setValue(location)
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
+
+
+                    val userName: String = editTextName.text.toString().trim()
+                    val location: String = editTextLocation.text.toString()
+
+
+
+                    reference.child("UserName").setValue(userName)
+                    reference.child("Location").setValue(location)
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    startActivity(intent)
+
         }
 
         // TODO: Update Database - OnClick Listener for FAB button
