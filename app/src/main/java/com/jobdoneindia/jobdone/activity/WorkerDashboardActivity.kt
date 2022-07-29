@@ -1,5 +1,6 @@
 package com.jobdoneindia.jobdone.activity
 
+import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,8 +8,12 @@ import android.os.PersistableBundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.CustomerPreviewAdapter
 import com.jobdoneindia.jobdone.adapter.ScheduledJobsPreviewAdapter
@@ -21,10 +26,16 @@ class WorkerDashboardActivity : AppCompatActivity() {
     private val customersPreview = mutableListOf<CustomersPreview>()
     private val scheduledJobsPreview = mutableListOf<ScheduledJobsPreview>()
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_worker_dashboard)
         supportActionBar?.hide()
+
+
+
+
 
 
         customersPreview.add(CustomersPreview("Avinash Prasad", "chutiya"))
@@ -52,15 +63,15 @@ class WorkerDashboardActivity : AppCompatActivity() {
 
         scheduledJobsPreview.add(ScheduledJobsPreview("Avinash Prasad", "28-07-2022", "Matigara, Sukti Godown", "10:30 AM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Siraj Alam", "30-07-2022", "Matigara, Sukti Godown", "10:00 AM"))
-        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chettri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chhetri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Subhajit Chowdhury", "28-07-2022", "Matigara, Sukti Godown", "11:30 AM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Avinash Prasad", "28-07-2022", "Matigara, Sukti Godown", "10:30 AM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Siraj Alam", "30-07-2022", "Matigara, Sukti Godown", "10:00 AM"))
-        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chettri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chhetri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Subhajit Chowdhury", "28-07-2022", "Matigara, Sukti Godown", "11:30 AM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Avinash Prasad", "28-07-2022", "Matigara, Sukti Godown", "10:30 AM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Siraj Alam", "30-07-2022", "Matigara, Sukti Godown", "10:00 AM"))
-        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chettri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chhetri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Subhajit Chowdhury", "28-07-2022", "Matigara, Sukti Godown", "11:30 AM"))
 
         val workersList: RecyclerView = findViewById((R.id.recyclerview_workers_preview))
@@ -71,4 +82,9 @@ class WorkerDashboardActivity : AppCompatActivity() {
 
 
 
-}
+
+
+    }
+
+
+

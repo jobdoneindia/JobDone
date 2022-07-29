@@ -12,37 +12,41 @@
         android:layout_margin="15dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/graphicLogo"
+            android:layout_width="367dp"
+            android:layout_height="704dp"
+            android:alpha="0.4"
             android:src="@drawable/img_logo_with_shapes_faded"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:alpha="0.4"/>
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtSelectTags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="136dp"
+            android:fontFamily="@font/poppins_semibold"
             android:text="Enter Name:"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-            android:fontFamily="@font/poppins_semibold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/input_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="E.g. Ramesh Kumar"
             android:inputType="textPersonName"
             app:layout_constraintTop_toBottomOf="@id/txtSelectTags"
-            android:hint="E.g. Ramesh Kumar"/>
+            tools:layout_editor_absoluteX="4dp" />
 
         <Button
-            android:id="@+id/btnCustomerMode"
+            android:id="@+id/btnNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Next"

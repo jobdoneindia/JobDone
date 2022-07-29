@@ -85,7 +85,7 @@ class Phone_auth_login : AppCompatActivity() {
                 binding.phoneLl.visibility = View.GONE
                 binding.otpLl.visibility = View.VISIBLE
                 Toast.makeText(this@Phone_auth_login,"Verification code sent", Toast.LENGTH_SHORT).show()
-                binding.codeDescriptionTv.text = "Please type the verification code sent to ${binding.phonEt.text.toString().trim()}"
+
 
             }
 
@@ -102,7 +102,7 @@ class Phone_auth_login : AppCompatActivity() {
         binding.otpSendBtn.setOnClickListener(){
 
             //input phone number
-            val phone = binding.phonEt.text.toString().trim()
+            val phone = "+91" + binding.phonEt.text.toString().trim()
 
             //validate phone number
             if(TextUtils.isEmpty(phone)){

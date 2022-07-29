@@ -13,17 +13,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jobdoneindia.jobdone.R
+import com.jobdoneindia.jobdone.activity.DashboardActivity
 import java.util.jar.Manifest
 
 class FragmentSetDP : Fragment() {
 
     private lateinit var profilePic: ImageView
     private lateinit var imageuri: Uri
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +41,17 @@ class FragmentSetDP : Fragment() {
         val btnEditDP = root.findViewById<FloatingActionButton>(R.id.btnEditDP)
         btnEditDP.setOnClickListener {
             pickfromGallery()
+
         }
+
+        root.findViewById<Button>(R.id.doneBtn).setOnClickListener{
+                view: View ->
+            val intent = Intent(requireContext(),DashboardActivity::class.java)
+            startActivity(intent)
+
+        }
+
+
 
         return root
     }

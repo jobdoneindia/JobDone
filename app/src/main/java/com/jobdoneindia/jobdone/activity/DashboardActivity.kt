@@ -3,6 +3,7 @@ package com.jobdoneindia.jobdone.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -11,6 +12,7 @@ import com.jobdoneindia.jobdone.R
 class DashboardActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,8 @@ class DashboardActivity : AppCompatActivity() {
 
         // Set Home selected (in bottom nav bar)
         bottomNavigationView.selectedItemId = R.id.menuHome
+
+
 
         // Perform item selected listener (bottom nav bar)
         bottomNavigationView.setOnItemSelectedListener {

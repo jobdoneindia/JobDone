@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.firebase.database.*
@@ -21,7 +22,7 @@ import java.util.*
 class FragmentMainButton: Fragment() {
 
     private lateinit var mainButton: ImageButton
-
+    private lateinit var userName : TextView
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -42,7 +43,13 @@ class FragmentMainButton: Fragment() {
         // Enter Transition
         enterTransition = transitionInflater.inflateTransition(R.transition.explode)
 
-        // user name in `worker name` textview from local database
+        // user name
+        userName = root.findViewById(R.id.user_name)
+        val args = this.arguments
+        val inputData = args?.get("username")
+        userName.text = inputData.toString()
+
+
 
 
 

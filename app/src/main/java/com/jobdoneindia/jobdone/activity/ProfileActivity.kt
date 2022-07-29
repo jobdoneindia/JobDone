@@ -13,7 +13,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
 
 class ProfileActivity : AppCompatActivity() {
@@ -37,8 +40,15 @@ class ProfileActivity : AppCompatActivity() {
         val profileLayout = findViewById<ConstraintLayout>(R.id.constraint_layout_profile)
         val logoutBtn = findViewById<Button>(R.id.logout_button)
 
+        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+        val uid  = FirebaseAuth.getInstance().currentUser?.uid
+        val reference : DatabaseReference = database.reference.child(uid.toString())
+
         //logout Button listener
         logoutBtn.setOnClickListener{
+
+            reference.child(uid.toString()).removeValue()
+
             val intent = Intent(this@ProfileActivity,LoginActivity::class.java)
             startActivity(intent)
         }

@@ -34,11 +34,14 @@ class FragmentEnterName : Fragment() {
         val transitionInflater = TransitionInflater.from(requireContext())
         exitTransition = transitionInflater.inflateTransition(R.transition.fade)
 
+        val bundle = Bundle()
+
+
 
 
 
 //        // Next Button
-        root.findViewById<Button>(R.id.next_button).setOnClickListener {
+        root.findViewById<Button>(R.id.btnNext).setOnClickListener {
                 view: View ->
 
             val database : FirebaseDatabase = FirebaseDatabase.getInstance()
@@ -46,6 +49,10 @@ class FragmentEnterName : Fragment() {
             val reference : DatabaseReference = database.reference.child(uid.toString())
             inputName = root.findViewById<EditText>(R.id.input_name).text.toString().trim()
 
+            bundle.putString("username",inputName)
+
+            val fragment = FragmentMainButton()
+            fragment.arguments = bundle
 
             reference.child("Username").setValue(inputName)
             Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentChooseMode)

@@ -28,7 +28,9 @@ class FragmentChooseMode : Fragment() {
         // Choose Button
         root.findViewById<Button>(R.id.customer_mode_btn).setOnClickListener {
                 view: View ->
-            Navigation.findNavController(view).navigate(R.id.action_fragmentChooseMode_to_fragmentSetBio)
+            val intent = Intent(requireContext(),DashboardActivity::class.java)
+            startActivity(intent)
+
         }
 
         return root

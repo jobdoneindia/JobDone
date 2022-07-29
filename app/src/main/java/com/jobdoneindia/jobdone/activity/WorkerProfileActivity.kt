@@ -6,10 +6,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
 
 class WorkerProfileActivity : AppCompatActivity() {
@@ -23,11 +27,23 @@ class WorkerProfileActivity : AppCompatActivity() {
         val editButton = findViewById<FloatingActionButton>(R.id.edit_button)
         val workerProfileLayout = findViewById<ConstraintLayout>(R.id.worker_profile_layout)
         val workerToggle = findViewById<SwitchMaterial>(R.id.worker_toggle)
+        val logoutBtn = findViewById<Button>(R.id.logout_button)
+
+        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+        val uid  = FirebaseAuth.getInstance().currentUser?.uid
+        val reference : DatabaseReference = database.reference.child(uid.toString())
 
         // workerToggle switch on
         workerToggle.isChecked = true
 
-        // TODO: Logout button function
+        // Logout button function
+        logoutBtn.setOnClickListener{
+
+            reference.child("Worker-Details").removeValue()
+
+            val intent = Intent(this,LoginActivity::class.java)
+            startActivity(intent)
+        }
 
         // animation init
         val animation = AnimationUtils.loadAnimation(this, R.anim.fade_out)
