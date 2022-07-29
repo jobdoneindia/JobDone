@@ -106,6 +106,17 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <TextView
         android:id="@+id/workersCustomer"
         android:layout_width="match_parent"
@@ -113,12 +124,13 @@
         android:text="Customer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintTop_toTopOf="parent"
         android:textStyle="bold"
         android:fontFamily="@font/poppins"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_customers_preview"
         android:layout_width="match_parent"
@@ -149,6 +161,12 @@
         app:layout_constraintTop_toBottomOf="@id/jobsforyou"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

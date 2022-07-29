@@ -73,6 +73,9 @@ class FragmentSearchResults: Fragment()  {
         // TODO: See SearchResultsAdapter.kt
         searchItemList.layoutManager = LinearLayoutManager(activity)
 
+        // detect scroll
+
+
         // Back button
         val backButton = root.findViewById<ImageButton>(R.id.back_button)
         backButton.setOnClickListener {
