@@ -19,9 +19,11 @@
             android:textAlignment="center"
             android:text="Fridge repair"
             android:textColor="@color/black"
-            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:gravity="center"/>
 
         <TextView
             android:layout_margin="9dp"

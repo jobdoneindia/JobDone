@@ -51,7 +51,7 @@ class DashboardActivity : AppCompatActivity() {
                 }
 
                 R.id.menuChat -> {
-                    startActivity(Intent(applicationContext, RegistrationActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    startActivity(Intent(applicationContext, WorkerDashboardActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     return@setOnItemSelectedListener true
                 }
 

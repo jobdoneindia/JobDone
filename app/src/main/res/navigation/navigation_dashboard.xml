@@ -37,5 +37,13 @@
         <action
             android:id="@+id/action_fragmentSearchResults_to_fragmentMainButton"
             app:destination="@id/fragmentMainButton" />
+        <action
+            android:id="@+id/action_fragmentSearchResults_to_fragmentScheduleThisJob"
+            app:destination="@id/fragmentScheduleThisJob" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentScheduleThisJob"
+        android:name="com.jobdoneindia.jobdone.fragment.FragmentScheduleThisJob"
+        android:label="fragment_schedule_this_job"
+        tools:layout="@layout/fragment_schedule_this_job" />
 </navigation>

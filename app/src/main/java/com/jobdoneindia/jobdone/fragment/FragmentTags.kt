@@ -1,5 +1,6 @@
 package com.jobdoneindia.jobdone.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -80,5 +82,17 @@ class FragmentTags: Fragment() {
         }
 
         return root
+    }
+
+    // overriding the back button
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                Navigation.findNavController(view!!).navigate(R.id.action_fragmentTags_to_fragmentMainButton)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 }

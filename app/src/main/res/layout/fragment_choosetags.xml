@@ -79,6 +79,7 @@
         android:id="@+id/ServicesList"
         tools:listitem="@layout/tag_item_view"
         app:layout_constraintTop_toBottomOf="@id/spacing1"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:elevation="5dp"
         />
 

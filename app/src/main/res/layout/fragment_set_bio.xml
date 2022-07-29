@@ -35,6 +35,7 @@
 
         <EditText
             android:id="@+id/input_bio"
+            style="@style/ThemeOverlay.Material3.TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/txtSelectTags"

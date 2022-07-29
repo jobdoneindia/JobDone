@@ -1,19 +1,29 @@
 package com.jobdoneindia.jobdone.activity
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.ImageButton
 import android.widget.ScrollView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jobdoneindia.jobdone.R
+import de.hdodenhof.circleimageview.CircleImageView
 
 class EditWorkerProfileActivity : AppCompatActivity() {
+
+    private lateinit var btnSetDP: ImageButton
+    private lateinit var profilePic: CircleImageView
+    private lateinit var imageuri: Uri
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_worker_profile)
@@ -39,6 +49,11 @@ class EditWorkerProfileActivity : AppCompatActivity() {
         selectorTag3.setAdapter(adapter)
 
         // TODO: Feature to select DP and update in database
+        profilePic = findViewById(R.id.profile_pic)
+        btnSetDP = findViewById(R.id.btnSetDP)
+        btnSetDP.setOnClickListener {
+            pickfromGallery()
+        }
 
         // TODO: Feature to set current location
 
@@ -74,4 +89,21 @@ class EditWorkerProfileActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    // Start galleryIntent for result
+    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result ->
+        if(result.resultCode == Activity.RESULT_OK && result.data != null) {
+            imageuri = result.data!!.data!!
+            profilePic.setImageURI(imageuri)
+        }
+    }
+
+    // select an image from Gallery
+    private fun pickfromGallery() {
+        val galleryIntent: Intent = Intent(Intent.ACTION_PICK)
+        galleryIntent.setType("image/*")
+        resultLauncher.launch(galleryIntent)
+    }
+
 }
