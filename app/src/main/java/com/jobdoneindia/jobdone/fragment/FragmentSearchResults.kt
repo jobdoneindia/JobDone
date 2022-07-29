@@ -1,5 +1,6 @@
 package com.jobdoneindia.jobdone.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
@@ -7,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.SearchResultsAdapter
 import com.jobdoneindia.jobdone.adapter.TagsAdapter
@@ -32,7 +35,7 @@ class FragmentSearchResults: Fragment()  {
         // TODO: Add a "Schedule a job" Button and create ActivityPostAJob.kt
 
         // storing data
-        //  TODO: Search the database using tag recieved from previous fragment and location of user
+        //  TODO: Search the database using tag received from previous fragment and location of user
         // TODO: Read data from worker profiles from database and store it in mySearchItems array
         mySearchItems.add(SearchItem("Ramesh Kumar","Electrician hu mai bol","4.5 / 5","5km","I check for defects, assemble products, monitor manufacturing equipment, and closely follow safety procedures to prevent accidents in environments where materials may be hazardous."))
         mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
@@ -77,6 +80,28 @@ class FragmentSearchResults: Fragment()  {
             Navigation.findNavController(view).navigate(R.id.action_fragmentSearchResults_to_fragmentTags)
         }
 
+        // FAB i.e schedule your work
+        val btnScheduleJob = root.findViewById<FloatingActionButton>(R.id.btnScheduleJob)
+        btnScheduleJob.setOnClickListener {
+            view:View ->
+            run {
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_fragmentSearchResults_to_fragmentScheduleThisJob)
+            }
+        }
+
         return root
+    }
+
+    // overriding the back button
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                Navigation.findNavController(view!!).navigate(R.id.action_fragmentSearchResults_to_fragmentTags)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 }

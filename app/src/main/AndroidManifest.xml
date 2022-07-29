@@ -2,16 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jobdoneindia.jobdone">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
-<application
+    <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,8 +19,8 @@
         android:theme="@style/Theme.JobDone">
         <activity
             android:name=".activity.RegistrationActivity"
-            android:label="Registration"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Registration" />
         <activity
             android:name=".activity.EditWorkerProfileActivity"
             android:exported="true"
@@ -69,14 +68,7 @@
             android:exported="true"
             android:windowSoftInputMode="adjustPan" />
 
-        // Extra foreground notification for location service
-        <service
-        android:name=".MyNavigationService"
-        android:foregroundServiceType="location">
-        </service>
-
-
-    <meta-data
+        <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>

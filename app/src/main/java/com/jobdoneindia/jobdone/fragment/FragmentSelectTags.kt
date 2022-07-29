@@ -1,11 +1,13 @@
 package com.jobdoneindia.jobdone.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.chip.Chip
@@ -40,7 +42,13 @@ class FragmentSelectTags : Fragment() {
         autoCompleteTextView.setAdapter(adapterItems)
         autoCompleteTextView.setOnItemClickListener { adapterView, view, position, id ->
             val item: String = adapterView.getItemAtPosition(position).toString()
-            Toast.makeText(requireContext(), "Item: $item", Toast.LENGTH_SHORT).show()
+            if (tagList.size < 3) {
+                tagList.add(item)
+                updateTags(tagList)
+                autoCompleteTextView.text = null
+            } else {
+                Toast.makeText(requireContext(), "Limit exceeded.",Toast.LENGTH_LONG).show()
+            }
         }
 
         // onClickListener for btnAdd
@@ -68,6 +76,7 @@ class FragmentSelectTags : Fragment() {
         return root
     }
 
+    // Update tags in Chip Group
     private fun updateTags(tagList: MutableList<String>) {
         chipGroup.removeAllViews()
         for (index in tagList.indices) {
@@ -88,4 +97,6 @@ class FragmentSelectTags : Fragment() {
             chipGroup.addView(chip)
         }
     }
+
+
 }

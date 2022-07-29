@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.jobdoneindia.jobdone.R
@@ -47,27 +48,37 @@ class SearchResultsAdapter(val searchItems: MutableList<SearchItem>): RecyclerVi
         var level = itemView.findViewById<TextView>(R.id.distance_from_user)
         var description = itemView.findViewById<TextView>(R.id.desc)
 
+        var cardView = itemView.findViewById<CardView>(R.id.cardView)
         var expandButton = itemView.findViewById<ImageButton>(R.id.btnExpand)
         var expandableView = itemView.findViewById<ConstraintLayout>(R.id.expandableView)
 
         init {
             itemView.setOnClickListener {
-                listener.onItemClick(absoluteAdapterPosition)
+                // listener.onItemClick(absoluteAdapterPosition)
             }
 
             // TODO: Onclick listener for message-button will Add worker to inbox and redirect to ChatActivity
 
             // TODO: Call-button will make a call
 
+            cardView.setOnClickListener {
+                cardHideShow()
+            }
+
             expandButton.setOnClickListener {
-                if (expandableView.visibility == View.VISIBLE) {
-                    expandableView.visibility = View.GONE
-                    expandButton.rotation = -90F
-                } else {
-                    expandableView.visibility = View.VISIBLE
-                    expandButton.rotation = 0F
-                }
+                cardHideShow()
+            }
+        }
+
+        private fun cardHideShow() {
+            if (expandableView.visibility == View.VISIBLE) {
+                expandableView.visibility = View.GONE
+                expandButton.rotation = -90F
+            } else {
+                expandableView.visibility = View.VISIBLE
+                expandButton.rotation = 0F
             }
         }
     }
+
 }

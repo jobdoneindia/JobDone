@@ -31,6 +31,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
+        dataBinding true
         viewBinding true
     }
 }
@@ -48,6 +49,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0'
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.6'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     //material design dependency
