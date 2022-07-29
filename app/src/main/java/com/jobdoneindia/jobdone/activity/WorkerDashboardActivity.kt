@@ -3,6 +3,7 @@ package com.jobdoneindia.jobdone.activity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -17,11 +18,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.common.api.Api
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.CustomerPreviewAdapter
 import com.jobdoneindia.jobdone.adapter.ScheduledJobsPreviewAdapter
@@ -35,6 +38,8 @@ data class ScheduledJobsPreview(val workers_name: String, val schedule_date: Str
 class WorkerDashboardActivity : AppCompatActivity() {
     private val customersPreview = mutableListOf<CustomersPreview>()
     private val scheduledJobsPreview = mutableListOf<ScheduledJobsPreview>()
+
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private lateinit var mainBinding: ActivityWorkerDashboardBinding
@@ -91,6 +96,42 @@ class WorkerDashboardActivity : AppCompatActivity() {
         val workersList: RecyclerView = findViewById((R.id.recyclerview_workers_preview))
         workersList.adapter = ScheduledJobsPreviewAdapter(scheduledJobsPreview)
         workersList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        // Set Home selected (in bottom nav bar)
+        bottomNavigationView = findViewById(R.id.bottomNavigationDrawer)
+        bottomNavigationView.selectedItemId = R.id.menuHome
+
+        // Perform item selected listener (bottom nav bar)
+        bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menuHome -> {
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.menuRewards -> {
+                    startActivity(
+                        Intent(applicationContext, RewardsActivity::class.java).setFlags(
+                            Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.menuChat -> {
+                    startActivity(
+                        Intent(applicationContext, WorkerDashboardActivity::class.java).setFlags(
+                            Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.menuAccount -> {
+                    startActivity(
+                        Intent(applicationContext, WorkerProfileActivity::class.java).setFlags(
+                            Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    return@setOnItemSelectedListener true
+                }
+
+            }
+            false
+        }
 
     }
 

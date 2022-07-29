@@ -40,7 +40,7 @@ class WorkerProfileActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.menuHome -> {
                     startActivity(
-                        Intent(applicationContext, DashboardActivity::class.java).setFlags(
+                        Intent(applicationContext, WorkerDashboardActivity::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
                 }
 
