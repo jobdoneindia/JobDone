@@ -3,9 +3,42 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/siraj/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_edit_profile.xml" value="0.264" />
-        <entry key="..\:/Users/siraj/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_phone_auth_login.xml" value="0.264" />
-        <entry key="..\:/Users/siraj/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_userprofile.xml" value="0.4" />
+        <entry key="..\:/Users/SUBHAJIT/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_tags.xml" value="0.2185" />
+        <entry key="..\:/Users/SUBHAJIT/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ripple_effect.xml" value="0.2185" />
+        <entry key="..\:/Users/SUBHAJIT/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_choosetags.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_searchresults.xml" value="0.253125" />
+        <entry key="..\:/Users/SUBHAJIT/AndroidStudioProjects/JobDone/app/src/main/res/layout/item_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/AndroidStudioProjects/JobDone/app/src/main/res/layout/search_item_view.xml" value="0.253125" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/drawable-v24/shp_search_icon_background.xml" value="0.1625" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/drawable-v24/shp_white_rectangle_background.xml" value="0.1625" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/drawable/ic_scheduled_dates.xml" value="0.1625" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/drawable/ic_twotone_phone_iphone_24.xml" value="0.1625" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/drawable/shp_bigroundbutton.xml" value="0.1625" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/drawable/shp_bluerectanglebutton.xml" value="0.1625" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/drawable/shp_rounded_rect.xml" value="0.1625" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/drawable/shp_roundorange.xml" value="0.1625" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/drawable/shp_white_rectangle_background_border.xml" value="0.1625" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/activity_chats.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/activity_dashboard.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/activity_edit_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/activity_edit_worker_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/activity_userprofile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/activity_worker_dashboard.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/activity_worker_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/chip_layout_entry.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/customer_items.xml" value="0.253125" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/fragment_choosetags.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/fragment_jobs.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/fragment_jobs_for_you.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/fragment_mainbutton.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/fragment_schedule_this_job.xml" value="0.2" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/fragment_searchresults.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/fragment_set_dp.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/fragment_your_customers.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/scheduled_job_items.xml" value="0.253125" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/search_item_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/SUBHAJIT/Desktop/JobDone/app/src/main/res/layout/tag_item_view.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/ic_account.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/ic_settings.xml" value="0.1" />
@@ -15,8 +48,6 @@
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/shp_white_rectangle_background.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable-v24/white_rectangle_background.xml" value="0.339" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/header_background.xml" value="0.1" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_add_photo.xml" value="0.3075" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_badge.xml" value="0.3075" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_chat.xml" value="0.157" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_circle.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_edit.xml" value="0.1" />
@@ -24,13 +55,10 @@
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_google.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_laptop.xml" value="0.157" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_phone_white.xml" value="0.1" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_rating.xml" value="0.3075" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ic_star.xml" value="0.3075" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/icons.xml" value="0.339" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/layout_button_login.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/orange_border_background.xml" value="0.157" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/ripple_effect.xml" value="0.1" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/round_ripple_effect.xml" value="0.303" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/rounded_bottom_rect.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/shp.xml" value="0.2175" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/drawable/shp_bigroundbutton.xml" value="0.2175" />
@@ -44,76 +72,38 @@
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_chats.xml" value="0.10648148148148148" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_dashboard.xml" value="0.381025641025641" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_edit_profile.xml" value="0.2875905797101449" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_edit_worker_profile.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_freelance.xml" value="0.1" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_phone_auth_login.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_phone_login.xml" value="0.33" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_registration.xml" value="0.1382716049382716" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_reward.xml" value="0.38697916666666665" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_schedule_your_job.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_splash.xml" value="0.22" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_userprofile.xml" value="0.33" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_worker_dashboard.xml" value="0.37083333333333335" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_worker_profile.xml" value="0.33" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/chip_layout_entry.xml" value="0.20925925925925926" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/dropdown_item.xml" value="0.3175925925925926" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_choose_mode.xml" value="0.3609375" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_userprofile.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_choosetag.xml" value="0.33378378378378376" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_choosetags.xml" value="0.33" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_enter_name.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_first.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_mainbutton.xml" value="0.3302222222222222" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_schedule_this_job.xml" value="0.375" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_searchresults.xml" value="0.22" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_second.xml" value="0.38697916666666665" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_select_tags.xml" value="0.25" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_set_bio.xml" value="0.375" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_set_dp.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/item_view.xml" value="0.3302222222222222" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/nav_header.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/navheader.xml" value="0.19022289766970618" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/search_item_view.xml" value="0.375" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/tag_item_view.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/navigation_menu.xml" value="0.34673366834170855" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/navmenu.xml" value="0.26851851851851855" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/sidenav_menu.xml" value="0.2675925925925926" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/sidenavmenu.xml" value="0.2391304347826087" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/worker_menu.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/ic_twotone_phone_iphone_24.xml" value="0.2225" />
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.264" />
-        <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/activity_edit_worker_profile.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.4" />
         <entry key="app/src/main/res/layout/activity_phone_auth_login.xml" value="0.4" />
         <entry key="app/src/main/res/layout/activity_phone_login.xml" value="0.264" />
         <entry key="app/src/main/res/layout/activity_reward.xml" value="0.4" />
         <entry key="app/src/main/res/layout/activity_rewards.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/activity_userprofile.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/activity_worker_dashboard.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/activity_worker_profile.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/content_reward.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/customer_items.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/fragment_choosetags.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/fragment_enter_name.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.536" />
-        <entry key="app/src/main/res/layout/fragment_mainbutton.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/fragment_searchresults.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/fragment_select_tags.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/fragment_set_bio.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/fragment_set_dp.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/fragment_your_customers.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/scheduled_job_items.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/search_item_view.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/tag_item_view.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/menu/sidenav_menu.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/menu/worker_menu.xml" value="0.32135416666666666" />
       </map>
     </option>
   </component>

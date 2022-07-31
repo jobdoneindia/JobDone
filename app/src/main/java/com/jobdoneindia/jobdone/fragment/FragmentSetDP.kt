@@ -44,7 +44,7 @@ class FragmentSetDP : Fragment() {
 
         }
 
-        root.findViewById<Button>(R.id.doneBtn).setOnClickListener{
+        root.findViewById<Button>(R.id.nextButton).setOnClickListener{
                 view: View ->
             val intent = Intent(requireContext(),DashboardActivity::class.java)
             startActivity(intent)
