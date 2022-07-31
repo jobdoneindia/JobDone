@@ -2,35 +2,43 @@ package com.jobdoneindia.jobdone.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
+import android.content.IntentSender
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
-import android.location.LocationManager
+import android.location.*
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.common.api.Api
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.common.api.*
+import com.google.android.gms.location.*
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.CustomerPreviewAdapter
 import com.jobdoneindia.jobdone.adapter.ScheduledJobsPreviewAdapter
 import com.jobdoneindia.jobdone.databinding.ActivityWorkerDashboardBinding
+import java.lang.Exception
 import java.util.*
 import java.util.zip.Inflater
+import kotlin.Result
 
 data class CustomersPreview( val customers_name: String, val customer_message: String)
 data class ScheduledJobsPreview(val workers_name: String, val schedule_date: String, val schedule_location: String, val time: String)
@@ -44,6 +52,7 @@ class WorkerDashboardActivity : AppCompatActivity() {
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private lateinit var mainBinding: ActivityWorkerDashboardBinding
     private val permissionId = 2
+    private val REQUEST_CHECK_SETTINGS = 0x1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +62,7 @@ class WorkerDashboardActivity : AppCompatActivity() {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         mainBinding.btnSetLocation.setOnClickListener {
+            checkGpsStatus()
             getLocation()
         }
 
@@ -188,6 +198,54 @@ class WorkerDashboardActivity : AppCompatActivity() {
         } else {
             requestPermissions()
         }
+    }
+
+    private fun checkGpsStatus() {
+        val locationManager: LocationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val gpsStatus = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        if (gpsStatus) {
+            Toast.makeText(this, "GPS Enabled", Toast.LENGTH_SHORT).show()
+        } else {
+            displayLocationSettingsRequest(this)
+            Toast.makeText(this, "Please enable GPS", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // function to display dialog box to turn on GPS
+    private fun displayLocationSettingsRequest(context: Context) {
+        val locationRequest: LocationRequest = LocationRequest.create()
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+        locationRequest.setInterval(10000)
+        locationRequest.setFastestInterval(10000/2)
+
+        val builder: LocationSettingsRequest.Builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+        builder.setAlwaysShow(true)
+
+        val settingsClient: SettingsClient = LocationServices.getSettingsClient(this)
+
+        val result: Task<LocationSettingsResponse> = settingsClient.checkLocationSettings(builder.build())
+
+        result.addOnSuccessListener(this, object : OnSuccessListener<LocationSettingsResponse>{
+            override fun onSuccess(locationSettingsResponse: LocationSettingsResponse?) {
+                checkGpsStatus()
+            }
+        })
+
+        result.addOnFailureListener(this, object : OnFailureListener{
+            override fun onFailure(e: Exception) {
+                if (e is ResolvableApiException) {
+                    try {
+                        val resolvableApiException: ResolvableApiException = e
+                        resolvableApiException.startResolutionForResult(this@WorkerDashboardActivity, REQUEST_CHECK_SETTINGS)
+
+                    } catch (sendIntentException: IntentSender.SendIntentException) {
+                        sendIntentException.printStackTrace()
+                    }
+                }
+            }
+
+        })
+
     }
 
 }

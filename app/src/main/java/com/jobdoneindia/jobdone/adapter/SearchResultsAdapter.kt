@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.futuremind.recyclerviewfastscroll.RecyclerViewScrollListener
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.fragment.SearchItem
 
@@ -41,6 +42,8 @@ class SearchResultsAdapter(val searchItems: MutableList<SearchItem>): RecyclerVi
         return searchItems.size
     }
 
+
+
     inner class MyViewHolder(itemView: View, listener: onItemClickListener): RecyclerView.ViewHolder(itemView){
         var name = itemView.findViewById<TextView>(R.id.worker_name)
         var bio = itemView.findViewById<TextView>(R.id.bio)
@@ -54,7 +57,7 @@ class SearchResultsAdapter(val searchItems: MutableList<SearchItem>): RecyclerVi
 
         init {
             itemView.setOnClickListener {
-                // listener.onItemClick(absoluteAdapterPosition)
+                listener.onItemClick(absoluteAdapterPosition)
             }
 
             // TODO: Onclick listener for message-button will Add worker to inbox and redirect to ChatActivity
