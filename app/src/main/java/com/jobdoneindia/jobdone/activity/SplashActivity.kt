@@ -15,6 +15,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.jobdoneindia.jobdone.R
 
+// Siraj is back!! baby!!
+
 class SplashActivity: AppCompatActivity() {
 
     private val permissionId = 2
