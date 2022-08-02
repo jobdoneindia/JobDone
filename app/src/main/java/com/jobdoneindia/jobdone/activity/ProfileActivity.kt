@@ -1,7 +1,9 @@
 package com.jobdoneindia.jobdone.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
@@ -10,6 +12,8 @@ import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -18,6 +22,7 @@ import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -39,10 +44,29 @@ class ProfileActivity : AppCompatActivity() {
         val workerToggle = findViewById<SwitchMaterial>(R.id.worker_toggle)
         val profileLayout = findViewById<ConstraintLayout>(R.id.constraint_layout_profile)
         val logoutBtn = findViewById<Button>(R.id.logout_button)
+        val userName = findViewById<TextView>(R.id.user_name)
+        val userAddress = findViewById<TextView>(R.id.user_address)
 
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
         val uid  = FirebaseAuth.getInstance().currentUser?.uid
         val reference : DatabaseReference = database.reference.child(uid.toString())
+
+        // fetching data from local DB
+        val sharedPreferences: SharedPreferences = getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+        val sharedName: String? = sharedPreferences.getString("name_key", "Siraj Alarm")
+        val sharedAddress: String? = sharedPreferences.getString("location_key", "India, Earth")
+        userName.text = sharedName.toString()
+        userAddress.text = sharedAddress.toString()
+
+        // get image url from local database
+        val imageUrl:  String? = sharedPreferences.getString("dp_url_key", "not found")
+
+        // Set DP using Glide
+        Glide.with(this)
+            .load(imageUrl)
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .into(this.findViewById<CircleImageView>(R.id.profile_pic))
+
 
         //logout Button listener
         logoutBtn.setOnClickListener{

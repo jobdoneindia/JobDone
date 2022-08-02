@@ -84,46 +84,29 @@
                 android:maxLength="200"/>
 
             <TextView
+                android:id="@+id/txtSelectTags"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location"/>
-            <EditText
+                android:text="Select Tags:" />
+
+            <com.google.android.material.chip.ChipGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/chip_group_tags"/>
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/auto_complete_tag"
                 android:inputType="text"
-                android:hint="E.g Sukti Godown, Matigara, West Bengal"
+                android:hint="E.g. Fridge Repairer" />
 
-                android:text="Sukti Godown, Matigara, West Bengal"/>
-
-            <TextView
+            <Button
+                android:id="@+id/btnAdd"
+                app:backgroundTint="#FD8E6A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tag 1"/>
-            <AutoCompleteTextView
-                android:id="@+id/selector_tag1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="E.g Fridge Repair"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tag 2"/>
-            <AutoCompleteTextView
-                android:id="@+id/selector_tag2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="E.g AC Repair"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tag 3"/>
-            <AutoCompleteTextView
-                android:id="@+id/selector_tag3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="E.g Electronics"/>
+                android:text="ADD" />
 
         </LinearLayout>
 

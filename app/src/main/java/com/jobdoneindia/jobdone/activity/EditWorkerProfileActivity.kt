@@ -1,8 +1,10 @@
 package com.jobdoneindia.jobdone.activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -49,6 +51,13 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             val workerName = findViewById<EditText>(R.id.workerName).text.toString().trim()
             val workerBio = findViewById<EditText>(R.id.workerBio).text.toString().trim()
 
+            //store data locally
+            // Store data locally
+            val sharedPreferences: SharedPreferences = getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString("name_key", workerName)
+
+            // store data in firebase
             reference.child("Workername").setValue(workerName)
             reference.child("Workerbio").setValue(workerBio)
 
@@ -57,14 +66,8 @@ class EditWorkerProfileActivity : AppCompatActivity() {
         }
 
         // Tags Selectors
-        val selectorTag1 = findViewById<AutoCompleteTextView>(R.id.selector_tag1)
-        val selectorTag2 = findViewById<AutoCompleteTextView>(R.id.selector_tag2)
-        val selectorTag3 = findViewById<AutoCompleteTextView>(R.id.selector_tag3)
         val tags = resources.getStringArray(R.array.tags)
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tags)
-        selectorTag1.setAdapter(adapter)
-        selectorTag2.setAdapter(adapter)
-        selectorTag3.setAdapter(adapter)
 
         // TODO: Feature to select DP and update in database
         profilePic = findViewById(R.id.profile_pic)

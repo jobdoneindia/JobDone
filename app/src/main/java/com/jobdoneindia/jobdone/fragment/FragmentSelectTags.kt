@@ -1,6 +1,7 @@
 package com.jobdoneindia.jobdone.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.navigation.Navigation
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.jobdoneindia.jobdone.R
+import com.jobdoneindia.jobdone.activity.DashboardActivity
 
 
 class FragmentSelectTags : Fragment() {
@@ -70,7 +72,9 @@ class FragmentSelectTags : Fragment() {
         // Next Button
         root.findViewById<Button>(R.id.btnNext).setOnClickListener {
                 view: View ->
-            Navigation.findNavController(view).navigate(R.id.action_fragmentSelectTags_to_fragmentSetDP)
+            val intent = Intent(requireContext(), DashboardActivity::class.java)
+            startActivity(intent)
+            // Navigation.findNavController(view).navigate(R.id.action_fragmentSelectTags_to_fragmentSetDP)
         }
 
         return root

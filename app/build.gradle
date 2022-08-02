@@ -43,6 +43,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
 
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // circle imageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0'
@@ -50,7 +54,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.6'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
     implementation 'com.google.android.gms:play-services-location:20.0.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.2.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     //material design dependency
@@ -83,13 +86,5 @@ dependencies {
 
     //bundle
     implementation 'androidx.fragment:fragment-ktx:1.5.0'
-
-    // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:30.3.1')
-
-    // Declare the dependency for the Cloud Storage library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-storage-ktx'
-
 
 }

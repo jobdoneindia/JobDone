@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/JobDone/app/src/main/res/layout/activity_userprofile.xml" value="0.25" />
+        <entry key="..\:/JobDone/app/src/main/res/layout/fragment_mainbutton.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/siraj/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_edit_profile.xml" value="0.264" />
         <entry key="..\:/Users/siraj/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_phone_auth_login.xml" value="0.264" />
         <entry key="..\:/Users/siraj/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_userprofile.xml" value="0.4" />
@@ -52,11 +54,13 @@
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_phone_login.xml" value="0.33" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_registration.xml" value="0.1382716049382716" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_reward.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_schedule_your_job.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_splash.xml" value="0.22" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_userprofile.xml" value="0.33" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_worker_dashboard.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_worker_profile.xml" value="0.33" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/chip_layout_entry.xml" value="0.20925925925925926" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/customer_items.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/dropdown_item.xml" value="0.3175925925925926" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_choose_mode.xml" value="0.3609375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_choosetag.xml" value="0.33378378378378376" />
@@ -72,6 +76,7 @@
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/item_view.xml" value="0.3302222222222222" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/nav_header.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/navheader.xml" value="0.19022289766970618" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/scheduled_job_items.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/search_item_view.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/tag_item_view.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/navigation_menu.xml" value="0.34673366834170855" />

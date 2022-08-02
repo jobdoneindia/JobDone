@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.futuremind.recyclerviewfastscroll.RecyclerViewScrollListener
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.fragment.SearchItem
 
@@ -35,11 +36,33 @@ class SearchResultsAdapter(val searchItems: MutableList<SearchItem>): RecyclerVi
         holder.overall_rating.text = searchItems[position].overall_rating
         holder.level.text = searchItems[position].distance
         holder.description.text = searchItems[position].description
+
+        holder.itemView.setOnClickListener {
+            if (holder.expandableView.visibility == View.VISIBLE) {
+                holder.expandableView.visibility = View.GONE
+                holder.expandButton.rotation = -90F
+            } else {
+                holder.expandableView.visibility = View.VISIBLE
+                holder.expandButton.rotation = 0F
+            }
+        }
+
+        holder.expandButton.setOnClickListener {
+            if (holder.expandableView.visibility == View.VISIBLE) {
+                holder.expandableView.visibility = View.GONE
+                holder.expandButton.rotation = -90F
+            } else {
+                holder.expandableView.visibility = View.VISIBLE
+                holder.expandButton.rotation = 0F
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return searchItems.size
     }
+
+
 
     inner class MyViewHolder(itemView: View, listener: onItemClickListener): RecyclerView.ViewHolder(itemView){
         var name = itemView.findViewById<TextView>(R.id.worker_name)
@@ -47,37 +70,17 @@ class SearchResultsAdapter(val searchItems: MutableList<SearchItem>): RecyclerVi
         var overall_rating = itemView.findViewById<TextView>(R.id.rating)
         var level = itemView.findViewById<TextView>(R.id.distance_from_user)
         var description = itemView.findViewById<TextView>(R.id.desc)
-
-        var cardView = itemView.findViewById<CardView>(R.id.cardView)
         var expandButton = itemView.findViewById<ImageButton>(R.id.btnExpand)
         var expandableView = itemView.findViewById<ConstraintLayout>(R.id.expandableView)
 
         init {
             itemView.setOnClickListener {
-                // listener.onItemClick(absoluteAdapterPosition)
+                listener.onItemClick(absoluteAdapterPosition)
             }
 
             // TODO: Onclick listener for message-button will Add worker to inbox and redirect to ChatActivity
 
             // TODO: Call-button will make a call
-
-            cardView.setOnClickListener {
-                cardHideShow()
-            }
-
-            expandButton.setOnClickListener {
-                cardHideShow()
-            }
-        }
-
-        private fun cardHideShow() {
-            if (expandableView.visibility == View.VISIBLE) {
-                expandableView.visibility = View.GONE
-                expandButton.rotation = -90F
-            } else {
-                expandableView.visibility = View.VISIBLE
-                expandButton.rotation = 0F
-            }
         }
     }
 

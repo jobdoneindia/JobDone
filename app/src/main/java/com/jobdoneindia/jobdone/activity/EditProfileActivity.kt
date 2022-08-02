@@ -1,20 +1,19 @@
 package com.jobdoneindia.jobdone.activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
-import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -24,7 +23,6 @@ import de.hdodenhof.circleimageview.CircleImageView
 class EditProfileActivity : AppCompatActivity() {
 
     lateinit var editTextName : EditText
-    lateinit var editTextLocation : EditText
     lateinit var doneButton : Button
     lateinit var editTextPhone: EditText
     lateinit var otpContinueBtn : Button
@@ -38,7 +36,6 @@ class EditProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
-
 
         // Add back button in Action Bar
         val actionBar: ActionBar? = supportActionBar
@@ -58,30 +55,37 @@ class EditProfileActivity : AppCompatActivity() {
         var doneButton: FloatingActionButton = findViewById(R.id.done_button)
         // TODO: Editing And Saving To Database
         editTextName = findViewById(R.id.editTextName)
-        editTextLocation = findViewById(R.id.editTextLocation)
+
+        // fetching data from local database
+        var sharedPreferences: SharedPreferences = this.getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+        val sharedLocation: String? = sharedPreferences.getString("location_key", "DefaultLocation")
+        val sharedName: String? = sharedPreferences.getString("name_key", "Siraj Alarm")
+        editTextName.setText(sharedName)
 
 
-        //TODO: sending data to dtabase
+        //TODO: sending data to database
 
             doneButton.setOnClickListener{
 
 
 
                     val userName: String = editTextName.text.toString().trim()
-                    val location: String = editTextLocation.text.toString()
+
+                    // Store data locally
+                    val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                    editor.putString("name_key", userName)
+                    editor.apply()
+                    editor.commit()
 
 
-
+                    // Store data in firebase
                     reference.child("UserName").setValue(userName)
-                    reference.child("Location").setValue(location)
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent)
 
         }
 
         // TODO: Update Database - OnClick Listener for FAB button
-
-
 
 
     }
