@@ -28,7 +28,7 @@ class LoginActivity: AppCompatActivity() {
 
         skipButton = findViewById<View>(R.id.skip_button) as Button
         skipButton!!.setOnClickListener{
-            startActivity(Intent(this,ChatUserList::class.java))
+            startActivity(Intent(this,DashboardActivity::class.java))
         }
 
         val phoneButton = findViewById<Button>(R.id.phn_button)

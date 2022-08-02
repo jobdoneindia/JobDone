@@ -1,15 +1,14 @@
 package com.jobdoneindia.jobdone.fragment
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentResolver
-import android.content.ContentValues
-import android.content.Intent
+import android.app.Activity.RESULT_OK
+import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,10 +24,6 @@ import androidx.core.app.ActivityCompat.*
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -57,7 +52,6 @@ class FragmentSetDP : Fragment() {
 
     lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
 
-    @SuppressLint("CutPasteId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,12 +62,6 @@ class FragmentSetDP : Fragment() {
 
 
         profileActivityForResult()
-        //firebase to store image
-        val uid = FirebaseAuth.getInstance().currentUser?.uid
-        val storageReference = FirebaseStorage.getInstance().reference.child(uid.toString())
-
-
-
         // onClickListener for btnEditDP
         profilePic = root.findViewById<ImageView>(R.id.profile_pic)
 
@@ -82,7 +70,6 @@ class FragmentSetDP : Fragment() {
 
         val btnEditDP = root.findViewById<FloatingActionButton>(R.id.btnEditDP)
         btnEditDP.setOnClickListener {
-
             pickfromGallery()
 
         }
@@ -91,11 +78,13 @@ class FragmentSetDP : Fragment() {
 
             uploadPhoto()
 
-        root.findViewById<Button>(R.id.nextButton).setOnClickListener{
-                view: View ->
 
-            storageReference.putFile(imageuri)
-            Navigation.findNavController(view).navigate(R.id.action_fragmentSetDP_to_fragmentChooseMode)
+            val intent = Intent(requireContext(), DashboardActivity::class.java)
+            startActivity(intent)
+
+
+
+
         }
 
 
@@ -249,12 +238,7 @@ class FragmentSetDP : Fragment() {
                 imageuri = result.data!!.data!!
                 profilePic.setImageURI(imageuri)
             }
-    }
+    }*/
 
-    // select an image from Gallery
-    private fun pickfromGallery() {
-        val galleryIntent: Intent = Intent(Intent.ACTION_PICK)
-        galleryIntent.setType("image/*")
-        resultLauncher.launch(galleryIntent)
-    }
+
 }
