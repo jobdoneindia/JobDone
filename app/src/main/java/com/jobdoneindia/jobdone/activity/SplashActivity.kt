@@ -15,8 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.jobdoneindia.jobdone.R
 
-// Siraj is back!! baby!!
-
 class SplashActivity: AppCompatActivity() {
 
     private val permissionId = 2
@@ -29,6 +27,12 @@ class SplashActivity: AppCompatActivity() {
 
         if (!checkPermissions()) {
             requestPermissions()
+        } else {
+            Handler(Looper.getMainLooper()).postDelayed({
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }, 2000)
         }
     }
 

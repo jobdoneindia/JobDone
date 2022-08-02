@@ -55,7 +55,7 @@ class FragmentEnterName : Fragment() {
             fragment.arguments = bundle
 
             reference.child("Username").setValue(inputName)
-            Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentChooseMode)
+            Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentSetDP)
         }
 
         return root

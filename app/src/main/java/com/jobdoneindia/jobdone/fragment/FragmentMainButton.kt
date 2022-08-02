@@ -25,6 +25,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.common.api.ResolvableApiException
@@ -34,6 +36,7 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
 import com.jobdoneindia.jobdone.R
+import de.hdodenhof.circleimageview.CircleImageView
 import java.lang.Exception
 import java.util.*
 
@@ -88,6 +91,19 @@ class FragmentMainButton: Fragment() {
         txtAddress.text = sharedLocation.toString()
         val userName: TextView = root.findViewById(R.id.user_name)
         userName.text = sharedName.toString()
+
+        val userDP: CircleImageView = root.findViewById(R.id.user_dp)
+
+
+        // get image url from local database
+        val imageUrl:  String? = sharedPreferences.getString("dp_url_key", "not found")
+//        Toast.makeText(requireContext(), imageUrl, Toast.LENGTH_LONG).show()
+
+        // Set DP using Glide
+        Glide.with(requireContext())
+            .load(imageUrl)
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .into(userDP)
 
         // get location if location permission is not allowed
         if (sharedLocation == "DefaultLocation") {
