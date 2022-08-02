@@ -1,7 +1,9 @@
 package com.jobdoneindia.jobdone.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
@@ -39,10 +41,20 @@ class ProfileActivity : AppCompatActivity() {
         val workerToggle = findViewById<SwitchMaterial>(R.id.worker_toggle)
         val profileLayout = findViewById<ConstraintLayout>(R.id.constraint_layout_profile)
         val logoutBtn = findViewById<Button>(R.id.logout_button)
+        val userName = findViewById<TextView>(R.id.user_name)
+        val userAddress = findViewById<TextView>(R.id.user_address)
 
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
         val uid  = FirebaseAuth.getInstance().currentUser?.uid
         val reference : DatabaseReference = database.reference.child(uid.toString())
+
+        // fetching data from local DB
+        val sharedPreferences: SharedPreferences = getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+        val sharedName: String? = sharedPreferences.getString("name_key", "Siraj Alarm")
+        val sharedAddress: String? = sharedPreferences.getString("location_key", "India, Earth")
+        userName.text = sharedName.toString()
+        userAddress.text = sharedAddress.toString()
+
 
         //logout Button listener
         logoutBtn.setOnClickListener{

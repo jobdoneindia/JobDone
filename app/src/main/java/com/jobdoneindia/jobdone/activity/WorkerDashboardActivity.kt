@@ -2,31 +2,21 @@ package com.jobdoneindia.jobdone.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.IntentSender
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.*
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.provider.Settings
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.common.api.*
 import com.google.android.gms.location.*
 import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
@@ -37,8 +27,6 @@ import com.jobdoneindia.jobdone.adapter.ScheduledJobsPreviewAdapter
 import com.jobdoneindia.jobdone.databinding.ActivityWorkerDashboardBinding
 import java.lang.Exception
 import java.util.*
-import java.util.zip.Inflater
-import kotlin.Result
 
 data class CustomersPreview( val customers_name: String, val customer_message: String)
 data class ScheduledJobsPreview(val workers_name: String, val schedule_date: String, val schedule_location: String, val time: String)
@@ -54,6 +42,9 @@ class WorkerDashboardActivity : AppCompatActivity() {
     private val permissionId = 2
     private val REQUEST_CHECK_SETTINGS = 0x1
 
+    private val userSharedPreferences = "usersharedpreference"
+    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityWorkerDashboardBinding.inflate(layoutInflater)
@@ -61,11 +52,26 @@ class WorkerDashboardActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        sharedPreferences = getSharedPreferences(userSharedPreferences, Context.MODE_PRIVATE)
+
+        if (!checkPermissions()) {
+            checkGpsStatus()
+            getLocation()
+            saveLocationLocally(sharedPreferences)
+        }
+
+        // Fetch location from local database and display
+        val sharedLocation: String? = sharedPreferences.getString("location_key", "DefaultLocation")
+        val sharedName: String? = sharedPreferences.getString("name_key", "Siraj Alarm")
+        Toast.makeText(this, sharedLocation, Toast.LENGTH_LONG)
+        mainBinding.txtAddress.text = sharedLocation.toString()
+        mainBinding.name.text = sharedName.toString()
+
         mainBinding.btnSetLocation.setOnClickListener {
             checkGpsStatus()
             getLocation()
+            saveLocationLocally(sharedPreferences)
         }
-
 
         customersPreview.add(CustomersPreview("Avinash Prasad", "asfsfsd"))
         customersPreview.add(CustomersPreview("Avinash Prasad", "sdfsdf"))
@@ -87,7 +93,6 @@ class WorkerDashboardActivity : AppCompatActivity() {
         val customersList: RecyclerView = findViewById(R.id.recyclerview_customers_preview)
         customersList.adapter = CustomerPreviewAdapter(customersPreview)
         customersList.layoutManager = LinearLayoutManager(this)
-
 
 
         scheduledJobsPreview.add(ScheduledJobsPreview("Avinash Prasad", "28-07-2022", "Matigara, Sukti Godown", "10:30 AM"))
@@ -145,6 +150,13 @@ class WorkerDashboardActivity : AppCompatActivity() {
 
     }
 
+    // store location locally
+    private fun saveLocationLocally(sharedPreferences: SharedPreferences) {
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putString("location_key", mainBinding.txtAddress.text.toString())
+        editor.apply()
+    }
+
     private fun isLocationEnabled(): Boolean {
         val locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
@@ -178,7 +190,6 @@ class WorkerDashboardActivity : AppCompatActivity() {
         }
     }
 
-
     @SuppressLint("MissingPermission")
     private fun getLocation() {
         if (checkPermissions()) {
@@ -187,11 +198,8 @@ class WorkerDashboardActivity : AppCompatActivity() {
                     val location: Location? = task.result
                     if (location != null) {
                         val geocoder = Geocoder(this, Locale.getDefault())
-                        val list: List<Address> =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                            mainBinding.apply {
-                                txtAddress.text = "${list[0].getAddressLine(0)}"
-                            }
+                        val list: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                        mainBinding.txtAddress.text = list[0].getAddressLine(0)
                     }
                 }
             }
@@ -218,7 +226,7 @@ class WorkerDashboardActivity : AppCompatActivity() {
         locationRequest.setInterval(10000)
         locationRequest.setFastestInterval(10000/2)
 
-        val builder: LocationSettingsRequest.Builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+        val builder: LocationSettingsRequest.Builder = LocationSettingsRequest   .Builder().addLocationRequest(locationRequest)
         builder.setAlwaysShow(true)
 
         val settingsClient: SettingsClient = LocationServices.getSettingsClient(this)

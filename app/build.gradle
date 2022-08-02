@@ -50,13 +50,14 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.6'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
     implementation 'com.google.android.gms:play-services-location:20.0.0'
+    implementation 'androidx.preference:preference-ktx:1.1.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     //material design dependency
     implementation 'com.google.android.material:material:1.6.1'
 
     //animatoo dependency
-    // implementation 'com.github.mohammadatif:Animatoo:master'
+    implementation 'com.daimajia.androidanimations:library:2.4@aar'
 
     // country code picker
     implementation 'com.hbb20:ccp:2.6.0'
