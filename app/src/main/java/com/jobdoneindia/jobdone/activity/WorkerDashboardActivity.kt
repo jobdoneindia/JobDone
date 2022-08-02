@@ -82,15 +82,15 @@ class WorkerDashboardActivity : AppCompatActivity() {
 
         scheduledJobsPreview.add(ScheduledJobsPreview("Avinash Prasad", "28-07-2022", "Matigara, Sukti Godown", "10:30 AM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Siraj Alam", "30-07-2022", "Matigara, Sukti Godown", "10:00 AM"))
-        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chettri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chhetri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Subhajit Chowdhury", "28-07-2022", "Matigara, Sukti Godown", "11:30 AM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Avinash Prasad", "28-07-2022", "Matigara, Sukti Godown", "10:30 AM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Siraj Alam", "30-07-2022", "Matigara, Sukti Godown", "10:00 AM"))
-        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chettri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chhetri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Subhajit Chowdhury", "28-07-2022", "Matigara, Sukti Godown", "11:30 AM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Avinash Prasad", "28-07-2022", "Matigara, Sukti Godown", "10:30 AM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Siraj Alam", "30-07-2022", "Matigara, Sukti Godown", "10:00 AM"))
-        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chettri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
+        scheduledJobsPreview.add(ScheduledJobsPreview("Yuvraj Chhetri", "28-07-2022", "Matigara, Sukti Godown", "01:30 PM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Subhajit Chowdhury", "28-07-2022", "Matigara, Sukti Godown", "11:30 AM"))
 
         val workersList: RecyclerView = findViewById((R.id.recyclerview_workers_preview))

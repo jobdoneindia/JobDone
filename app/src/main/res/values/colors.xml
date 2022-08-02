@@ -18,5 +18,6 @@
     <color name="colorBackground">#EBEBEB</color>
     <color name="textGrey">#767E8C</color>
     <color name="textGreyLight">#BEC9DF</color>
+    <color name="sky_blue">#99b3ff</color>
 
 </resources>

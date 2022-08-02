@@ -1,5 +1,6 @@
 package com.jobdoneindia.jobdone.fragment
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentResolver
 import android.content.ContentValues
@@ -19,6 +20,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.DashboardActivity
 import java.util.jar.Manifest
@@ -29,6 +34,7 @@ class FragmentSetDP : Fragment() {
     private lateinit var imageuri: Uri
 
 
+    @SuppressLint("CutPasteId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,22 +42,28 @@ class FragmentSetDP : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_set_dp, container, false)
 
+        //firebase to store image
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        val storageReference = FirebaseStorage.getInstance().reference.child(uid.toString())
+
+
+
         // onClickListener for btnEditDP
         profilePic = root.findViewById<ImageView>(R.id.profile_pic)
+
         val btnEditDP = root.findViewById<FloatingActionButton>(R.id.btnEditDP)
         btnEditDP.setOnClickListener {
+
             pickfromGallery()
 
         }
 
-        root.findViewById<Button>(R.id.doneBtn).setOnClickListener{
+        root.findViewById<Button>(R.id.nextButton).setOnClickListener{
                 view: View ->
-            val intent = Intent(requireContext(),DashboardActivity::class.java)
-            startActivity(intent)
 
+            storageReference.putFile(imageuri)
+            Navigation.findNavController(view).navigate(R.id.action_fragmentSetDP_to_fragmentChooseMode)
         }
-
-
 
         return root
     }

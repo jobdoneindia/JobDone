@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_fragmentEnterName_to_fragmentChooseMode"
             app:destination="@id/fragmentChooseMode" />
+        <action
+            android:id="@+id/action_fragmentEnterName_to_fragmentSetDP"
+            app:destination="@id/fragmentSetDP" />
     </fragment>
     <fragment
         android:id="@+id/fragmentChooseMode"
@@ -22,6 +25,9 @@
         <action
             android:id="@+id/action_fragmentChooseMode_to_fragmentSetBio"
             app:destination="@id/fragmentSetBio" />
+        <action
+            android:id="@+id/action_fragmentChooseMode_to_fragmentSetDP"
+            app:destination="@id/fragmentSetDP" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSetBio"
@@ -45,5 +51,9 @@
         android:id="@+id/fragmentSetDP"
         android:name="com.jobdoneindia.jobdone.fragment.FragmentSetDP"
         android:label="fragment_set_dp"
-        tools:layout="@layout/fragment_set_dp" />
+        tools:layout="@layout/fragment_set_dp" >
+        <action
+            android:id="@+id/action_fragmentSetDP_to_fragmentChooseMode"
+            app:destination="@id/fragmentChooseMode" />
+    </fragment>
 </navigation>

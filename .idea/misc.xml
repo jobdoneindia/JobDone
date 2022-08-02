@@ -52,7 +52,6 @@
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_phone_login.xml" value="0.33" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_registration.xml" value="0.1382716049382716" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_reward.xml" value="0.38697916666666665" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_schedule_your_job.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_splash.xml" value="0.22" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_userprofile.xml" value="0.33" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/activity_worker_dashboard.xml" value="0.37083333333333335" />
@@ -65,8 +64,7 @@
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_enter_name.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_first.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_mainbutton.xml" value="0.3302222222222222" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_schedule_this_job.xml" value="0.375" />
-        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_searchresults.xml" value="0.22" />
+        <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_searchresults.xml" value="0.375" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_second.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_select_tags.xml" value="0.25" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/layout/fragment_set_bio.xml" value="0.375" />
@@ -82,7 +80,19 @@
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/sidenavmenu.xml" value="0.2391304347826087" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/worker_menu.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable-v24/chatcorner_receive.xml" value="0.2275" />
+        <entry key="app/src/main/res/drawable-v24/chatcornersent.xml" value="0.2275" />
+        <entry key="app/src/main/res/drawable/ic_location.xml" value="0.244" />
+        <entry key="app/src/main/res/drawable/ic_sendbutton.xml" value="0.222" />
         <entry key="app/src/main/res/drawable/ic_twotone_phone_iphone_24.xml" value="0.2225" />
+        <entry key="app/src/main/res/drawable/message_box_background.xml" value="0.222" />
+        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_chat_main.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_chat_user.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_chat_user_list.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_chat_users.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_chats.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_chats_main.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.264" />
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_edit_worker_profile.xml" value="0.32135416666666666" />
@@ -94,9 +104,13 @@
         <entry key="app/src/main/res/layout/activity_userprofile.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_worker_dashboard.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_worker_profile.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/chat_receive.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/chat_sent.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/chat_user_layout.xml" value="0.4" />
         <entry key="app/src/main/res/layout/content_reward.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/customer_items.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/fragment_choose_mode.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_choosetags.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_enter_name.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.536" />
@@ -107,10 +121,14 @@
         <entry key="app/src/main/res/layout/fragment_set_bio.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_set_dp.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_your_customers.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/item_profile.xml" value="0.3203125" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/receive.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/scheduled_job_items.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/search_item_view.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/sent.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/tag_item_view.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/user_layout.xml" value="0.3203125" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/menu/sidenav_menu.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/menu/worker_menu.xml" value="0.32135416666666666" />

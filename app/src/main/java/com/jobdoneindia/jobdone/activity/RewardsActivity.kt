@@ -32,7 +32,7 @@ class RewardsActivity : AppCompatActivity() {
 
                 R.id.menuChat -> {
                     startActivity(
-                        Intent(applicationContext, ChatsActivity::class.java).setFlags(
+                        Intent(applicationContext, DashboardActivity::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     return@setOnItemSelectedListener true
                 }

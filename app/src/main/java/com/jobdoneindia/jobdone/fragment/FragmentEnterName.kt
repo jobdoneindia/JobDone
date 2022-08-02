@@ -46,7 +46,7 @@ class FragmentEnterName : Fragment() {
 
             val database : FirebaseDatabase = FirebaseDatabase.getInstance()
             val uid = FirebaseAuth.getInstance().currentUser?.uid
-            val reference : DatabaseReference = database.reference.child(uid.toString())
+            val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
             inputName = root.findViewById<EditText>(R.id.input_name).text.toString().trim()
 
             bundle.putString("username",inputName)
@@ -55,7 +55,7 @@ class FragmentEnterName : Fragment() {
             fragment.arguments = bundle
 
             reference.child("Username").setValue(inputName)
-            Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentChooseMode)
+            Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentSetDP)
         }
 
         return root

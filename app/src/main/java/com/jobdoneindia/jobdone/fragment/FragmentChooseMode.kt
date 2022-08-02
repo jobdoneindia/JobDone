@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.DashboardActivity
+import com.jobdoneindia.jobdone.activity.WorkerDashboardActivity
 
 class FragmentChooseMode : Fragment() {
 
@@ -30,7 +31,11 @@ class FragmentChooseMode : Fragment() {
                 view: View ->
             val intent = Intent(requireContext(),DashboardActivity::class.java)
             startActivity(intent)
+        }
 
+        root.findViewById<Button>(R.id.worker_mode_btn).setOnClickListener{
+                view: View ->
+            Navigation.findNavController(view).navigate(R.id.action_fragmentChooseMode_to_fragmentSetBio)
         }
 
         return root

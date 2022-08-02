@@ -12,14 +12,14 @@ import com.jobdoneindia.jobdone.R
 class LoginActivity: AppCompatActivity() {
 
     private var skipButton: Button? = null
-    private var firebaseUser: FirebaseUser?=null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
 
-        firebaseUser = FirebaseAuth.getInstance().currentUser
+
 
 //        if(firebaseUser != null){
 //            val intent = Intent(this,DashboardActivity::class.java)
@@ -27,6 +27,9 @@ class LoginActivity: AppCompatActivity() {
 //        }
 
         skipButton = findViewById<View>(R.id.skip_button) as Button
+        skipButton!!.setOnClickListener{
+            startActivity(Intent(this,ChatUserList::class.java))
+        }
 
         val phoneButton = findViewById<Button>(R.id.phn_button)
         phoneButton.setOnClickListener{
@@ -34,10 +37,7 @@ class LoginActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
-        skipButton!!.setOnClickListener{
-            val intent = Intent(this, DashboardActivity::class.java)
-            startActivity(intent)
-        }
+
 
     }
 }
