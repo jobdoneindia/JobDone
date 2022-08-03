@@ -1,6 +1,5 @@
 package com.jobdoneindia.jobdone.activity
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -8,9 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.widget.Button
-import android.widget.Switch
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -18,7 +15,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
@@ -107,7 +103,7 @@ class ProfileActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
-                R.id.menuChat -> {
+                R.id.menuNotifications -> {
                     startActivity(
                         Intent(applicationContext, DashboardActivity::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))

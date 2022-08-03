@@ -14,6 +14,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.gms.common.api.*
 import com.google.android.gms.location.*
 import com.google.android.gms.location.LocationRequest
@@ -25,6 +27,7 @@ import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.CustomerPreviewAdapter
 import com.jobdoneindia.jobdone.adapter.ScheduledJobsPreviewAdapter
 import com.jobdoneindia.jobdone.databinding.ActivityWorkerDashboardBinding
+import de.hdodenhof.circleimageview.CircleImageView
 import java.lang.Exception
 import java.util.*
 
@@ -63,9 +66,19 @@ class WorkerDashboardActivity : AppCompatActivity() {
         // Fetch location from local database and display
         val sharedLocation: String? = sharedPreferences.getString("location_key", "DefaultLocation")
         val sharedName: String? = sharedPreferences.getString("name_key", "Siraj Alarm")
-        Toast.makeText(this, sharedLocation, Toast.LENGTH_LONG)
+        val sharedTags: String? = sharedPreferences.getString("tags_key", "NotFound")
+        Toast.makeText(this, sharedTags, Toast.LENGTH_LONG).show()
         mainBinding.txtAddress.text = sharedLocation.toString()
         mainBinding.name.text = sharedName.toString()
+
+        // get image url from local database
+        val imageUrl:  String? = sharedPreferences.getString("dp_url_key", "not found")
+
+        // Set DP using Glide
+        Glide.with(this)
+            .load(imageUrl)
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .into(this.findViewById<CircleImageView>(R.id.user_dp))
 
         mainBinding.btnSetLocation.setOnClickListener {
             checkGpsStatus()
@@ -130,7 +143,7 @@ class WorkerDashboardActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
-                R.id.menuChat -> {
+                R.id.menuNotifications -> {
                     startActivity(
                         Intent(applicationContext, WorkerDashboardActivity::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))

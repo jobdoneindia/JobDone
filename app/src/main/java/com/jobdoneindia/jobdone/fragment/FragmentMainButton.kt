@@ -34,11 +34,13 @@ import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.jobdoneindia.jobdone.R
 import de.hdodenhof.circleimageview.CircleImageView
 import java.lang.Exception
 import java.util.*
+import kotlin.collections.ArrayList
 
 class FragmentMainButton: Fragment() {
 
@@ -48,6 +50,7 @@ class FragmentMainButton: Fragment() {
 
     private val userSharedPreferences = "usersharedpreference"
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private val permissionId = 2
@@ -134,7 +137,7 @@ class FragmentMainButton: Fragment() {
 
     // store location locally
     private fun saveLocationLocally(sharedPreferences: SharedPreferences) {
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor = sharedPreferences.edit()
         editor.putString("location_key", txtAddress.text.toString())
         editor.apply()
     }
@@ -183,6 +186,13 @@ class FragmentMainButton: Fragment() {
                         val geocoder = Geocoder(requireContext(), Locale.getDefault())
                         val list: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                         txtAddress.text = list[0].getAddressLine(0)
+
+                        // saving location in firebase db
+                        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+                        val uid = FirebaseAuth.getInstance().currentUser?.uid
+                        val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
+                        reference.child("Location").setValue(arrayListOf(location.latitude, location.longitude))
+
                         saveLocationLocally(sharedPreferences)
                     }
                 }

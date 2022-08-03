@@ -65,9 +65,6 @@ class FragmentSetDP : Fragment() {
         // onClickListener for btnEditDP
         profilePic = root.findViewById<ImageView>(R.id.profile_pic)
 
-
-
-
         val btnEditDP = root.findViewById<FloatingActionButton>(R.id.btnEditDP)
         btnEditDP.setOnClickListener {
             pickfromGallery()
@@ -75,16 +72,14 @@ class FragmentSetDP : Fragment() {
         }
         nextButton = root.findViewById(R.id.nextButton)
         root.findViewById<Button>(R.id.nextButton).setOnClickListener {
+            view: View ->
 
-            uploadPhoto()
+            nextButton.text = "Loading..."
+            uploadPhoto() // and go to next activity
+            /*val intent = Intent(requireContext(), DashboardActivity::class.java)
+            startActivity(intent)*/
 
-
-            val intent = Intent(requireContext(), DashboardActivity::class.java)
-            startActivity(intent)
-
-
-
-
+            Navigation.findNavController(view).navigate(R.id.action_fragmentSetDP_to_fragmentChooseMode)
         }
 
 
@@ -111,13 +106,12 @@ class FragmentSetDP : Fragment() {
             )
 
 
-        } else {
-
-            val galleryIntent = Intent()
-            galleryIntent.type = "image/*"
-            galleryIntent.action = Intent.ACTION_GET_CONTENT
-            activityResultLauncher.launch(galleryIntent)
         }
+
+        val galleryIntent = Intent()
+        galleryIntent.type = "image/*"
+        galleryIntent.action = Intent.ACTION_GET_CONTENT
+        activityResultLauncher.launch(galleryIntent)
     }
 
     override fun onRequestPermissionsResult(
@@ -206,6 +200,8 @@ class FragmentSetDP : Fragment() {
 
             imageReference.putFile(uri).addOnSuccessListener {
                 Toast.makeText(requireContext(), "Image uploaded" ,Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireContext(), DashboardActivity::class.java)
+                startActivity(intent)
 
                 //downloadable url
                 val myUploadImageReference = storageReference.child("images").child(imageName)

@@ -17,57 +17,15 @@ import com.jobdoneindia.jobdone.R
 
 class SplashActivity: AppCompatActivity() {
 
-    private val permissionId = 2
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         supportActionBar?.hide()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        if (!checkPermissions()) {
-            requestPermissions()
-        } else {
-            Handler(Looper.getMainLooper()).postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
-                finish()
-            }, 2000)
-        }
-    }
-
-    private fun checkPermissions() : Boolean {
-        if (ActivityCompat.checkSelfPermission(
-               this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )== PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            return true
-        }
-        return false
-    }
-
-    private fun requestPermissions() {
-        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), permissionId)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == permissionId) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                Handler(Looper.getMainLooper()).postDelayed({
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }, 2000)
-            }
-        }
+                finish() }, 2000)
     }
 }

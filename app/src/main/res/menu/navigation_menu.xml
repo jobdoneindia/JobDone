@@ -11,7 +11,7 @@
         android:title="Rewards"/>
 
     <item
-        android:id="@+id/menuChat"
+        android:id="@+id/menuNotifications"
         android:icon="@drawable/ic_chat"
         android:title="Chats"/>
 
