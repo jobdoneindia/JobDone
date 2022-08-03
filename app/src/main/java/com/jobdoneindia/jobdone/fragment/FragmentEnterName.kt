@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
+import com.jobdoneindia.jobdone.models.User
 
 class FragmentEnterName : Fragment() {
 
@@ -58,10 +59,7 @@ class FragmentEnterName : Fragment() {
             editor.apply()
             editor.commit()
 
-            val fragment = FragmentMainButton()
-            fragment.arguments = bundle
-
-            reference.child("Username").setValue(inputName)
+            reference.setValue(User(uid.toString(),inputName))
             Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentSetDP)
         }
 

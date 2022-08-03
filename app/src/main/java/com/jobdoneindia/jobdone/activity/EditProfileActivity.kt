@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
@@ -55,6 +56,7 @@ class EditProfileActivity : AppCompatActivity() {
         // TODO: Editing And Saving To Database
         editTextName = findViewById(R.id.editTextName)
 
+
         // fetching data from local database
         var sharedPreferences: SharedPreferences = this.getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
         val sharedLocation: String? = sharedPreferences.getString("location_key", "DefaultLocation")
@@ -67,18 +69,19 @@ class EditProfileActivity : AppCompatActivity() {
             doneButton.setOnClickListener{
 
 
-
-                    val userName: String = editTextName.text.toString().trim()
+                    val name: String = editTextName.text.toString().trim()
 
                     // Store data locally
                     val editor: SharedPreferences.Editor = sharedPreferences.edit()
-                    editor.putString("name_key", userName)
+                    editor.putString("name_key", name)
                     editor.apply()
                     editor.commit()
 
 
+
+
                     // Store data in firebase
-                    reference.child("UserName").setValue(userName)
+                    reference.child("Users").child(FirebaseAuth.getInstance().currentUser?.uid.toString()).setValue(name)
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent)
 
