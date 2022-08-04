@@ -109,7 +109,7 @@ class FragmentMainButton: Fragment() {
             .into(userDP)
 
         // get location if location permission is not allowed
-        if (sharedLocation == "DefaultLocation") {
+        if (sharedLocation == "DefaultLocation" || !checkPermissions()) {
             checkGpsStatus()
             getLocation(sharedPreferences)
             saveLocationLocally(sharedPreferences)

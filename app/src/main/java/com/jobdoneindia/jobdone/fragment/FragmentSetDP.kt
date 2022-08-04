@@ -1,14 +1,10 @@
 package com.jobdoneindia.jobdone.fragment
 
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.*
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,23 +15,19 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.*
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.jobdoneindia.jobdone.R
-import com.jobdoneindia.jobdone.activity.DashboardActivity
-import com.jobdoneindia.jobdone.models.User
-import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
-import java.util.jar.Manifest
 
 
 class FragmentSetDP : Fragment() {
@@ -48,7 +40,6 @@ class FragmentSetDP : Fragment() {
     val storageReference : StorageReference = firebaseStorage.reference
     lateinit var imageView : CircleImageView
     val database : FirebaseDatabase = FirebaseDatabase.getInstance()
-    val myReference : DatabaseReference = database.reference.child("MyUsers")
 
     lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
 
@@ -78,8 +69,6 @@ class FragmentSetDP : Fragment() {
             uploadPhoto() // and go to next activity
             /*val intent = Intent(requireContext(), DashboardActivity::class.java)
             startActivity(intent)*/
-
-            Navigation.findNavController(view).navigate(R.id.action_fragmentSetDP_to_fragmentChooseMode)
         }
 
 
@@ -132,30 +121,14 @@ class FragmentSetDP : Fragment() {
 
     }
 
-    fun addProfileToDatabase(url : String){
+    fun addProfilePicUrlToDatabase(url : String){
 
+        // store profession and tags in realtime database
+        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
 
-
-        val id : String = myReference.push().key.toString()
-
-        val user = User(id,url)
-
-        myReference.child(id).setValue(user).addOnCompleteListener { task ->
-
-            if (task.isSuccessful){
-
-                Toast.makeText(requireContext(), "Welcome to JobDone", Toast.LENGTH_SHORT).show()
-
-                nextButton.isClickable = true
-
-
-
-            }else{
-                Toast.makeText(requireContext(),task.exception.toString(),Toast.LENGTH_SHORT).show()
-
-            }
-
-        }
+        reference.child("url").setValue(url)
 
     }
 
@@ -200,15 +173,13 @@ class FragmentSetDP : Fragment() {
 
             imageReference.putFile(uri).addOnSuccessListener {
                 Toast.makeText(requireContext(), "Image uploaded" ,Toast.LENGTH_SHORT).show()
-                val intent = Intent(requireContext(), DashboardActivity::class.java)
-                startActivity(intent)
 
                 //downloadable url
                 val myUploadImageReference = storageReference.child("images").child(imageName)
                 myUploadImageReference.downloadUrl.addOnSuccessListener { url ->
 
                     imageURL = url.toString()
-                    addProfileToDatabase(imageURL)
+                    addProfilePicUrlToDatabase(imageURL)
 
                     // Store image url locally
                     val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
@@ -216,6 +187,9 @@ class FragmentSetDP : Fragment() {
                     editor.putString("dp_url_key", imageURL)
                     editor.apply()
                     editor.commit()
+
+
+                    view?.let { view: View -> Navigation.findNavController(view).navigate(R.id.action_fragmentSetDP_to_fragmentChooseMode) }
                 }
 
             }.addOnFailureListener{

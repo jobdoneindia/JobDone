@@ -57,12 +57,6 @@ class WorkerDashboardActivity : AppCompatActivity() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         sharedPreferences = getSharedPreferences(userSharedPreferences, Context.MODE_PRIVATE)
 
-        if (!checkPermissions()) {
-            checkGpsStatus()
-            getLocation()
-            saveLocationLocally(sharedPreferences)
-        }
-
         // Fetch location from local database and display
         val sharedLocation: String? = sharedPreferences.getString("location_key", "DefaultLocation")
         val sharedName: String? = sharedPreferences.getString("name_key", "Siraj Alarm")
@@ -70,6 +64,12 @@ class WorkerDashboardActivity : AppCompatActivity() {
         Toast.makeText(this, sharedTags, Toast.LENGTH_LONG).show()
         mainBinding.txtAddress.text = sharedLocation.toString()
         mainBinding.name.text = sharedName.toString()
+
+        if (sharedLocation == "DefaultLoaction" || !checkPermissions()) {
+            checkGpsStatus()
+            getLocation()
+            saveLocationLocally(sharedPreferences)
+        }
 
         // get image url from local database
         val imageUrl:  String? = sharedPreferences.getString("dp_url_key", "not found")
