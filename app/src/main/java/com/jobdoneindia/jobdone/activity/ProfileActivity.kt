@@ -129,6 +129,9 @@ class ProfileActivity : AppCompatActivity() {
 
         // Worker toggle
         workerToggle.setOnClickListener {
+
+            //Store worker details in firebase
+
             profileLayout.startAnimation(animation)
             startActivity(Intent(applicationContext, WorkerProfileActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
 

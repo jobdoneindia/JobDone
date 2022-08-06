@@ -1,6 +1,8 @@
 package com.jobdoneindia.jobdone.fragment
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
@@ -41,7 +43,7 @@ class FragmentEnterName : Fragment() {
 
 
 
-//        // Next Button
+        // Next Button
         root.findViewById<Button>(R.id.nextButton).setOnClickListener {
                 view: View ->
 
@@ -50,6 +52,13 @@ class FragmentEnterName : Fragment() {
             val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
             inputName = root.findViewById<EditText>(R.id.input_name).text.toString().trim()
 
+
+            // Store data locally
+            var sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString("name_key", inputName)
+            editor.apply()
+            editor.commit()
 
             reference.setValue(User(uid.toString(),inputName))
             Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentSetDP)

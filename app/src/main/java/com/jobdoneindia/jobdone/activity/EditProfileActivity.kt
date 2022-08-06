@@ -82,7 +82,7 @@ class EditProfileActivity : AppCompatActivity() {
 
 
                     // Store data in firebase
-                    reference.child("Users").child(FirebaseAuth.getInstance().currentUser?.uid.toString()).setValue(name)
+                    reference.child(FirebaseAuth.getInstance().currentUser?.uid.toString()).child("username").setValue(name)
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent)
 
