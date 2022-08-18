@@ -23,6 +23,9 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.CustomerPreviewAdapter
 import com.jobdoneindia.jobdone.adapter.ScheduledJobsPreviewAdapter
@@ -67,7 +70,7 @@ class WorkerDashboardActivity : AppCompatActivity() {
 
         if (sharedLocation == "DefaultLoaction" || !checkPermissions()) {
             checkGpsStatus()
-            getLocation()
+            getLocation(sharedPreferences)
             saveLocationLocally(sharedPreferences)
         }
 
@@ -82,7 +85,7 @@ class WorkerDashboardActivity : AppCompatActivity() {
 
         mainBinding.btnSetLocation.setOnClickListener {
             checkGpsStatus()
-            getLocation()
+            getLocation(sharedPreferences)
             saveLocationLocally(sharedPreferences)
         }
 
@@ -198,13 +201,13 @@ class WorkerDashboardActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == permissionId) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                getLocation()
+                getLocation(sharedPreferences)
             }
         }
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLocation() {
+    private fun getLocation(sharedPreferences: SharedPreferences) {
         if (checkPermissions()) {
             if(isLocationEnabled()) {
                 mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
@@ -213,6 +216,14 @@ class WorkerDashboardActivity : AppCompatActivity() {
                         val geocoder = Geocoder(this, Locale.getDefault())
                         val list: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                         mainBinding.txtAddress.text = list[0].getAddressLine(0)
+
+                        // saving location in firebase db
+                        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+                        val uid = FirebaseAuth.getInstance().currentUser?.uid
+                        val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
+                        reference.child("Location").setValue(arrayListOf(location.latitude, location.longitude))
+
+                        saveLocationLocally(sharedPreferences)
                     }
                 }
             }
