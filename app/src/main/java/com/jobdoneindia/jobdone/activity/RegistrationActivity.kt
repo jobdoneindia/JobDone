@@ -28,13 +28,13 @@ class RegistrationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_registration)
         supportActionBar?.hide()
 
-        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+        /*val database : FirebaseDatabase = FirebaseDatabase.getInstance()
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
 //        val inputName = findViewById<EditText>(R.id.input_name).text.toString().trim()
         val phoneNumber = intent.getStringExtra("phoneNumber")
 //        reference.child("Username").setValue(inputName)
-        reference.child("Phone Number").setValue(phoneNumber)
+        reference.child("Phone Number").setValue(phoneNumber)*/
 
 
     }

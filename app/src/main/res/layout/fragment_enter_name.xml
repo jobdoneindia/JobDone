@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtSelectTags"
+            android:id="@+id/txtSelectProfession"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="136dp"
@@ -45,7 +45,7 @@
             android:layout_marginTop="12dp"
             android:hint="E.g. Ramesh Kumar"
             android:inputType="textPersonName"
-            app:layout_constraintTop_toBottomOf="@id/txtSelectTags"
+            app:layout_constraintTop_toBottomOf="@id/txtSelectProfession"
             tools:layout_editor_absoluteX="4dp" />
 
         <Button

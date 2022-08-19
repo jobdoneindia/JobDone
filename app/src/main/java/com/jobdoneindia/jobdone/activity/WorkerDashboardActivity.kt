@@ -14,6 +14,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.gms.common.api.*
 import com.google.android.gms.location.*
 import com.google.android.gms.location.LocationRequest
@@ -21,10 +23,14 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.CustomerPreviewAdapter
 import com.jobdoneindia.jobdone.adapter.ScheduledJobsPreviewAdapter
 import com.jobdoneindia.jobdone.databinding.ActivityWorkerDashboardBinding
+import de.hdodenhof.circleimageview.CircleImageView
 import java.lang.Exception
 import java.util.*
 
@@ -54,22 +60,32 @@ class WorkerDashboardActivity : AppCompatActivity() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         sharedPreferences = getSharedPreferences(userSharedPreferences, Context.MODE_PRIVATE)
 
-        if (!checkPermissions()) {
-            checkGpsStatus()
-            getLocation()
-            saveLocationLocally(sharedPreferences)
-        }
-
         // Fetch location from local database and display
         val sharedLocation: String? = sharedPreferences.getString("location_key", "DefaultLocation")
         val sharedName: String? = sharedPreferences.getString("name_key", "Siraj Alarm")
-        Toast.makeText(this, sharedLocation, Toast.LENGTH_LONG)
+        val sharedTags: String? = sharedPreferences.getString("tags_key", "NotFound")
+        Toast.makeText(this, sharedTags, Toast.LENGTH_LONG).show()
         mainBinding.txtAddress.text = sharedLocation.toString()
         mainBinding.name.text = sharedName.toString()
 
+        if (sharedLocation == "DefaultLoaction" || !checkPermissions()) {
+            checkGpsStatus()
+            getLocation(sharedPreferences)
+            saveLocationLocally(sharedPreferences)
+        }
+
+        // get image url from local database
+        val imageUrl:  String? = sharedPreferences.getString("dp_url_key", "not found")
+
+        // Set DP using Glide
+        Glide.with(this)
+            .load(imageUrl)
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .into(this.findViewById<CircleImageView>(R.id.user_dp))
+
         mainBinding.btnSetLocation.setOnClickListener {
             checkGpsStatus()
-            getLocation()
+            getLocation(sharedPreferences)
             saveLocationLocally(sharedPreferences)
         }
 
@@ -130,7 +146,7 @@ class WorkerDashboardActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
-                R.id.menuChat -> {
+                R.id.menuNotifications -> {
                     startActivity(
                         Intent(applicationContext, WorkerDashboardActivity::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
@@ -185,13 +201,13 @@ class WorkerDashboardActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == permissionId) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                getLocation()
+                getLocation(sharedPreferences)
             }
         }
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLocation() {
+    private fun getLocation(sharedPreferences: SharedPreferences) {
         if (checkPermissions()) {
             if(isLocationEnabled()) {
                 mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
@@ -200,6 +216,14 @@ class WorkerDashboardActivity : AppCompatActivity() {
                         val geocoder = Geocoder(this, Locale.getDefault())
                         val list: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                         mainBinding.txtAddress.text = list[0].getAddressLine(0)
+
+                        // saving location in firebase db
+                        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+                        val uid = FirebaseAuth.getInstance().currentUser?.uid
+                        val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
+                        reference.child("Location").setValue(arrayListOf(location.latitude, location.longitude))
+
+                        saveLocationLocally(sharedPreferences)
                     }
                 }
             }

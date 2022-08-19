@@ -43,7 +43,7 @@ class FragmentEnterName : Fragment() {
 
 
 
-        // Next Button
+//        // Next Button
         root.findViewById<Button>(R.id.nextButton).setOnClickListener {
                 view: View ->
 
@@ -52,9 +52,8 @@ class FragmentEnterName : Fragment() {
             val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
             inputName = root.findViewById<EditText>(R.id.input_name).text.toString().trim()
 
-
-            // Store data locally
-            var sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+            // store data locally
+            val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
             val editor: SharedPreferences.Editor = sharedPreferences.edit()
             editor.putString("name_key", inputName)
             editor.apply()

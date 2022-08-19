@@ -17,6 +17,8 @@ import android.widget.ScrollView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -43,6 +45,16 @@ class EditWorkerProfileActivity : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         val reference:DatabaseReference = database.reference.child(uid.toString()).child("Worker-Details")
 
+        val sharedPreferences: SharedPreferences = getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+
+        // get image url from local database
+        val imageUrl:  String? = sharedPreferences.getString("dp_url_key", "not found")
+
+        // Set DP using Glide
+        Glide.with(this)
+            .load(imageUrl)
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .into(this.findViewById<CircleImageView>(R.id.profile_pic))
 
         // Done fab button
         val doneButton: FloatingActionButton = findViewById(R.id.done_button)
@@ -53,7 +65,6 @@ class EditWorkerProfileActivity : AppCompatActivity() {
 
             //store data locally
             // Store data locally
-            val sharedPreferences: SharedPreferences = getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
             val editor: SharedPreferences.Editor = sharedPreferences.edit()
             editor.putString("name_key", workerName)
 

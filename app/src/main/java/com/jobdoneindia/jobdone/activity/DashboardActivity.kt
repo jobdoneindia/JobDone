@@ -1,39 +1,14 @@
 package com.jobdoneindia.jobdone.activity
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.content.IntentSender
-import android.content.SharedPreferences
-import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
-import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.FragmentContainerView
-import androidx.navigation.NavController
-import androidx.navigation.NavHost
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
-import java.lang.Exception
-import java.util.*
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -76,7 +51,7 @@ class DashboardActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
-                R.id.menuChat -> {
+                R.id.menuNotifications -> {
                     startActivity(Intent(applicationContext, ChatUserList::class.java))
                     return@setOnItemSelectedListener true
                 }

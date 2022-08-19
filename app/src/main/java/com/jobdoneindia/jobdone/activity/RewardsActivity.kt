@@ -30,7 +30,7 @@ class RewardsActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
-                R.id.menuChat -> {
+                R.id.menuNotifications -> {
                     startActivity(
                         Intent(applicationContext, DashboardActivity::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))

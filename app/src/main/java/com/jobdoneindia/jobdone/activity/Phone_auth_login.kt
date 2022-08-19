@@ -27,8 +27,9 @@ class Phone_auth_login : AppCompatActivity() {
     lateinit var editTextPhone: EditText
     lateinit var otpContinueBtn : Button
 
+    val uid = FirebaseAuth.getInstance().currentUser?.uid
     val database : FirebaseDatabase = FirebaseDatabase.getInstance()
-    val reference : DatabaseReference = database.reference.child("Users")
+    val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
 
     //binding
     private lateinit var binding: ActivityPhoneAuthLoginBinding
@@ -210,9 +211,11 @@ class Phone_auth_login : AppCompatActivity() {
                 val phone = firebaseAuth.currentUser?.phoneNumber
                 Toast.makeText(this,"Logged In as $phone", Toast.LENGTH_SHORT).show()
 
+                reference.child("Phone Number").setValue(phone)
+
                 //start profile activity
                 val intent = Intent(this,RegistrationActivity::class.java)
-                intent.putExtra("phoneNumber",phone)
+                /*intent.putExtra("phoneNumber",phone)*/
                 startActivity(intent)
 
             }

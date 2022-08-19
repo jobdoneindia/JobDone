@@ -12,9 +12,9 @@
         android:title="Rewards"/>
 
     <item
-        android:id="@+id/menuChat"
-        android:icon="@drawable/ic_group"
-        android:title="Customers"/>
+        android:id="@+id/menuNotifications"
+        android:icon="@drawable/ic_notification"
+        android:title="Notifications"/>
 
     <item
         android:id="@+id/menuAccount"

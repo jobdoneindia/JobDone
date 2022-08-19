@@ -26,7 +26,7 @@ class FragmentChooseMode : Fragment() {
         val transitionInflater = TransitionInflater.from(requireContext())
         exitTransition = transitionInflater.inflateTransition(R.transition.fade)
 
-        // Choose Button
+        // Customer Button
         root.findViewById<Button>(R.id.customer_mode_btn).setOnClickListener {
                 view: View ->
             val intent = Intent(requireContext(),DashboardActivity::class.java)
@@ -35,7 +35,7 @@ class FragmentChooseMode : Fragment() {
 
         root.findViewById<Button>(R.id.worker_mode_btn).setOnClickListener{
                 view: View ->
-            Navigation.findNavController(view).navigate(R.id.action_fragmentChooseMode_to_fragmentSetBio)
+            Navigation.findNavController(view).navigate(R.id.action_fragmentChooseMode_to_fragmentSelectTags)
         }
 
         return root
