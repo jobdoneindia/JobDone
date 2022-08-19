@@ -211,7 +211,7 @@ class Phone_auth_login : AppCompatActivity() {
                 val phone = firebaseAuth.currentUser?.phoneNumber
                 Toast.makeText(this,"Logged In as $phone", Toast.LENGTH_SHORT).show()
 
-                reference.child("Phone Number").setValue(phone)
+
 
                 //start profile activity
                 val intent = Intent(this,RegistrationActivity::class.java)
