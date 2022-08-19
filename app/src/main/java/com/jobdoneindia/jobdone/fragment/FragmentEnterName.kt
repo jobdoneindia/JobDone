@@ -28,6 +28,7 @@ class FragmentEnterName : Fragment() {
 
 
     ): View? {
+        var firebaseAuth = FirebaseAuth.getInstance()
 
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_enter_name, container, false)
@@ -51,6 +52,7 @@ class FragmentEnterName : Fragment() {
             val uid = FirebaseAuth.getInstance().currentUser?.uid
             val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
             inputName = root.findViewById<EditText>(R.id.input_name).text.toString().trim()
+            val phone = firebaseAuth.currentUser?.phoneNumber
 
             // store data locally
             val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
@@ -59,7 +61,7 @@ class FragmentEnterName : Fragment() {
             editor.apply()
             editor.commit()
 
-            reference.setValue(User(uid.toString(),inputName))
+            reference.setValue(User(uid.toString(),inputName,phone))
             Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentSetDP)
         }
 
