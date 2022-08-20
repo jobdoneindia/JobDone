@@ -21,11 +21,37 @@ import com.jobdoneindia.jobdone.activity.WorkerDashboardActivity
 
 class FragmentSelectTags : Fragment() {
 
-    private val items = mutableListOf("Electrician" /*0*/, "Appliances" /*1*/, "Home service" /*2*/)
+    private val items = mutableListOf("Electrician", "Appliances" , "Plumber", "Carpenter", "Painter", "Driver",
+        "Home Tutor","Freelancer", "Pest Control", "Pandit", "Laundry", "RO Service", "House Maid", "Water Supplier",
+        "Photographer", "Videographer", "Vehicle Service", "Vehicle Washing", )
     private val tags = mapOf(
-        items[0] to arrayListOf("Wiring", "Plug", "Socket", "Wires"),
-        items[1] to arrayListOf("TV Repair", "AC Repair", "Washing machine repair", "Computer Repair"),
-        items[2] to arrayListOf("Cleaning", "Washing", "Cooking", "Bulldozer")
+        "Electrician" to arrayListOf("AC Repair", "Plug", "Socket", "Wires"),
+        "Appliances" to arrayListOf("TV Repair", "AC Repair", "Washing machine repair", "Gizzer Repair", "Air Cooler Repair", "Fridge Repair", "Mixer Grinder Repair", "Speaker Repair"),
+        "Plumber" to arrayListOf("Install Water Supply System", "Install Waste Disposal System", "Repair Pipeline Issues" ),
+        "Carpenter" to arrayListOf("New Furniture Making", "Old Furniture Repair", "Install Modular Kichen"),
+        "Painter" to arrayListOf("Furniture Painting", "Contract Works(Office, Home, Cafe)", "Wall Painting"),
+        "Driver" to arrayListOf("Personal Car", "Loading Van", "JCB", "Dumper", "Truck"),
+        "Home Tutor" to arrayListOf("Class 1-5", "Class 6-10", "Class 11-12", "Graduates", "Science Teacher", "Maths Teacher", "Commerce Teacher", "Arts Teacher"),
+        "Freelancer" to arrayListOf("Graphic Designer", "Content Writer","Web Designer", "Virtual Assistant","App Developer", "Video Editor", "Social Media Manager", "Transcriber"),
+        "Pest Control" to arrayListOf("Complete Pest Control", "Sanitisation"),
+        "Pandit" to arrayListOf("Bhagwat Katha", "Bhoomi Pooja", "Antim Sanskar", "Satya Narayan Katha","Shaadi", "Ganesh Utsav", "Hawan", "Vaastu Pooja"),
+        "Laundry" to arrayListOf("Washing CLothes", "Dry Clean", "Ironing Clothes"),
+        "RO Service" to arrayListOf("RO Repair", "RO Install", "RO Service", "RO Parts Change"),
+        "House Maid" to arrayListOf("House Cleaning", "Cooking", "Washing Clothes", "Baby Care","Utensil Cleaning"),
+        "Water Supplier" to arrayListOf("Drinking Water", "Tanker"),
+        "Photographer" to arrayListOf("Model", "Pre Wedding", "Wedding", "Album","Birthday", "Freelance"),
+        "Videographer" to arrayListOf("Wedding", "Birthday", "Freelance"),
+        "Vehicle Service" to arrayListOf("Bike Repair", "Car Repair", "Loading Van Repair", "Truck Repair", "Servicing" ),
+        "Vehicle Washing" to arrayListOf("Bike Wash", "Car Wash", "Loading Van Wash", "Truck Wash"),
+        "Goods Transport Vehicle" to arrayListOf( "Three Wheeler"," Four Wheeler", "Six Wheeler", "Eight Wheeler", "Ten Wheeler"),
+        /*"" to arrayListOf(),
+        "" to arrayListOf(),
+        "" to arrayListOf(),
+        "" to arrayListOf(),
+        "" to arrayListOf(),
+        "" to arrayListOf(),
+        "" to arrayListOf(),
+        "" to arrayListOf(),*/
     )
 
     private var selectedTags = mutableListOf<String>()
