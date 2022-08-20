@@ -15,6 +15,7 @@
             android:layout_height="55dp"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="3dp"
+            android:id="@+id/user_dp"
             android:src="@drawable/img_empty_dp" />
 
         <TextView
