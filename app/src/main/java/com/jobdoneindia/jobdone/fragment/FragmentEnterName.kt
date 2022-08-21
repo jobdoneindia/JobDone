@@ -61,7 +61,7 @@ class FragmentEnterName : Fragment() {
             editor.apply()
             editor.commit()
 
-            reference.setValue(User(uid.toString(),inputName,phone))
+            reference.setValue(User(uid.toString(),inputName,phone,null))
             Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentSetDP)
         }
 

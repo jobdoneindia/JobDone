@@ -1,6 +1,7 @@
 package com.jobdoneindia.jobdone.fragment
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
@@ -14,7 +15,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.firebase.geofire.GeoFire
+import com.firebase.geofire.GeoLocation
+import com.firebase.geofire.GeoQuery
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.SearchResultsAdapter
 import com.jobdoneindia.jobdone.adapter.TagsAdapter
@@ -30,12 +35,17 @@ class FragmentSearchResults: Fragment()  {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         val root = inflater.inflate(R.layout.fragment_searchresults, container, false)
 
         // TODO: Add a "Schedule a job" Button and create ActivityPostAJob.kt
 
-        // storing data
+
         //  TODO: Search the database using tag received from previous fragment and location of user
+
+
+
         // TODO: Read data from worker profiles from database and store it in mySearchItems array
         mySearchItems.add(SearchItem("Ramesh Kumar","Electrician hu mai bol","4.5 / 5","5km","I check for defects, assemble products, monitor manufacturing equipment, and closely follow safety procedures to prevent accidents in environments where materials may be hazardous."))
         mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))

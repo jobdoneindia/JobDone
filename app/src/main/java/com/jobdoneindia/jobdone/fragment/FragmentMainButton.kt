@@ -29,12 +29,15 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.firebase.geofire.GeoFire
+import com.firebase.geofire.GeoLocation
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.oAuthCredential
 import com.google.firebase.database.*
 import com.jobdoneindia.jobdone.R
 import de.hdodenhof.circleimageview.CircleImageView
@@ -47,6 +50,8 @@ class FragmentMainButton: Fragment() {
     private lateinit var mainButton: ImageButton
     private lateinit var userName : TextView
     private lateinit var txtAddress: TextView
+
+    private var mDbRef = FirebaseDatabase.getInstance().reference.child("Users")
 
     private val userSharedPreferences = "usersharedpreference"
     private lateinit var sharedPreferences: SharedPreferences
@@ -98,6 +103,10 @@ class FragmentMainButton: Fragment() {
         val userDP: CircleImageView = root.findViewById(R.id.user_dp)
 
 
+
+
+
+
         // get image url from local database
         val imageUrl:  String? = sharedPreferences.getString("dp_url_key", "not found")
 //        Toast.makeText(requireContext(), imageUrl, Toast.LENGTH_LONG).show()
@@ -129,10 +138,7 @@ class FragmentMainButton: Fragment() {
             Navigation.findNavController(view)
                 .navigate(R.id.action_fragmentMainButton_to_fragmentTags)
         }
-
         return root
-
-
     }
 
     // store location locally
@@ -175,7 +181,6 @@ class FragmentMainButton: Fragment() {
         }
     }
 
-
     @SuppressLint("MissingPermission")
     private fun getLocation(sharedPreferences: SharedPreferences) {
         if (checkPermissions()) {
@@ -184,8 +189,17 @@ class FragmentMainButton: Fragment() {
                     val location: Location? = task.result
                     if (location != null) {
                         val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                        val geoFire : GeoFire = GeoFire(FirebaseAuth.getInstance().currentUser?.let {
+                            mDbRef.child(
+                                it.uid)
+                        })
                         val list: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                         txtAddress.text = list[0].getAddressLine(0)
+
+                        geoFire.setLocation("locationUser", GeoLocation(location.latitude, location.longitude))
+
+
+
 
                         // saving location in firebase db
                         val database : FirebaseDatabase = FirebaseDatabase.getInstance()

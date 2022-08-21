@@ -4,17 +4,18 @@ class User {
     var Username : String? = null
     var uid : String? = null
     var phoneNumber: String? = null
-
-    constructor(){}
+    var location:ArrayList<String>? = null
 
     constructor(
         uid:String?,
         name: String?,
-        phoneNumber: String?
+        phoneNumber: String?,
+        location:ArrayList<String>?
     ){
         this.uid = uid
         this.Username = name
         this.phoneNumber = phoneNumber
+        this.location = location
 
     }
 
