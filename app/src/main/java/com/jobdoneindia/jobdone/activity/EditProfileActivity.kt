@@ -1,41 +1,60 @@
 package com.jobdoneindia.jobdone.activity
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.*
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.jobdoneindia.jobdone.R
+import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import java.util.*
 
 class EditProfileActivity : AppCompatActivity() {
 
     lateinit var editTextName : EditText
-    lateinit var doneButton : Button
+    lateinit var doneButton : FloatingActionButton
     lateinit var editTextPhone: EditText
     lateinit var otpContinueBtn : Button
+    private lateinit var imageURL: String
     private lateinit var btnSetDP: ImageButton
     private lateinit var profilePic: CircleImageView
-    private lateinit var imageuri: Uri
+    var imageuri: Uri? = null
+    var firebaseStorage : FirebaseStorage = FirebaseStorage.getInstance()
+    val storageReference : StorageReference = firebaseStorage.reference
 
     val database : FirebaseDatabase = FirebaseDatabase.getInstance()
     val reference : DatabaseReference = database.reference.child("Users")
 
+    lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
+
+        profileActivityForResult()
 
         // Add back button in Action Bar
         val actionBar: ActionBar? = supportActionBar
@@ -52,8 +71,7 @@ class EditProfileActivity : AppCompatActivity() {
         // TODO: Feature to set current location
 
         // Done fab button
-        var doneButton: FloatingActionButton = findViewById(R.id.done_button)
-        // TODO: Editing And Saving To Database
+        doneButton = findViewById(R.id.done_button)
         editTextName = findViewById(R.id.editTextName)
 
 
@@ -64,33 +82,151 @@ class EditProfileActivity : AppCompatActivity() {
         editTextName.setText(sharedName)
 
 
-        //TODO: sending data to database
-
             doneButton.setOnClickListener{
 
+                val name: String = editTextName.text.toString().trim()
 
-                    val name: String = editTextName.text.toString().trim()
+                // Store data locally
+                val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString("name_key", name)
+                editor.apply()
+                editor.commit()
 
-                    // Store data locally
-                    val editor: SharedPreferences.Editor = sharedPreferences.edit()
-                    editor.putString("name_key", name)
-                    editor.apply()
-                    editor.commit()
+                // Store data in firebase
+                reference.child(FirebaseAuth.getInstance().currentUser?.uid.toString()).child("username").setValue(name)
 
-
-
-
-                    // Store data in firebase
-                    reference.child(FirebaseAuth.getInstance().currentUser?.uid.toString()).child("username").setValue(name)
-                    val intent = Intent(this, ProfileActivity::class.java)
-                    startActivity(intent)
+                // upload photo to db
+                uploadPhoto()
 
         }
 
-        // TODO: Update Database - OnClick Listener for FAB button
+
+    }
+
+    // select an image from Gallery
+    private fun pickfromGallery() {
+
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                1
+            )
+
+
+        }
+
+        val galleryIntent = Intent()
+        galleryIntent.type = "image/*"
+        galleryIntent.action = Intent.ACTION_GET_CONTENT
+        activityResultLauncher.launch(galleryIntent)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+            val galleryIntent = Intent()
+            galleryIntent.type = "image/*"
+            galleryIntent.action = Intent.ACTION_GET_CONTENT
+            activityResultLauncher.launch(galleryIntent)
+
+        }
+
+    }
+
+    fun addProfilePicUrlToDatabase(url : String){
+
+        // store profession and tags in realtime database
+        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
+
+        reference.child("url").setValue(url)
+
+    }
+
+    // Start galleryIntent for result
+    fun profileActivityForResult() {
+        activityResultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+            ActivityResultCallback { result ->
+
+                val resultCode = result.resultCode
+                val imageData = result.data
+
+                if (resultCode == RESULT_OK && imageData != null) {
+
+                    imageuri = imageData.data
+
+                    //Picasso
+
+                    imageuri?.let {
+
+                        Picasso.get().load(it).into(profilePic)
+                    }
+
+                }else{
+                    imageuri = null
+                }
+
+            })
 
 
     }
+
+    fun uploadPhoto(){
+
+        doneButton.isClickable = false
+
+        //UUID
+        val imageName = UUID.randomUUID().toString()
+
+        val imageReference = storageReference.child("images").child(imageName)
+
+
+        imageuri?.let { uri ->
+
+            imageReference.putFile(uri).addOnSuccessListener {
+                Toast.makeText(this, "Image uploaded" ,Toast.LENGTH_SHORT).show()
+
+                //downloadable url
+                val myUploadImageReference = storageReference.child("images").child(imageName)
+                myUploadImageReference.downloadUrl.addOnSuccessListener { url ->
+
+                    imageURL = url.toString()
+                    addProfilePicUrlToDatabase(imageURL)
+
+                    // Store image url locally
+                    val sharedPreferences: SharedPreferences = this.getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+                    val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                    editor.putString("dp_url_key", imageURL)
+                    editor.apply()
+                    editor.commit()
+
+                    Toast.makeText(this, "Uploading profile pic...", Toast.LENGTH_SHORT)
+                    finish()
+                }
+
+            }.addOnFailureListener{
+
+                Toast.makeText(this, it.localizedMessage ,Toast.LENGTH_SHORT).show()
+
+            }
+
+        }
+
+    }
+
     // Set up function for back button in Action Bar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
             when (item.itemId) {
@@ -118,21 +254,4 @@ class EditProfileActivity : AppCompatActivity() {
             }
             return super.onOptionsItemSelected(item)
     }
-
-    // Start galleryIntent for result
-    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            result ->
-        if(result.resultCode == Activity.RESULT_OK && result.data != null) {
-            imageuri = result.data!!.data!!
-            profilePic.setImageURI(imageuri)
-        }
-    }
-
-    // select an image from Gallery
-    private fun pickfromGallery() {
-        val galleryIntent: Intent = Intent(Intent.ACTION_PICK)
-        galleryIntent.setType("image/*")
-        resultLauncher.launch(galleryIntent)
-    }
-
 }
