@@ -1,6 +1,8 @@
 package com.jobdoneindia.jobdone.fragment
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -10,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.test.core.app.ApplicationProvider
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.firebase.auth.FirebaseAuth
@@ -152,6 +155,52 @@ class FragmentSelectTags : Fragment() {
 
             chipGroup.addView(chip)
         }
+        val newChip = Chip(requireContext())
+
+        val paddingDp = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 10f,
+            resources.displayMetrics
+        ).toInt()
+        newChip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp)
+        newChip.text = "+ Add New"
+        newChip.isCheckable = false
+
+        newChip.setOnClickListener {
+            // get alert_dialog.xml view
+            val li = LayoutInflater.from(requireContext())
+            val promptsView = li.inflate(R.layout.alert_dialog, null)
+            val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+
+            // set alert_dialog.xml to alertdialog builder
+            alertDialogBuilder.setView(promptsView)
+            val userInput = promptsView.findViewById<View>(R.id.etUserInput) as EditText
+
+            // set dialog message
+            alertDialogBuilder
+                .setPositiveButton(
+                    "OK",
+                    DialogInterface.OnClickListener { dialog, id -> // get user input and set it to result
+                        // edit text
+                        Toast.makeText(
+                            requireContext(),
+                            "Entered: " + userInput.text.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        tagList.add(userInput.text.toString())
+                        updateTags(tagList)
+                    })
+                .setNegativeButton("Cancel",
+                    DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+
+            // create alert dialog
+            val alertDialog: AlertDialog = alertDialogBuilder.create()
+
+            // show it
+            alertDialog.show()
+        }
+
+        chipGroup.addView(newChip)
+
     }
 
 

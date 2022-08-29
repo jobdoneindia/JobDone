@@ -31,6 +31,7 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.firebase.geofire.GeoFire
 import com.firebase.geofire.GeoLocation
+import com.firebase.geofire.LocationCallback
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnFailureListener
@@ -39,6 +40,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.oAuthCredential
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import com.jobdoneindia.jobdone.R
 import de.hdodenhof.circleimageview.CircleImageView
 import java.lang.Exception
@@ -189,17 +191,15 @@ class FragmentMainButton: Fragment() {
                     val location: Location? = task.result
                     if (location != null) {
                         val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                        val geoFire : GeoFire = GeoFire(FirebaseAuth.getInstance().currentUser?.let {
-                            mDbRef.child(
-                                it.uid)
-                        })
+
                         val list: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                         txtAddress.text = list[0].getAddressLine(0)
 
-                        geoFire.setLocation("locationUser", GeoLocation(location.latitude, location.longitude))
-
-
-
+                        // save latitude and longitude locally
+                        editor = sharedPreferences.edit()
+                        editor.putFloat("latitude", location.latitude.toFloat())
+                        editor.putFloat("longitude", location.longitude.toFloat())
+                        editor.apply()
 
                         // saving location in firebase db
                         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
@@ -207,7 +207,11 @@ class FragmentMainButton: Fragment() {
                         val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
                         reference.child("Location").setValue(arrayListOf(location.latitude, location.longitude))
 
+                        val geoFire = GeoFire(database.reference.child("geofire"))
+                        geoFire.setLocation(uid, GeoLocation(location.latitude, location.longitude))
+
                         saveLocationLocally(sharedPreferences)
+
                     }
                 }
             }

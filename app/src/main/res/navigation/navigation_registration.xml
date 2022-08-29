@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_fragmentEnterName_to_fragmentSetDP"
             app:destination="@id/fragmentSetDP" />
+        <action
+            android:id="@+id/action_fragmentEnterName_to_fragmentSelectTags"
+            app:destination="@id/fragmentSelectTags" />
     </fragment>
     <fragment
         android:id="@+id/fragmentChooseMode"

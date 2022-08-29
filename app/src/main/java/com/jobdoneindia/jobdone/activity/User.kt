@@ -1,24 +1,28 @@
 package com.jobdoneindia.jobdone.activity
 
 class User {
-    var Username : String? = null
     var uid : String? = null
+    var username : String? = null
+    var url: String? = null
     var phoneNumber: String? = null
-    var location:ArrayList<String>? = null
+    var Location:ArrayList<Double>? = null
 
     constructor(
         uid:String?,
-        name: String?,
+        username: String?,
+        url: String?,
         phoneNumber: String?,
-        location:ArrayList<String>?
+        location:ArrayList<Double>?
     ){
         this.uid = uid
-        this.Username = name
+        this.username = username
+        this.url = url
         this.phoneNumber = phoneNumber
-        this.location = location
+        this.Location = location
 
     }
 
+    constructor(){
 
-
+    }
 }

@@ -1,6 +1,8 @@
 package com.jobdoneindia.jobdone.activity
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +12,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.UserAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 
 class ChatUserList : AppCompatActivity() {
 
@@ -18,21 +22,20 @@ class ChatUserList : AppCompatActivity() {
     private lateinit var adapter: UserAdapter
     private lateinit var mDbRef : DatabaseReference
     private lateinit var mAuth:FirebaseAuth
-    private lateinit var locationCallback : LocationCallback
+    private var radius = 1.0
+    private var workerFound = false
+    private lateinit var workerFoundID: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_user_list)
 
+        getClosestWorkers()
+
 
         mDbRef = FirebaseDatabase.getInstance().reference
+
         mAuth = FirebaseAuth.getInstance()
-
-        val geoFire : GeoFire = GeoFire(mDbRef)
-
-        geoFire.getLocation("locationUser", locationCallback)
-
-
 
         userList = ArrayList()
         adapter = UserAdapter(this, userList)
@@ -42,68 +45,62 @@ class ChatUserList : AppCompatActivity() {
 
         userRecyclerView.layoutManager = LinearLayoutManager(this)
         userRecyclerView.adapter = adapter
-        val uid = FirebaseAuth.getInstance().uid
-
-
-
 
         mDbRef.child("Users").addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
-
-
                 userList.clear()
                 for (postSnapshot in snapshot.children) {
-
-
                     val currentUser = postSnapshot.getValue(User::class.java)
-                    if (mAuth.currentUser?.uid != currentUser?.uid) {
-
-                        val geoQuery : GeoQuery = geoFire.queryAtLocation(object : GeoLocation(locationCallback),5.0)
-
-                        geoQuery.addGeoQueryEventListener(object : GeoQueryEventListener{
-
-                            override fun onKeyEntered(key: String?, location: GeoLocation?) {
-                                userList.add(currentUser!!)
-                            }
-
-                            override fun onKeyExited(key: String?) {
-                                TODO("Not yet implemented")
-                            }
-
-                            override fun onGeoQueryError(error: DatabaseError?) {
-                                TODO("Not yet implemented")
-                            }
-
-                            override fun onKeyMoved(key: String?, location: GeoLocation?) {
-                                TODO("Not yet implemented")
-                            }
-
-                            override fun onGeoQueryReady() {
-                                TODO("Not yet implemented")
-                            }
-
-
-                        })
-
-
-
-
-
-
-
-
-                    }
-
+                    /*if (mAuth.currentUser?.uid != currentUser?.uid) {*/
+                        if (workerFoundID == currentUser?.uid.toString()) {
+                            userList.add(currentUser!!)
+                        }
+                    /*}*/
                 }
                 adapter.notifyDataSetChanged()
-
             }
 
             override fun onCancelled(error: DatabaseError) {
 
                 Toast.makeText(this@ChatUserList,"No records found!",Toast.LENGTH_SHORT).show()
 
+            }
+
+        })
+
+    }
+
+    private fun getClosestWorkers() {
+        // retrieving location in firebase db
+        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+        val georeference : DatabaseReference = database.reference.child("geofire")
+        val geoFire = GeoFire(georeference)
+        val geoQuery = geoFire.queryAtLocation(GeoLocation(26.7174121,88.3878191), radius)
+        geoQuery.removeAllListeners()
+
+        geoQuery.addGeoQueryEventListener(object : GeoQueryEventListener {
+            override fun onKeyEntered(key: String?, location: GeoLocation?) {
+                if (!workerFound && key != mAuth.currentUser?.uid.toString()) {
+                    workerFound = true
+                    workerFoundID = key.toString()
+                    Toast.makeText(this@ChatUserList, workerFoundID, Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun onKeyExited(key: String?) {
+                TODO("Not yet implemented")
+            }
+            override fun onKeyMoved(key: String?, location: GeoLocation?) {
+                TODO("Not yet implemented")
+            }
+            override fun onGeoQueryReady() {
+                if (!workerFound) {
+                    radius++
+                    getClosestWorkers()
+                }
+            }
+            override fun onGeoQueryError(error: DatabaseError?) {
+                TODO("Not yet implemented")
             }
 
         })

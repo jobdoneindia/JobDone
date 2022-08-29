@@ -189,7 +189,6 @@ class Phone_auth_login : AppCompatActivity() {
 
     }
 
-
     private fun verifyPhoneNumberWithCode(verificationId: String?, code:String){
         progressDialog.setMessage("Verifying Code....")
         progressDialog.show()

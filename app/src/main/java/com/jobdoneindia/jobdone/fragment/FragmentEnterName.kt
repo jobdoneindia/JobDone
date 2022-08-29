@@ -61,8 +61,8 @@ class FragmentEnterName : Fragment() {
             editor.apply()
             editor.commit()
 
-            reference.setValue(User(uid.toString(),inputName,phone,null))
-            Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentSetDP)
+            reference.setValue(User(uid.toString(),inputName,null,phone,null))
+            Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentSelectTags)
         }
 
         return root

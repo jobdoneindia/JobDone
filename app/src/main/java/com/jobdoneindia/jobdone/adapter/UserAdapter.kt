@@ -36,7 +36,7 @@ class UserAdapter(val context: Context, val userList: ArrayList<com.jobdoneindia
         val image: CircleImageView? = null
         image?.setImageResource(R.drawable.ic_account)
 
-        holder.textName.text = currentUser.Username.toString()
+        holder.textName.text = currentUser.username.toString()
 
         // get image url from local database
         val imageUrl:  String? = currentUser.url.toString()
@@ -53,7 +53,7 @@ class UserAdapter(val context: Context, val userList: ArrayList<com.jobdoneindia
             val dialogBuilder = AlertDialog.Builder(context)
 
             // set message of alert dialog
-            dialogBuilder.setMessage("Name: ${currentUser.Username.toString()} \nProfession: ${currentUser.phoneNumber.toString()}").setCancelable(true)
+            dialogBuilder.setMessage("Name: ${currentUser.username.toString()} \nProfession: ${currentUser.phoneNumber.toString()}").setCancelable(true)
                 // positive button text and action
                 .setPositiveButton("OK", DialogInterface.OnClickListener {
                         dialog, id -> dialog.cancel()
@@ -69,7 +69,7 @@ class UserAdapter(val context: Context, val userList: ArrayList<com.jobdoneindia
         holder.itemView.setOnClickListener {
             val intent = Intent(context,ChatActivity::class.java)
 
-            intent.putExtra("name",currentUser.Username)
+            intent.putExtra("name",currentUser.username)
             intent.putExtra("uid",currentUser.uid)
 
             context.startActivity(intent)
