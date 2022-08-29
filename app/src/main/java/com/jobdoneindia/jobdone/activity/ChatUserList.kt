@@ -79,6 +79,7 @@ class ChatUserList : AppCompatActivity() {
         val geoQuery = geoFire.queryAtLocation(GeoLocation(26.7174121,88.3878191), radius)
         geoQuery.removeAllListeners()
 
+        //geoquery to find closest worker
         geoQuery.addGeoQueryEventListener(object : GeoQueryEventListener {
             override fun onKeyEntered(key: String?, location: GeoLocation?) {
                 if (!workerFound && key != mAuth.currentUser?.uid.toString()) {
