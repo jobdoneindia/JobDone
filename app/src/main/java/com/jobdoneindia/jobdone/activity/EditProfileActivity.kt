@@ -7,9 +7,11 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
@@ -30,6 +32,7 @@ import com.google.firebase.storage.StorageReference
 import com.jobdoneindia.jobdone.R
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 class EditProfileActivity : AppCompatActivity() {
@@ -188,15 +191,20 @@ class EditProfileActivity : AppCompatActivity() {
 
         doneButton.isClickable = false
 
+        val bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageuri)
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream)
+        val reducedImage: ByteArray = byteArrayOutputStream.toByteArray()
+
         //UUID
         val imageName = UUID.randomUUID().toString()
 
         val imageReference = storageReference.child("images").child(imageName)
 
 
-        imageuri?.let { uri ->
+        reducedImage?.let { uri ->
 
-            imageReference.putFile(uri).addOnSuccessListener {
+            imageReference.putBytes(uri).addOnSuccessListener {
                 Toast.makeText(this, "Image uploaded" ,Toast.LENGTH_SHORT).show()
 
                 //downloadable url
