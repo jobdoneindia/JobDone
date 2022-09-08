@@ -3,8 +3,11 @@ package com.jobdoneindia.jobdone.fragment
 import android.app.Activity.RESULT_OK
 import android.content.*
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +30,7 @@ import com.google.firebase.storage.StorageReference
 import com.jobdoneindia.jobdone.R
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 
@@ -93,6 +97,31 @@ class FragmentSetDP : Fragment() {
                 requireActivity(), arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
                 1
             )
+
+
+
+
+
+            /*storageReference.putBytes(reducedImage)
+                .addOnSuccessListener {
+
+                    Log.i("xxx", "Success uploading Image to Firebase!!!")
+
+                    storageReference.downloadUrl.addOnSuccessListener {
+
+                        //getting image url
+                        Log.i("xxx",it.toString())
+
+                    }.addOnFailureListener {
+
+                        Log.i("xxx", "Error getting image download url")
+                    }
+
+                }.addOnFailureListener {
+
+                    Log.i("xxx", "Failed uploading image to server")
+
+                }*/
 
 
         }
@@ -163,15 +192,21 @@ class FragmentSetDP : Fragment() {
 
         nextButton.isClickable = false
 
+
+        val bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), imageuri)
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream)
+        val reducedImage: ByteArray = byteArrayOutputStream.toByteArray()
+
         //UUID
         val imageName = UUID.randomUUID().toString()
 
         val imageReference = storageReference.child("images").child(imageName)
 
 
-        imageuri?.let { uri ->
+        reducedImage?.let { uri ->
 
-            imageReference.putFile(uri).addOnSuccessListener {
+            imageReference.putBytes(uri).addOnSuccessListener {
                 Toast.makeText(requireContext(), "Image uploaded" ,Toast.LENGTH_SHORT).show()
 
                 //downloadable url
