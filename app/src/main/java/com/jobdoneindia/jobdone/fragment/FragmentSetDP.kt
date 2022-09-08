@@ -70,7 +70,19 @@ class FragmentSetDP : Fragment() {
             view: View ->
 
             nextButton.text = "Loading..."
-            uploadPhoto() // and go to next activity
+            if (imageuri != null){
+                uploadPhoto()
+            } else {
+                // Store image url locally
+                val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+                val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString("dp_url_key", "https://secondchancetinyhomes.org/wp-content/uploads/2016/09/empty-profile.png")
+                editor.apply()
+                editor.commit()
+                // move to next frag
+                Navigation.findNavController(view).navigate(R.id.action_fragmentSetDP_to_fragmentChooseMode)
+            }
+             // and go to next activity
             /*val intent = Intent(requireContext(), DashboardActivity::class.java)
             startActivity(intent)*/
         }
@@ -181,6 +193,8 @@ class FragmentSetDP : Fragment() {
                         Picasso.get().load(it).into(profilePic)
                     }
 
+                }else{
+                    imageuri = null
                 }
 
             })

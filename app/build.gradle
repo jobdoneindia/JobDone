@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
 }
+apply plugin: 'kotlin-android'
 
 android {
     compileSdk 31
@@ -93,5 +94,7 @@ dependencies {
 
     // GeoFire utililty functions for Cloud Firestore users who
     implementation 'com.firebase:geofire-android-common:3.2.0'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 }
