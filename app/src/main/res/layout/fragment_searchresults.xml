@@ -34,6 +34,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        tools:listitem="@layout/search_item_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/SearchItemList"

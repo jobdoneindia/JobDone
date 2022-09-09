@@ -47,7 +47,7 @@ class UserAdapter(val context: Context, val userList: ArrayList<com.jobdoneindia
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .into(holder.userDP)
 
-        // onCick Listener for DP
+        // onClick Listener for DP
         holder.userDP.setOnClickListener {
             // build alert dialog
             val dialogBuilder = AlertDialog.Builder(context)

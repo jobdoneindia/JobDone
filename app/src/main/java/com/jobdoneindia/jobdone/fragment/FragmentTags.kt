@@ -1,6 +1,7 @@
 package com.jobdoneindia.jobdone.fragment
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
@@ -13,8 +14,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.firebase.geofire.GeoFire
+import com.firebase.geofire.GeoLocation
+import com.firebase.geofire.GeoQueryEventListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.adapter.TagsAdapter
 import com.jobdoneindia.jobdone.R
+import kotlinx.coroutines.runBlocking
 import java.text.FieldPosition
 
 data class Categories( val service_name: String, val services_count: Int)
@@ -23,6 +32,13 @@ class FragmentTags: Fragment() {
 
     private val myCategories = mutableListOf<Categories>()
 
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var mDbRef: DatabaseReference
+    private var radius = 1.0
+    private var distance: Int = 0
+    private var workerFound = false
+    private var workerFoundID: String = ""
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,6 +46,10 @@ class FragmentTags: Fragment() {
     ): View? {
         //Inflate layout for this fragment
         val root = inflater.inflate(R.layout.fragment_choosetags, container, false)
+
+        mAuth = FirebaseAuth.getInstance()
+
+        getClosestWorkers()
 
         // Exit Transition
         val transitionInflater = TransitionInflater.from(requireContext())
@@ -82,6 +102,52 @@ class FragmentTags: Fragment() {
         }
 
         return root
+    }
+
+    private fun getClosestWorkers() {
+        // retrieving location in firebase db
+        val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+        val georeference: DatabaseReference = database.reference.child("geofire")
+        val geoFire = GeoFire(georeference)
+        val geoQuery = geoFire.queryAtLocation(GeoLocation(26.7174121, 88.3878191), radius)
+        geoQuery.removeAllListeners()
+
+        //geoquery to find closest worker
+        geoQuery.addGeoQueryEventListener(object : GeoQueryEventListener {
+            override fun onKeyEntered(key: String?, location: GeoLocation?) {
+                if (!workerFound && key != mAuth.currentUser?.uid.toString()) {
+                    workerFound = true
+                    workerFoundID = key.toString()
+
+                    Toast.makeText(requireContext(), workerFoundID + " " + radius.toString(), Toast.LENGTH_SHORT).show()
+
+                    val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+                    var editor = sharedPreferences.edit()
+                    editor.putString("closestworker", workerFoundID)
+                    editor.apply()
+                }
+            }
+
+            override fun onKeyExited(key: String?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onKeyMoved(key: String?, location: GeoLocation?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onGeoQueryReady() {
+                if (!workerFound) {
+                    radius++
+                    getClosestWorkers()
+                }
+            }
+
+            override fun onGeoQueryError(error: DatabaseError?) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 
     // overriding the back button

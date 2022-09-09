@@ -14,6 +14,7 @@ import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.UserAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 
 class ChatUserList : AppCompatActivity() {
 
@@ -22,16 +23,15 @@ class ChatUserList : AppCompatActivity() {
     private lateinit var adapter: UserAdapter
     private lateinit var mDbRef : DatabaseReference
     private lateinit var mAuth:FirebaseAuth
-    private var radius = 1.0
+    private var radius: Double = 1.0
     private var workerFound = false
-    private lateinit var workerFoundID: String
+    private var workerFoundID: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_user_list)
 
-        getClosestWorkers()
-
+        /*getClosestWorkers()*/
 
         mDbRef = FirebaseDatabase.getInstance().reference
 
@@ -52,11 +52,11 @@ class ChatUserList : AppCompatActivity() {
                 userList.clear()
                 for (postSnapshot in snapshot.children) {
                     val currentUser = postSnapshot.getValue(User::class.java)
-                    /*if (mAuth.currentUser?.uid != currentUser?.uid) {*/
-                        if (workerFoundID == currentUser?.uid.toString()) {
+                    if (mAuth.currentUser?.uid != currentUser?.uid) {
+                        /*if (workerFoundID == currentUser?.uid.toString()) {*/
                             userList.add(currentUser!!)
-                        }
-                    /*}*/
+/*                        }*/
+                    }
                 }
                 adapter.notifyDataSetChanged()
             }
@@ -71,7 +71,7 @@ class ChatUserList : AppCompatActivity() {
 
     }
 
-    private fun getClosestWorkers() {
+    /*private fun getClosestWorkers() {
         // retrieving location in firebase db
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
         val georeference : DatabaseReference = database.reference.child("geofire")
@@ -85,7 +85,7 @@ class ChatUserList : AppCompatActivity() {
                 if (!workerFound && key != mAuth.currentUser?.uid.toString()) {
                     workerFound = true
                     workerFoundID = key.toString()
-                    Toast.makeText(this@ChatUserList, workerFoundID, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ChatUserList, workerFoundID+" is ${radius}km away", Toast.LENGTH_SHORT).show()
                 }
             }
             override fun onKeyExited(key: String?) {
@@ -106,7 +106,7 @@ class ChatUserList : AppCompatActivity() {
 
         })
 
-    }
+    }*/
 
 
 

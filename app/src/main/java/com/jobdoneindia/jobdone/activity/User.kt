@@ -12,13 +12,13 @@ class User {
         username: String?,
         url: String?,
         phoneNumber: String?,
-        location:ArrayList<Double>?
+        Location:ArrayList<Double>?
     ){
         this.uid = uid
         this.username = username
         this.url = url
         this.phoneNumber = phoneNumber
-        this.Location = location
+        this.Location = Location
 
     }
 

@@ -10,25 +10,36 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.geofire.GeoFire
 import com.firebase.geofire.GeoLocation
-import com.firebase.geofire.GeoQuery
+import com.firebase.geofire.GeoQueryDataEventListener
+import com.firebase.geofire.GeoQueryEventListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.jobdoneindia.jobdone.R
+import com.jobdoneindia.jobdone.activity.User
 import com.jobdoneindia.jobdone.adapter.SearchResultsAdapter
-import com.jobdoneindia.jobdone.adapter.TagsAdapter
 
 data class SearchItem(val name: String, val bio: String, val overall_rating: String, val distance: String, val description: String)
 
 class FragmentSearchResults: Fragment()  {
 
     private val mySearchItems = mutableListOf<SearchItem>()
+
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var mDbRef: DatabaseReference
+    private lateinit var sharedPreferences: SharedPreferences
+    private var radius = 1.0
+    private var distance: Int = 0
+    private var workerFound = false
+    private lateinit var workerFoundID: String
+
+    private lateinit var userLocation: ArrayList<Double>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,31 +50,22 @@ class FragmentSearchResults: Fragment()  {
 
         val root = inflater.inflate(R.layout.fragment_searchresults, container, false)
 
+        mAuth = FirebaseAuth.getInstance()
+        mDbRef = FirebaseDatabase.getInstance().reference
+
+        /*getClosestWorkers()*/
+
+        Toast.makeText(requireContext(),radius.toString(),Toast.LENGTH_SHORT)
+
+        // get lat and long from local database
+        sharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+        userLocation = mutableListOf(sharedPreferences.getFloat("latitude", 0F).toDouble(),sharedPreferences.getFloat("longitude", 0F).toDouble()) as ArrayList<Double>
+
         // TODO: Add a "Schedule a job" Button and create ActivityPostAJob.kt
 
 
         //  TODO: Search the database using tag received from previous fragment and location of user
 
-
-
-        // TODO: Read data from worker profiles from database and store it in mySearchItems array
-        mySearchItems.add(SearchItem("Ramesh Kumar","Electrician hu mai bol","4.5 / 5","5km","I check for defects, assemble products, monitor manufacturing equipment, and closely follow safety procedures to prevent accidents in environments where materials may be hazardous."))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
 
         // OnClick listener for recyclerview items
         var adapter = SearchResultsAdapter(mySearchItems)
@@ -85,6 +87,53 @@ class FragmentSearchResults: Fragment()  {
 
         // detect scroll
 
+        // TODO: Read data from worker profiles from database and store it in mySearchItems array
+        /*mySearchItems.add(SearchItem("Ramesh Kumar","Electrician hu mai bol","4.5 / 5","5km","I check for defects, assemble products, monitor manufacturing equipment, and closely follow safety procedures to prevent accidents in environments where materials may be hazardous."))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
+        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))*/
+
+        mDbRef.child("Users").addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                mySearchItems.clear()
+                /*getClosestWorkers()*/
+                for (postSnapshot in snapshot.children) {
+                    val currentUser = postSnapshot.getValue(User::class.java)
+                    /*if (mAuth.currentUser?.uid != currentUser?.uid) {*/
+                    if (currentUser?.uid.toString() == sharedPreferences.getString("closestworker", "null").toString()) {
+                        /*userList.add(currentUser!!)*/
+                        distance = (distance(currentUser?.Location!![0], currentUser?.Location!![1], userLocation[0], userLocation[1])/0.621371).toInt()
+                        mySearchItems.add(SearchItem(
+                            currentUser!!.username.toString(),
+                            null.toString(), "null", "${distance}km", "null",
+                        ))
+                    }
+                    /*}*/
+                }
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+                /*Toast.makeText(this@FragmentSearchResults,"No records found!",Toast.LENGTH_SHORT).show()*/
+
+            }
+
+        })
 
         // Back button
         val backButton = root.findViewById<ImageButton>(R.id.back_button)
@@ -116,5 +165,63 @@ class FragmentSearchResults: Fragment()  {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    /*private fun getClosestWorkers() {
+        // retrieving location in firebase db
+        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+        val georeference : DatabaseReference = database.reference.child("geofire")
+        val geoFire = GeoFire(georeference)
+        val geoQuery = geoFire.queryAtLocation(GeoLocation(26.7174121,88.3878191), radius)
+        geoQuery.removeAllListeners()
+
+        //geoquery to find closest worker
+        geoQuery.addGeoQueryEventListener(object : GeoQueryEventListener {
+            override fun onKeyEntered(key: String?, location: GeoLocation?) {
+                if (!workerFound && key != mAuth.currentUser?.uid.toString()) {
+                    workerFound = true
+                    workerFoundID = key.toString()
+                    Toast.makeText(requireContext(),radius.toString(),Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun onKeyExited(key: String?) {
+                TODO("Not yet implemented")
+            }
+            override fun onKeyMoved(key: String?, location: GeoLocation?) {
+                TODO("Not yet implemented")
+            }
+            override fun onGeoQueryReady() {
+                if (!workerFound) {
+                    radius++
+                    getClosestWorkers()
+                }
+            }
+            override fun onGeoQueryError(error: DatabaseError?) {
+                TODO("Not yet implemented")
+            }
+
+        })
+        }
+        */
+
+    private fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+        val theta = lon1 - lon2
+        var dist = (Math.sin(deg2rad(lat1))
+                * Math.sin(deg2rad(lat2))
+                + (Math.cos(deg2rad(lat1))
+                * Math.cos(deg2rad(lat2))
+                * Math.cos(deg2rad(theta))))
+        dist = Math.acos(dist)
+        dist = rad2deg(dist)
+        dist = dist * 60 * 1.1515
+        return dist
+    }
+
+    private fun deg2rad(deg: Double): Double {
+        return deg * Math.PI / 180.0
+    }
+
+    private fun rad2deg(rad: Double): Double {
+        return rad * 180.0 / Math.PI
     }
 }

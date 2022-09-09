@@ -105,10 +105,6 @@ class FragmentMainButton: Fragment() {
         val userDP: CircleImageView = root.findViewById(R.id.user_dp)
 
 
-
-
-
-
         // get image url from local database
         val imageUrl:  String? = sharedPreferences.getString("dp_url_key", "not found")
 //        Toast.makeText(requireContext(), imageUrl, Toast.LENGTH_LONG).show()

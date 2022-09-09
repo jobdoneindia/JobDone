@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.firebase.geofire.GeoFire
+import com.firebase.geofire.GeoLocation
 import com.google.android.gms.common.api.*
 import com.google.android.gms.location.*
 import com.google.android.gms.location.LocationRequest
@@ -47,6 +49,8 @@ class WorkerDashboardActivity : AppCompatActivity() {
     private lateinit var mainBinding: ActivityWorkerDashboardBinding
     private val permissionId = 2
     private val REQUEST_CHECK_SETTINGS = 0x1
+
+    private lateinit var editor: SharedPreferences.Editor
 
     private val userSharedPreferences = "usersharedpreference"
     private lateinit var sharedPreferences: SharedPreferences
@@ -217,11 +221,21 @@ class WorkerDashboardActivity : AppCompatActivity() {
                         val list: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                         mainBinding.txtAddress.text = list[0].getAddressLine(0)
 
+                        // save latitude and longitude locally
+                        editor = sharedPreferences.edit()
+                        editor.putFloat("latitude", location.latitude.toFloat())
+                        editor.putFloat("longitude", location.longitude.toFloat())
+                        editor.apply()
+
+
                         // saving location in firebase db
                         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
                         val uid = FirebaseAuth.getInstance().currentUser?.uid
                         val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
                         reference.child("Location").setValue(arrayListOf(location.latitude, location.longitude))
+
+                        val geoFire = GeoFire(database.reference.child("geofire"))
+                        geoFire.setLocation(uid, GeoLocation(location.latitude, location.longitude))
 
                         saveLocationLocally(sharedPreferences)
                     }
