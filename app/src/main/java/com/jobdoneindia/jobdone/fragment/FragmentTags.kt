@@ -115,11 +115,10 @@ class FragmentTags: Fragment() {
         //geoquery to find closest worker
         geoQuery.addGeoQueryEventListener(object : GeoQueryEventListener {
             override fun onKeyEntered(key: String?, location: GeoLocation?) {
-                if (!workerFound && key != mAuth.currentUser?.uid.toString()) {
-                    workerFound = true
-                    workerFoundID = key.toString()
+                if (key !in workerFoundID.split(":") && key != mAuth.currentUser?.uid.toString()) {
+                    workerFoundID += key.toString() + ":"
 
-                    Toast.makeText(requireContext(), workerFoundID + " " + radius.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), workerFoundID.split(":").toString(), Toast.LENGTH_SHORT).show()
 
                     val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
                     var editor = sharedPreferences.edit()

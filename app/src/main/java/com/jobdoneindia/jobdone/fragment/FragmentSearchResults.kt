@@ -53,10 +53,6 @@ class FragmentSearchResults: Fragment()  {
         mAuth = FirebaseAuth.getInstance()
         mDbRef = FirebaseDatabase.getInstance().reference
 
-        /*getClosestWorkers()*/
-
-        Toast.makeText(requireContext(),radius.toString(),Toast.LENGTH_SHORT)
-
         // get lat and long from local database
         sharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
         userLocation = mutableListOf(sharedPreferences.getFloat("latitude", 0F).toDouble(),sharedPreferences.getFloat("longitude", 0F).toDouble()) as ArrayList<Double>
@@ -114,7 +110,7 @@ class FragmentSearchResults: Fragment()  {
                 for (postSnapshot in snapshot.children) {
                     val currentUser = postSnapshot.getValue(User::class.java)
                     /*if (mAuth.currentUser?.uid != currentUser?.uid) {*/
-                    if (currentUser?.uid.toString() == sharedPreferences.getString("closestworker", "null").toString()) {
+                    if (currentUser?.uid.toString() in sharedPreferences.getString("closestworker", "null").toString().split(":")) {
                         /*userList.add(currentUser!!)*/
                         distance = (distance(currentUser?.Location!![0], currentUser?.Location!![1], userLocation[0], userLocation[1])/0.621371).toInt()
                         mySearchItems.add(SearchItem(

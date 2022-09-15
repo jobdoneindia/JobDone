@@ -105,7 +105,7 @@ class ProfileActivity : AppCompatActivity() {
 
                 R.id.menuNotifications -> {
                     startActivity(
-                        Intent(applicationContext, DashboardActivity::class.java).setFlags(
+                        Intent(applicationContext, ChatUserList::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     return@setOnItemSelectedListener true
                 }

@@ -26,22 +26,27 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.CustomerPreviewAdapter
 import com.jobdoneindia.jobdone.adapter.ScheduledJobsPreviewAdapter
+import com.jobdoneindia.jobdone.adapter.UserAdapter
 import com.jobdoneindia.jobdone.databinding.ActivityWorkerDashboardBinding
 import de.hdodenhof.circleimageview.CircleImageView
 import java.lang.Exception
 import java.util.*
 
-data class CustomersPreview( val customers_name: String, val customer_message: String)
+data class CustomersPreview( val customers_name: String, val customer_message: String, val dp_url: String)
 data class ScheduledJobsPreview(val workers_name: String, val schedule_date: String, val schedule_location: String, val time: String)
 
 class WorkerDashboardActivity : AppCompatActivity() {
     private val customersPreview = mutableListOf<CustomersPreview>()
     private val scheduledJobsPreview = mutableListOf<ScheduledJobsPreview>()
+
+    private lateinit var adapter: CustomerPreviewAdapter
+
+    private lateinit var mDbRef : DatabaseReference
+    private lateinit var mAuth:FirebaseAuth
 
     private lateinit var bottomNavigationView: BottomNavigationView
 
@@ -93,7 +98,10 @@ class WorkerDashboardActivity : AppCompatActivity() {
             saveLocationLocally(sharedPreferences)
         }
 
-        customersPreview.add(CustomersPreview("Avinash Prasad", "asfsfsd"))
+        mAuth = FirebaseAuth.getInstance()
+        mDbRef = FirebaseDatabase.getInstance().reference
+
+        /*customersPreview.add(CustomersPreview("Avinash Prasad", "asfsfsd"))
         customersPreview.add(CustomersPreview("Avinash Prasad", "sdfsdf"))
         customersPreview.add(CustomersPreview("Avinash Prasad", "sdfsdf"))
         customersPreview.add(CustomersPreview("Avinash Prasad", "dsfsdf"))
@@ -108,12 +116,31 @@ class WorkerDashboardActivity : AppCompatActivity() {
         customersPreview.add(CustomersPreview("Avinash Prasad", "dfgdfg"))
         customersPreview.add(CustomersPreview("Avinash Prasad", "dfgdfg"))
         customersPreview.add(CustomersPreview("Avinash Prasad", "dfgdfg"))
-        customersPreview.add(CustomersPreview("Avinash Prasad", "dfgdfg"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "dfgdfg"))*/
 
+        adapter = CustomerPreviewAdapter(this, customersPreview)
         val customersList: RecyclerView = findViewById(R.id.recyclerview_customers_preview)
-        customersList.adapter = CustomerPreviewAdapter(customersPreview)
+        customersList.adapter = adapter
         customersList.layoutManager = LinearLayoutManager(this)
 
+        mDbRef.child("Users").addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (postSnapshot in snapshot.children) {
+                    val currentUser = postSnapshot.getValue(User::class.java)
+                    if (mAuth.currentUser?.uid != currentUser?.uid) {
+                        customersPreview.add(CustomersPreview(currentUser?.username.toString(), "Last Message", currentUser?.url.toString()))
+                    }
+                }
+                adapter.notifyDataSetChanged()
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
 
         scheduledJobsPreview.add(ScheduledJobsPreview("Avinash Prasad", "28-07-2022", "Matigara, Sukti Godown", "10:30 AM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Siraj Alam", "30-07-2022", "Matigara, Sukti Godown", "10:00 AM"))
