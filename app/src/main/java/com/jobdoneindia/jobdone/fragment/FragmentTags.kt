@@ -38,6 +38,7 @@ class FragmentTags: Fragment() {
     private var distance: Int = 0
     private var workerFound = false
     private var workerFoundID: String = ""
+    private var workerDistances: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -117,12 +118,14 @@ class FragmentTags: Fragment() {
             override fun onKeyEntered(key: String?, location: GeoLocation?) {
                 if (key !in workerFoundID.split(":") && key != mAuth.currentUser?.uid.toString()) {
                     workerFoundID += key.toString() + ":"
+                    workerDistances += radius.toInt().toString() + ":"
 
                     Toast.makeText(requireContext(), workerFoundID.split(":").toString(), Toast.LENGTH_SHORT).show()
 
                     val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
                     var editor = sharedPreferences.edit()
                     editor.putString("closestworker", workerFoundID)
+                    editor.putString("closeness", workerDistances)
                     editor.apply()
                 }
             }
