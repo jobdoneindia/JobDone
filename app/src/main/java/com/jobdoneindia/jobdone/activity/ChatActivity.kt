@@ -52,17 +52,10 @@ class ChatActivity : AppCompatActivity() {
         chatRecyclerView.layoutManager = LinearLayoutManager(this)
         chatRecyclerView.adapter = messageAdapter
 
-
-
-
-
         // logic for adding data to recyclerView
         mDbRef.child("chats").child(senderRoom!!).child("messages")
 
-
-
             .addValueEventListener(object: ValueEventListener {
-
 
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -87,8 +80,6 @@ class ChatActivity : AppCompatActivity() {
                 }
 
             })
-
-
 
         // adding the message to database
         sendButton.setOnClickListener {

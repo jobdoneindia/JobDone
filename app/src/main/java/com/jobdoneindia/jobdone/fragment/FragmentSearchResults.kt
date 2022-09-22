@@ -25,7 +25,7 @@ import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.User
 import com.jobdoneindia.jobdone.adapter.SearchResultsAdapter
 
-data class SearchItem(val name: String, val bio: String, val overall_rating: String, var distance: String, val description: String, val uid: String)
+data class SearchItem(val name: String, val bio: String, val overall_rating: String, var distance: String, val description: String, val uid: String, val url: String)
 
 class FragmentSearchResults: Fragment()  {
 
@@ -65,7 +65,7 @@ class FragmentSearchResults: Fragment()  {
 
 
         // OnClick listener for recyclerview items
-        var adapter = SearchResultsAdapter(mySearchItems)
+        var adapter = SearchResultsAdapter(requireContext(),mySearchItems)
         adapter.setOnItemClickListener(object : SearchResultsAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
                 Toast.makeText(context, "You Clicked on item no. $position", Toast.LENGTH_SHORT).show()
@@ -117,7 +117,7 @@ class FragmentSearchResults: Fragment()  {
                         /*distance = (distance(currentUser?.Location!![0], currentUser?.Location!![1], userLocation[0], userLocation[1])/0.621371).toInt()*/
                         unsortedSearchItems.add(SearchItem(
                             currentUser!!.username.toString(),
-                            null.toString(), "null", "${distance}km", "null", currentUser.uid.toString()
+                            null.toString(), "null", "${distance}km", "null", currentUser.uid.toString(), currentUser.url.toString()
                         ))
                     }
                     /*}*/

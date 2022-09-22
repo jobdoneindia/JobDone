@@ -1,8 +1,12 @@
 package com.jobdoneindia.jobdone.fragment
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +27,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.adapter.TagsAdapter
 import com.jobdoneindia.jobdone.R
+import com.jobdoneindia.jobdone.activity.LoginActivity
 import kotlinx.coroutines.runBlocking
 import java.text.FieldPosition
 
@@ -31,6 +36,8 @@ data class Categories( val service_name: String, val services_count: Int)
 class FragmentTags: Fragment() {
 
     private val myCategories = mutableListOf<Categories>()
+
+    private lateinit var dialog: AlertDialog
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDbRef: DatabaseReference
@@ -50,7 +57,8 @@ class FragmentTags: Fragment() {
 
         mAuth = FirebaseAuth.getInstance()
 
-        getClosestWorkers()
+        startAlertDialog()
+        /*getClosestWorkers()*/
 
         // Exit Transition
         val transitionInflater = TransitionInflater.from(requireContext())
@@ -139,9 +147,11 @@ class FragmentTags: Fragment() {
             }
 
             override fun onGeoQueryReady() {
-                if (!workerFound) {
+                if (!workerFound && radius<500) {
                     radius++
                     getClosestWorkers()
+                } else {
+                    closeAlertDilog()
                 }
             }
 
@@ -150,6 +160,21 @@ class FragmentTags: Fragment() {
             }
 
         })
+    }
+
+    // Loading Dialog
+    fun startAlertDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        builder.setView(layoutInflater.inflate(R.layout.loading_workers_dialog, null))
+        builder.setCancelable(false)
+
+        dialog = builder.create()
+        dialog.show()
+        getClosestWorkers()
+    }
+
+    fun closeAlertDilog() {
+        dialog.dismiss()
     }
 
     // overriding the back button
