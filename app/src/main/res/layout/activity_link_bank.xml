@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LinkBankActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/graphicLogo"
+        android:alpha="0.4"
+        android:src="@drawable/img_logo_with_shapes_faded"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtAccName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Account Holder's Number:"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/input_accname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="XXXX XXXX XXXX"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@id/txtAccName" />
+
+    <TextView
+        android:id="@+id/txtAccNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Enter Account Number:"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_accname" />
+
+    <EditText
+        android:id="@+id/input_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="XXXX XXXX XXXX"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@id/txtAccNum" />
+
+    <TextView
+        android:id="@+id/txtAccNum2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Re-Enter Account Number:"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_account" />
+
+    <EditText
+        android:id="@+id/reinput_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="XXXX XXXX XXXX"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@id/txtAccNum2" />
+
+    <TextView
+        android:id="@+id/txtIFSC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Enter IFSC Number:"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reinput_account" />
+
+    <EditText
+        android:id="@+id/input_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="SBINXXXXXXX"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@id/txtIFSC" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

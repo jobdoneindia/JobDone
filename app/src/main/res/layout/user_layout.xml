@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:gravity="center">
 
 
@@ -16,6 +17,7 @@
             android:id="@+id/user_dp"
             android:layout_width="55dp"
             android:layout_height="55dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="3dp"
             android:src="@drawable/img_empty_dp" />
@@ -23,23 +25,24 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_gravity="center"
             android:layout_marginLeft="12dp"
-            android:gravity="left">
+            android:gravity="left"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txt_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Avinash Prasad"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
             <TextView
+                android:id="@+id/last_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Last Message"
-                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                android:textColor="@color/textGrey"/>
+                android:textColor="@color/textGrey" />
 
         </LinearLayout>
 

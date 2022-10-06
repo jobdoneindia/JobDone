@@ -51,7 +51,7 @@ class DashboardActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
-                R.id.menuNotifications -> {
+                R.id.menuChats -> {
                     startActivity(Intent(applicationContext, ChatUserList::class.java))
                     return@setOnItemSelectedListener true
                 }

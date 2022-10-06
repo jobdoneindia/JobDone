@@ -1,18 +1,21 @@
 package com.jobdoneindia.jobdone.activity
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.MessageAdapter
-import com.jobdoneindia.jobdone.activity.Message
+import com.jobdoneindia.jobdone.R
+import java.util.*
+
 
 class ChatActivity : AppCompatActivity() {
 
@@ -33,7 +36,6 @@ class ChatActivity : AppCompatActivity() {
 
         val name = intent.getStringExtra("name")
         val receiverUid = intent.getStringExtra("uid")
-
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid
         mDbRef = FirebaseDatabase.getInstance().reference
 
@@ -65,9 +67,9 @@ class ChatActivity : AppCompatActivity() {
                     messageList.clear()
 
                     for (postSnapshot in snapshot.children){
-
                         val message: Message?
                         message = postSnapshot.getValue(Message::class.java)
+                        mDbRef.child("Users").child("latest-messages").child(senderUid.toString()).child(receiverUid.toString()).child("msg").setValue(message)
                         messageList.add(message!!)
                         chatRecyclerView.scrollToPosition(messageList.size-1)
                     }
@@ -88,19 +90,37 @@ class ChatActivity : AppCompatActivity() {
             val message = messageBox.text.toString()
 
             if (message != ""){
-                val messageObject = Message(message, senderUid)
+                val messageObject = Message(message, senderUid, Date().time)
 
                 mDbRef.child("chats").child(senderRoom!!).child("messages").push()
                     .setValue(messageObject).addOnSuccessListener {
                         mDbRef.child("chats").child(receiverRoom!!).child("messages").push()
                             .setValue(messageObject)
                     }
+                mDbRef.child("Users").child("latest-messages").child(senderUid.toString()).child(receiverUid.toString()).child("msg").setValue(messageObject)
                 messageBox.setText("")
             }
             else{
                 Toast.makeText(this,"Enter some message ", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.chat_actionbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id: Int = item.getItemId()
+        return if (id == R.id.action_call) {
+            // TODO: Yuvichh idhar code daal call ka
+            true
+        } else super.onOptionsItemSelected(item)
     }
 
 
