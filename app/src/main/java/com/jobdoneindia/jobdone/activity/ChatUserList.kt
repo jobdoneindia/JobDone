@@ -1,5 +1,7 @@
 package com.jobdoneindia.jobdone.activity
 
+import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,10 +11,18 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.firebase.geofire.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.UserAdapter
+import com.jobdoneindia.jobdone.firebase.FirebaseService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 
 data class inboxItem(val uid: String, val username: String, val url: String, var lastMsg: String, var timestamp: Long)
 
@@ -37,6 +47,11 @@ class ChatUserList : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_user_list)
+
+       val firebase : FirebaseUser = FirebaseAuth.getInstance().currentUser!!
+        val receiverUid = intent.getStringExtra("uid")
+        var userid = firebase.uid
+        FirebaseMessaging.getInstance().subscribeToTopic("/topics/$userid")
 
         // Add back button in Action Bar
         val actionBar: ActionBar? = supportActionBar
@@ -104,6 +119,11 @@ class ChatUserList : AppCompatActivity() {
                             lastMsg.toString(),
                             t.toString().toLong()
                         ))
+
+
+                        FirebaseMessaging.getInstance().subscribeToTopic("/topics/$receiverUid")
+                        userList.add(currentUser!!)
+
 /*                        }*/
                     }
                 }

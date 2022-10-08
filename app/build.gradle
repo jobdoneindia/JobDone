@@ -58,6 +58,15 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
     implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation 'androidx.test:core-ktx:1.4.0'
+
+    //FCM
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
+
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+
+    //GLIDE LIBRARY
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     //material design dependency
@@ -71,6 +80,9 @@ dependencies {
 
     //location service
     implementation 'com.google.android.gms:play-services-location:20.0.0'
+
+
+
 
 
 
@@ -96,5 +108,11 @@ dependencies {
     implementation 'com.firebase:geofire-android-common:3.2.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+
+    //voice player
+
+
+
 
 }

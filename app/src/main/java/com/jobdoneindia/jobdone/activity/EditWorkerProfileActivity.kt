@@ -235,9 +235,9 @@ class EditWorkerProfileActivity : AppCompatActivity() {
         val reducedImage: ByteArray = byteArrayOutputStream.toByteArray()
 
         //UUID
-        val imageName = UUID.randomUUID().toString()
+        val imageName = FirebaseAuth.getInstance().uid.toString()
 
-        val imageReference = storageReference.child("images").child(imageName)
+        val imageReference = storageReference.child("profilepictures").child(imageName)
 
 
         reducedImage?.let { uri ->
@@ -246,7 +246,7 @@ class EditWorkerProfileActivity : AppCompatActivity() {
                 Toast.makeText(this, "Image uploaded" , Toast.LENGTH_SHORT).show()
 
                 //downloadable url
-                val myUploadImageReference = storageReference.child("images").child(imageName)
+                val myUploadImageReference = storageReference.child("profilepictures").child(imageName)
                 myUploadImageReference.downloadUrl.addOnSuccessListener { url ->
 
                     imageURL = url.toString()

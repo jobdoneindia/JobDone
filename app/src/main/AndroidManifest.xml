@@ -3,10 +3,12 @@
     package="com.jobdoneindia.jobdone">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- For Location Tracking -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     <application
         android:allowBackup="true"
@@ -15,6 +17,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JobDone">
+
+        <service android:name=".firebase.FirebaseService"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+            </intent-filter>
+
+        </service>
+
+
         <activity
             android:name=".activity.LinkBankActivity"
             android:label="Link Your Bank Account"
@@ -26,6 +40,7 @@
         <activity
             android:name=".activity.ChatActivity"
             android:exported="false" />
+
         <activity
             android:name=".activity.ChatUserList"
             android:exported="false"
@@ -49,6 +64,7 @@
             android:name=".activity.EditProfileActivity"
             android:exported="false"
             android:label="Edit Profile" />
+
         <activity
             android:name=".activity.ProfileActivity"
             android:exported="false"

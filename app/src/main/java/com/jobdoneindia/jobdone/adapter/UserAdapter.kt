@@ -72,8 +72,9 @@ class UserAdapter(val context: Context, val userList: ArrayList<inboxItem>):
         holder.itemView.setOnClickListener {
             val intent = Intent(context,ChatActivity::class.java)
 
-            intent.putExtra("name",currentUser.username)
+            intent.putExtra("username",currentUser.username)
             intent.putExtra("uid",currentUser.uid)
+            intent.putExtra("url",userList[position].url)
 
             context.startActivity(intent)
 

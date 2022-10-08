@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.oAuthCredential
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -114,26 +115,7 @@ class FragmentSetDP : Fragment() {
 
 
 
-            /*storageReference.putBytes(reducedImage)
-                .addOnSuccessListener {
 
-                    Log.i("xxx", "Success uploading Image to Firebase!!!")
-
-                    storageReference.downloadUrl.addOnSuccessListener {
-
-                        //getting image url
-                        Log.i("xxx",it.toString())
-
-                    }.addOnFailureListener {
-
-                        Log.i("xxx", "Error getting image download url")
-                    }
-
-                }.addOnFailureListener {
-
-                    Log.i("xxx", "Failed uploading image to server")
-
-                }*/
 
 
         }
@@ -168,7 +150,6 @@ class FragmentSetDP : Fragment() {
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
-
         reference.child("url").setValue(url)
 
     }
@@ -213,19 +194,21 @@ class FragmentSetDP : Fragment() {
         val reducedImage: ByteArray = byteArrayOutputStream.toByteArray()
 
         //UUID
-        val imageName = UUID.randomUUID().toString()
+        val imageName = FirebaseAuth.getInstance().uid.toString()
 
-        val imageReference = storageReference.child("images").child(imageName)
+        val imageReference = storageReference.child("profilepictures").child(imageName)
 
 
-        reducedImage?.let { uri ->
+        imageuri?.let { uri ->
 
-            imageReference.putBytes(uri).addOnSuccessListener {
+            imageReference.putBytes(reducedImage).addOnSuccessListener {
                 Toast.makeText(requireContext(), "Image uploaded" ,Toast.LENGTH_SHORT).show()
 
                 //downloadable url
-                val myUploadImageReference = storageReference.child("images").child(imageName)
+                val myUploadImageReference = storageReference.child("profilepictures").child(imageName)
                 myUploadImageReference.downloadUrl.addOnSuccessListener { url ->
+
+
 
                     imageURL = url.toString()
                     addProfilePicUrlToDatabase(imageURL)
@@ -251,13 +234,7 @@ class FragmentSetDP : Fragment() {
 
     }
 
-    /*{
-        result ->
-            if(result.resultCode == Activity.RESULT_OK && result.data != null) {
-                imageuri = result.data!!.data!!
-                profilePic.setImageURI(imageuri)
-            }
-    }*/
+
 
 
 }
