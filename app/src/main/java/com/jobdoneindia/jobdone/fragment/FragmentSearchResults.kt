@@ -25,11 +25,12 @@ import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.User
 import com.jobdoneindia.jobdone.adapter.SearchResultsAdapter
 
-data class SearchItem(val name: String, val bio: String, val overall_rating: String, val distance: String, val description: String)
+data class SearchItem(val name: String, val bio: String, val overall_rating: String, var distance: String, val description: String, val uid: String, val url: String)
 
 class FragmentSearchResults: Fragment()  {
 
     private val mySearchItems = mutableListOf<SearchItem>()
+    private val unsortedSearchItems = mutableListOf<SearchItem>()
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDbRef: DatabaseReference
@@ -53,10 +54,6 @@ class FragmentSearchResults: Fragment()  {
         mAuth = FirebaseAuth.getInstance()
         mDbRef = FirebaseDatabase.getInstance().reference
 
-        /*getClosestWorkers()*/
-
-        Toast.makeText(requireContext(),radius.toString(),Toast.LENGTH_SHORT)
-
         // get lat and long from local database
         sharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
         userLocation = mutableListOf(sharedPreferences.getFloat("latitude", 0F).toDouble(),sharedPreferences.getFloat("longitude", 0F).toDouble()) as ArrayList<Double>
@@ -68,7 +65,7 @@ class FragmentSearchResults: Fragment()  {
 
 
         // OnClick listener for recyclerview items
-        var adapter = SearchResultsAdapter(mySearchItems)
+        var adapter = SearchResultsAdapter(requireContext(),mySearchItems)
         adapter.setOnItemClickListener(object : SearchResultsAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
                 Toast.makeText(context, "You Clicked on item no. $position", Toast.LENGTH_SHORT).show()
@@ -110,19 +107,28 @@ class FragmentSearchResults: Fragment()  {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 mySearchItems.clear()
+                unsortedSearchItems.clear()
                 /*getClosestWorkers()*/
                 for (postSnapshot in snapshot.children) {
                     val currentUser = postSnapshot.getValue(User::class.java)
                     /*if (mAuth.currentUser?.uid != currentUser?.uid) {*/
-                    if (currentUser?.uid.toString() == sharedPreferences.getString("closestworker", "null").toString()) {
+                    if (currentUser?.uid.toString() in sharedPreferences.getString("closestworker", "null").toString().split(":")) {
                         /*userList.add(currentUser!!)*/
-                        distance = (distance(currentUser?.Location!![0], currentUser?.Location!![1], userLocation[0], userLocation[1])/0.621371).toInt()
-                        mySearchItems.add(SearchItem(
+                        /*distance = (distance(currentUser?.Location!![0], currentUser?.Location!![1], userLocation[0], userLocation[1])/0.621371).toInt()*/
+                        unsortedSearchItems.add(SearchItem(
                             currentUser!!.username.toString(),
-                            null.toString(), "null", "${distance}km", "null",
+                            null.toString(), "null", "${distance}km", "null", currentUser.uid.toString(), currentUser.url.toString()
                         ))
                     }
                     /*}*/
+                }
+                for (i in 0..sharedPreferences.getString("closestworker", "null").toString().split(":").lastIndex) {
+                    for (j in 0..unsortedSearchItems.lastIndex) {
+                        if (sharedPreferences.getString("closestworker", "null").toString().split(":")[i] == unsortedSearchItems[j].uid) {
+                            unsortedSearchItems[j].distance = sharedPreferences.getString("closeness", "null").toString().split(":")[i] + " km"
+                            mySearchItems.add(unsortedSearchItems[j])
+                        }
+                    }
                 }
                 adapter.notifyDataSetChanged()
             }

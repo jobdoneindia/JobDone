@@ -1,8 +1,12 @@
 package com.jobdoneindia.jobdone.fragment
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +27,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.adapter.TagsAdapter
 import com.jobdoneindia.jobdone.R
+import com.jobdoneindia.jobdone.activity.LoginActivity
 import kotlinx.coroutines.runBlocking
 import java.text.FieldPosition
 
@@ -32,12 +37,15 @@ class FragmentTags: Fragment() {
 
     private val myCategories = mutableListOf<Categories>()
 
+    private lateinit var dialog: AlertDialog
+
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDbRef: DatabaseReference
     private var radius = 1.0
     private var distance: Int = 0
     private var workerFound = false
     private var workerFoundID: String = ""
+    private var workerDistances: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +57,8 @@ class FragmentTags: Fragment() {
 
         mAuth = FirebaseAuth.getInstance()
 
-        getClosestWorkers()
+        startAlertDialog()
+        /*getClosestWorkers()*/
 
         // Exit Transition
         val transitionInflater = TransitionInflater.from(requireContext())
@@ -115,15 +124,16 @@ class FragmentTags: Fragment() {
         //geoquery to find closest worker
         geoQuery.addGeoQueryEventListener(object : GeoQueryEventListener {
             override fun onKeyEntered(key: String?, location: GeoLocation?) {
-                if (!workerFound && key != mAuth.currentUser?.uid.toString()) {
-                    workerFound = true
-                    workerFoundID = key.toString()
+                if (key !in workerFoundID.split(":") && key != mAuth.currentUser?.uid.toString()) {
+                    workerFoundID += key.toString() + ":"
+                    workerDistances += radius.toInt().toString() + ":"
 
-                    Toast.makeText(requireContext(), workerFoundID + " " + radius.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), workerFoundID.split(":").toString(), Toast.LENGTH_SHORT).show()
 
                     val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
                     var editor = sharedPreferences.edit()
                     editor.putString("closestworker", workerFoundID)
+                    editor.putString("closeness", workerDistances)
                     editor.apply()
                 }
             }
@@ -137,9 +147,11 @@ class FragmentTags: Fragment() {
             }
 
             override fun onGeoQueryReady() {
-                if (!workerFound) {
+                if (!workerFound && radius<500) {
                     radius++
                     getClosestWorkers()
+                } else {
+                    closeAlertDilog()
                 }
             }
 
@@ -148,6 +160,21 @@ class FragmentTags: Fragment() {
             }
 
         })
+    }
+
+    // Loading Dialog
+    fun startAlertDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        builder.setView(layoutInflater.inflate(R.layout.loading_workers_dialog, null))
+        builder.setCancelable(false)
+
+        dialog = builder.create()
+        dialog.show()
+        getClosestWorkers()
+    }
+
+    fun closeAlertDilog() {
+        dialog.dismiss()
     }
 
     // overriding the back button

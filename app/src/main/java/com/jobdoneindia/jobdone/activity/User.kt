@@ -12,7 +12,7 @@ class User {
         username: String?,
         url: String?,
         phoneNumber: String?,
-        Location:ArrayList<Double>?
+        Location:ArrayList<Double>?,
     ){
         this.uid = uid
         this.username = username

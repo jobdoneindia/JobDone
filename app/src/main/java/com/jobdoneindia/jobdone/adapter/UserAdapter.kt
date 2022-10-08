@@ -15,10 +15,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.ChatActivity
+import com.jobdoneindia.jobdone.activity.inboxItem
 import de.hdodenhof.circleimageview.CircleImageView
 
 
-class UserAdapter(val context: Context, val userList: ArrayList<com.jobdoneindia.jobdone.activity.User>):
+class UserAdapter(val context: Context, val userList: ArrayList<inboxItem>):
     RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
 
 
@@ -38,6 +39,8 @@ class UserAdapter(val context: Context, val userList: ArrayList<com.jobdoneindia
 
         holder.textName.text = currentUser.username.toString()
 
+        holder.lastMessage.text = currentUser.lastMsg
+
         // get image url from local database
         val imageUrl:  String? = currentUser.url.toString()
 
@@ -53,7 +56,7 @@ class UserAdapter(val context: Context, val userList: ArrayList<com.jobdoneindia
             val dialogBuilder = AlertDialog.Builder(context)
 
             // set message of alert dialog
-            dialogBuilder.setMessage("Name: ${currentUser.username.toString()} \nProfession: ${currentUser.phoneNumber.toString()}").setCancelable(true)
+            dialogBuilder.setMessage("Name: ${currentUser.username.toString()} \nLast msg: ${currentUser.lastMsg.toString()}").setCancelable(true)
                 // positive button text and action
                 .setPositiveButton("OK", DialogInterface.OnClickListener {
                         dialog, id -> dialog.cancel()
@@ -88,6 +91,7 @@ class UserAdapter(val context: Context, val userList: ArrayList<com.jobdoneindia
     class  UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val textName = itemView.findViewById<TextView>(R.id.txt_name)
         val userDP = itemView.findViewById<CircleImageView>(R.id.user_dp)
+        val lastMessage = itemView.findViewById<TextView>(R.id.last_msg)
     }
 }
 

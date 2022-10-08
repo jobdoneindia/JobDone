@@ -6,6 +6,8 @@ import android.content.Context
 import android.media.session.MediaSession
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
@@ -22,6 +24,8 @@ import com.google.gson.Gson
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.RetrofitInstance
 import com.jobdoneindia.jobdone.adapter.MessageAdapter
+import java.util.*
+
 import com.jobdoneindia.jobdone.activity.Message
 import com.jobdoneindia.jobdone.firebase.FirebaseService
 import com.jobdoneindia.jobdone.models.NotificationData
@@ -89,17 +93,10 @@ class ChatActivity : AppCompatActivity() {
         chatRecyclerView.layoutManager = LinearLayoutManager(this)
         chatRecyclerView.adapter = messageAdapter
 
-
-
-
-
         // logic for adding data to recyclerView
         mDbRef.child("chats").child(senderRoom!!).child("messages")
 
-
-
             .addValueEventListener(object: ValueEventListener {
-
 
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -109,13 +106,11 @@ class ChatActivity : AppCompatActivity() {
                     messageList.clear()
 
                     for (postSnapshot in snapshot.children){
-
                         val message: Message?
                         message = postSnapshot.getValue(Message::class.java)
+                        mDbRef.child("Users").child("latest-messages").child(senderUid.toString()).child(receiverUid.toString()).child("msg").setValue(message)
                         messageList.add(message!!)
                         chatRecyclerView.scrollToPosition(messageList.size-1)
-
-
                     }
                     messageAdapter.notifyDataSetChanged()
 
@@ -127,10 +122,9 @@ class ChatActivity : AppCompatActivity() {
 
             })
 
-
-
         // adding the message to database
         sendButton.setOnClickListener {
+
 
             val message = messageBox.text.toString()
             /*if (message.isNotEmpty()){
@@ -144,14 +138,15 @@ class ChatActivity : AppCompatActivity() {
             }*/
 
 //TODO: message
-            if (message.isNotEmpty()){
-                val messageObject = Message(message, senderUid)
+            if (message != ""){
+                val messageObject = Message(message, senderUid, Date().time)
 
                 mDbRef.child("chats").child(senderRoom!!).child("messages").push()
                     .setValue(messageObject).addOnSuccessListener {
                         mDbRef.child("chats").child(receiverRoom!!).child("messages").push()
                             .setValue(messageObject)
                     }
+                mDbRef.child("Users").child("latest-messages").child(senderUid.toString()).child(receiverUid.toString()).child("msg").setValue(messageObject)
                 messageBox.setText("")
                 topic = "/topics/$receiverUid"
                 PushNotification(NotificationData(self_name,message),
@@ -160,7 +155,6 @@ class ChatActivity : AppCompatActivity() {
                     sendNotification(it)
                 }
             }
-
         }
     }
     val exceptionHandler = CoroutineExceptionHandler{_ , throwable->
@@ -179,5 +173,24 @@ private fun sendNotification(notification: PushNotification) = CoroutineScope(Di
         /*Toast.makeText(this@ChatActivity,e.message.toString(),Toast.LENGTH_SHORT).show()*/
     }
 }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.chat_actionbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id: Int = item.getItemId()
+        return if (id == R.id.action_call) {
+            // TODO: Yuvichh idhar code daal call ka
+            true
+        } else super.onOptionsItemSelected(item)
+    }
+
+
 
 }

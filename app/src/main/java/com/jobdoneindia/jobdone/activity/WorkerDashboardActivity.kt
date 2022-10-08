@@ -2,18 +2,19 @@ package com.jobdoneindia.jobdone.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.IntentSender
 import android.content.Context
 import android.content.Intent
+import android.content.IntentSender
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.*
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.firebase.geofire.GeoFire
@@ -26,24 +27,28 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.CustomerPreviewAdapter
-import com.jobdoneindia.jobdone.adapter.ScheduledJobsPreviewAdapter
 import com.jobdoneindia.jobdone.databinding.ActivityWorkerDashboardBinding
 import de.hdodenhof.circleimageview.CircleImageView
-import java.lang.Exception
 import java.util.*
 
-data class CustomersPreview( val customers_name: String, val customer_message: String)
+data class CustomersPreview( val customers_name: String, val customer_message: String, val dp_url: String)
 data class ScheduledJobsPreview(val workers_name: String, val schedule_date: String, val schedule_location: String, val time: String)
 
 class WorkerDashboardActivity : AppCompatActivity() {
     private val customersPreview = mutableListOf<CustomersPreview>()
     private val scheduledJobsPreview = mutableListOf<ScheduledJobsPreview>()
 
+    private lateinit var adapter: CustomerPreviewAdapter
+
+    private lateinit var mDbRef : DatabaseReference
+    private lateinit var mAuth:FirebaseAuth
+
     private lateinit var bottomNavigationView: BottomNavigationView
+
+    private lateinit var btnLinkBank: Button
 
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private lateinit var mainBinding: ActivityWorkerDashboardBinding
@@ -60,6 +65,20 @@ class WorkerDashboardActivity : AppCompatActivity() {
         mainBinding = ActivityWorkerDashboardBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
         supportActionBar?.hide()
+
+        // Display Earnings Spinner
+        val spinner = findViewById<Spinner>(R.id.spinner)
+        if (spinner != null) {
+            val adapter: ArrayAdapter<*> = ArrayAdapter.createFromResource(this, R.array.earningsDisplayOptions, R.layout.spinner_item)
+            spinner.adapter = adapter
+        }
+
+        // Link Bank Account
+        btnLinkBank = findViewById(R.id.btnLinkBank)
+        btnLinkBank.setOnClickListener {
+            val intent = Intent(this, LinkBankActivity::class.java)
+            startActivity(intent)
+        }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         sharedPreferences = getSharedPreferences(userSharedPreferences, Context.MODE_PRIVATE)
@@ -93,7 +112,10 @@ class WorkerDashboardActivity : AppCompatActivity() {
             saveLocationLocally(sharedPreferences)
         }
 
-        customersPreview.add(CustomersPreview("Avinash Prasad", "asfsfsd"))
+        mAuth = FirebaseAuth.getInstance()
+        mDbRef = FirebaseDatabase.getInstance().reference
+
+        /*customersPreview.add(CustomersPreview("Avinash Prasad", "asfsfsd"))
         customersPreview.add(CustomersPreview("Avinash Prasad", "sdfsdf"))
         customersPreview.add(CustomersPreview("Avinash Prasad", "sdfsdf"))
         customersPreview.add(CustomersPreview("Avinash Prasad", "dsfsdf"))
@@ -108,12 +130,31 @@ class WorkerDashboardActivity : AppCompatActivity() {
         customersPreview.add(CustomersPreview("Avinash Prasad", "dfgdfg"))
         customersPreview.add(CustomersPreview("Avinash Prasad", "dfgdfg"))
         customersPreview.add(CustomersPreview("Avinash Prasad", "dfgdfg"))
-        customersPreview.add(CustomersPreview("Avinash Prasad", "dfgdfg"))
+        customersPreview.add(CustomersPreview("Avinash Prasad", "dfgdfg"))*/
 
+        /*adapter = CustomerPreviewAdapter(this, customersPreview)
         val customersList: RecyclerView = findViewById(R.id.recyclerview_customers_preview)
-        customersList.adapter = CustomerPreviewAdapter(customersPreview)
+        customersList.adapter = adapter
         customersList.layoutManager = LinearLayoutManager(this)
 
+        mDbRef.child("Users").addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (postSnapshot in snapshot.children) {
+                    val currentUser = postSnapshot.getValue(User::class.java)
+                    if (mAuth.currentUser?.uid != currentUser?.uid) {
+                        customersPreview.add(CustomersPreview(currentUser?.username.toString(), "Last Message", currentUser?.url.toString()))
+                    }
+                }
+                adapter.notifyDataSetChanged()
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
 
         scheduledJobsPreview.add(ScheduledJobsPreview("Avinash Prasad", "28-07-2022", "Matigara, Sukti Godown", "10:30 AM"))
         scheduledJobsPreview.add(ScheduledJobsPreview("Siraj Alam", "30-07-2022", "Matigara, Sukti Godown", "10:00 AM"))
@@ -130,7 +171,7 @@ class WorkerDashboardActivity : AppCompatActivity() {
 
         val workersList: RecyclerView = findViewById((R.id.recyclerview_workers_preview))
         workersList.adapter = ScheduledJobsPreviewAdapter(scheduledJobsPreview)
-        workersList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        workersList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)*/
 
         // Set Home selected (in bottom nav bar)
         bottomNavigationView = findViewById(R.id.bottomNavigationDrawer)
@@ -150,9 +191,9 @@ class WorkerDashboardActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
-                R.id.menuNotifications -> {
+                R.id.menuChats -> {
                     startActivity(
-                        Intent(applicationContext, WorkerDashboardActivity::class.java).setFlags(
+                        Intent(applicationContext, ChatUserList::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     return@setOnItemSelectedListener true
                 }
