@@ -1,6 +1,7 @@
 package com.jobdoneindia.jobdone.activity
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -9,9 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.geofire.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.UserAdapter
+import com.jobdoneindia.jobdone.firebase.FirebaseService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -31,6 +36,11 @@ class ChatUserList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_user_list)
 
+       val firebase : FirebaseUser = FirebaseAuth.getInstance().currentUser!!
+        val receiverUid = intent.getStringExtra("uid")
+        var userid = firebase.uid
+        FirebaseMessaging.getInstance().subscribeToTopic("/topics/$userid")
+
         /*getClosestWorkers()*/
 
         mDbRef = FirebaseDatabase.getInstance().reference
@@ -40,6 +50,8 @@ class ChatUserList : AppCompatActivity() {
         userList = ArrayList()
         adapter = UserAdapter(this, userList)
 
+
+
         userRecyclerView = findViewById(R.id.userRecyclerView)
 
 
@@ -48,13 +60,18 @@ class ChatUserList : AppCompatActivity() {
 
         mDbRef.child("Users").addValueEventListener(object : ValueEventListener {
 
+
             override fun onDataChange(snapshot: DataSnapshot) {
                 userList.clear()
                 for (postSnapshot in snapshot.children) {
                     val currentUser = postSnapshot.getValue(User::class.java)
                     if (mAuth.currentUser?.uid != currentUser?.uid) {
                         /*if (workerFoundID == currentUser?.uid.toString()) {*/
-                            userList.add(currentUser!!)
+
+
+                        FirebaseMessaging.getInstance().subscribeToTopic("/topics/$receiverUid")
+                        userList.add(currentUser!!)
+
 /*                        }*/
                     }
                 }
