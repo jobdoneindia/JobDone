@@ -122,7 +122,6 @@ class ChatUserList : AppCompatActivity() {
 
 
                         FirebaseMessaging.getInstance().subscribeToTopic("/topics/$receiverUid")
-                        userList.add(currentUser!!)
 
 /*                        }*/
                     }

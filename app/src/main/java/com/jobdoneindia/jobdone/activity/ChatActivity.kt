@@ -1,9 +1,12 @@
 package com.jobdoneindia.jobdone.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import android.widget.HorizontalScrollView
 import android.widget.ImageButton
@@ -62,8 +65,8 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-       FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+        FirebaseService.sharedPref = getSharedPreferences("sharedPref", MODE_PRIVATE)
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
 
            FirebaseService.token = it.token
 
@@ -74,7 +77,7 @@ class ChatActivity : AppCompatActivity() {
         val receiverUid = intent.getStringExtra("uid")
         var name = intent.getStringExtra("username").toString()
 
-        val sharedPreferences = this.getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+        val sharedPreferences = this.getSharedPreferences("usersharedpreference", MODE_PRIVATE)
         self_name = sharedPreferences.getString("name_key", "Siraj Alarm").toString()
 
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid
@@ -178,7 +181,7 @@ class ChatActivity : AppCompatActivity() {
     val exceptionHandler = CoroutineExceptionHandler{_ , throwable->
         throwable.printStackTrace()
     }
-private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+private fun sendNotification(notification: PushNotification) = CoroutineScope(IO + exceptionHandler).launch {
     try {
         val response = RetrofitInstance.api.postNotification(notification)
         if (response.isSuccessful){
