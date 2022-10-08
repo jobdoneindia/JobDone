@@ -80,6 +80,9 @@ class FragmentSetDP : Fragment() {
                 editor.putString("dp_url_key", "https://secondchancetinyhomes.org/wp-content/uploads/2016/09/empty-profile.png")
                 editor.apply()
                 editor.commit()
+
+                addProfilePicUrlToDatabase("https://secondchancetinyhomes.org/wp-content/uploads/2016/09/empty-profile.png")
+
                 // move to next frag
                 Navigation.findNavController(view).navigate(R.id.action_fragmentSetDP_to_fragmentChooseMode)
             }

@@ -113,7 +113,12 @@ class EditProfileActivity : AppCompatActivity() {
 
 
                 // upload photo to db
-                updatePhoto()
+                if (imageuri != null) {
+                    Toast.makeText(this, "Uploading Image...", Toast.LENGTH_LONG).show()
+                    updatePhoto()
+                } else {
+                    finish()
+                }
 
                 // Store data in firebase
                 reference.child(FirebaseAuth.getInstance().currentUser?.uid.toString()).child("username").setValue(name)

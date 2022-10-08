@@ -94,8 +94,12 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             reference.child("Workername").setValue(workerName)
             reference.child("Workerbio").setValue(workerBio)
 
-
-            uploadPhoto()
+            if (imageuri != null) {
+                Toast.makeText(this, "Uploading Image...", Toast.LENGTH_LONG).show()
+                uploadPhoto()
+            } else {
+                finish()
+            }
         }
 
         // Tags Selectors
