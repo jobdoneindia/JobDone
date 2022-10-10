@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.icu.text.Transliterator
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +24,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -33,6 +36,7 @@ import com.jobdoneindia.jobdone.R
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.util.*
 
 class EditProfileActivity : AppCompatActivity() {
@@ -56,6 +60,7 @@ class EditProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
+
 
         profileActivityForResult()
 
@@ -85,43 +90,45 @@ class EditProfileActivity : AppCompatActivity() {
         editTextName.setText(sharedName)
 
 
-            doneButton.setOnClickListener{
+        // get image url from local database
+        val imageUrl:  String? = sharedPreferences.getString("dp_url_key", "not found")
 
-                val name: String = editTextName.text.toString().trim()
+        // Set DP using Glide
+        Glide.with(this)
+            .load(imageUrl)
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .into(this.findViewById<CircleImageView>(R.id.profile_pic))
 
-                // Store data locally
-                val editor: SharedPreferences.Editor = sharedPreferences.edit()
-                editor.putString("name_key", name)
-                editor.apply()
-                editor.commit()
 
-                // Store data in firebase
-                reference.child(FirebaseAuth.getInstance().currentUser?.uid.toString()).child("username").setValue(name)
+        doneButton.setOnClickListener{
 
-                // upload photo to db
-                uploadPhoto()
+            val name: String = editTextName.text.toString().trim()
 
+            // Store data locally
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString("name_key", name)
+            editor.apply()
+            editor.commit()
+
+
+
+            // upload photo to db
+            if (imageuri != null) {
+                Toast.makeText(this, "Uploading Image...", Toast.LENGTH_LONG).show()
+                updatePhoto()
+            } else {
+                finish()
+            }
+
+            // Store data in firebase
+            reference.child(FirebaseAuth.getInstance().currentUser?.uid.toString()).child("username").setValue(name)
         }
 
 
     }
 
     // select an image from Gallery
-    private fun pickfromGallery() {
-
-        if (ContextCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-            != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                1
-            )
-
-
-        }
+    fun pickfromGallery() {
 
         val galleryIntent = Intent()
         galleryIntent.type = "image/*"
@@ -129,23 +136,7 @@ class EditProfileActivity : AppCompatActivity() {
         activityResultLauncher.launch(galleryIntent)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-
-            val galleryIntent = Intent()
-            galleryIntent.type = "image/*"
-            galleryIntent.action = Intent.ACTION_GET_CONTENT
-            activityResultLauncher.launch(galleryIntent)
-
-        }
-
-    }
 
     fun addProfilePicUrlToDatabase(url : String){
 
@@ -153,9 +144,7 @@ class EditProfileActivity : AppCompatActivity() {
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
-
         reference.child("url").setValue(url)
-
     }
 
     // Start galleryIntent for result
@@ -187,28 +176,31 @@ class EditProfileActivity : AppCompatActivity() {
 
     }
 
-    fun uploadPhoto(){
+    fun updatePhoto(){
 
         doneButton.isClickable = false
 
+
+
+        //Image Compressor
         val bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageuri)
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream)
         val reducedImage: ByteArray = byteArrayOutputStream.toByteArray()
 
         //UUID
-        val imageName = UUID.randomUUID().toString()
+        val imageName = FirebaseAuth.getInstance().uid.toString()
 
-        val imageReference = storageReference.child("images").child(imageName)
+        val imageReference = storageReference.child("profilepictures").child(imageName)
 
 
-        reducedImage?.let { uri ->
+        imageuri?.let { uri ->
 
-            imageReference.putBytes(uri).addOnSuccessListener {
-                Toast.makeText(this, "Image uploaded" ,Toast.LENGTH_SHORT).show()
+            imageReference.putBytes(reducedImage).addOnSuccessListener {
+                Toast.makeText(this, "Image updated" ,Toast.LENGTH_SHORT).show()
 
                 //downloadable url
-                val myUploadImageReference = storageReference.child("images").child(imageName)
+                val myUploadImageReference = storageReference.child("profilepictures").child(imageName)
                 myUploadImageReference.downloadUrl.addOnSuccessListener { url ->
 
                     imageURL = url.toString()
@@ -237,29 +229,29 @@ class EditProfileActivity : AppCompatActivity() {
 
     // Set up function for back button in Action Bar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-            when (item.itemId) {
-                android.R.id.home -> {
-                    // build alert dialog
-                    val dialogBuilder = AlertDialog.Builder(this)
+        when (item.itemId) {
+            android.R.id.home -> {
+                // build alert dialog
+                val dialogBuilder = AlertDialog.Builder(this)
 
-                    // set message of alert dialog
-                    dialogBuilder.setMessage("Discard Changes?").setCancelable(true)
-                        // positive button text and action
-                        .setPositiveButton("Discard", DialogInterface.OnClickListener {
-                                dialog, id -> finish()
-                        })
-                        // negative button text and action
-                        .setNegativeButton("Cancel",DialogInterface.OnClickListener{
+                // set message of alert dialog
+                dialogBuilder.setMessage("Discard Changes?").setCancelable(true)
+                    // positive button text and action
+                    .setPositiveButton("Discard", DialogInterface.OnClickListener {
+                            dialog, id -> finish()
+                    })
+                    // negative button text and action
+                    .setNegativeButton("Cancel",DialogInterface.OnClickListener{
                             dialog, id -> dialog.cancel()
-                        })
-                    // create dialog box
-                    val alert = dialogBuilder.create()
-                    // set title for alert dialog box
-                    alert.setTitle("Edit Profile")
-                    // show
-                    alert.show()
-                }
+                    })
+                // create dialog box
+                val alert = dialogBuilder.create()
+                // set title for alert dialog box
+                alert.setTitle("Edit Profile")
+                // show
+                alert.show()
             }
-            return super.onOptionsItemSelected(item)
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

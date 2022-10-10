@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="This is receive message"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:padding="10dp"
             android:layout_marginLeft="5dp"
             android:textSize="18sp"/>
