@@ -4,9 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +23,9 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var sendButton: ImageView
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var messageList: ArrayList<Message>
+    private lateinit var scrollViewCustom: HorizontalScrollView
+    private lateinit var scrollButton: ImageButton
+    private lateinit var scrollBackButton: ImageButton
     private lateinit var mDbRef: DatabaseReference
 
     var receiverRoom: String? = null
@@ -47,6 +49,10 @@ class ChatActivity : AppCompatActivity() {
         chatRecyclerView = findViewById<RecyclerView?>(R.id.chatRecyclerView)
         messageBox = findViewById(R.id.messageBox)
         sendButton = findViewById(R.id.sentButton)
+        scrollViewCustom = findViewById(R.id.scrollViewCustomButtons)
+        scrollButton = findViewById(R.id.btnScroll)
+        scrollBackButton = findViewById(R.id.btnScrollBack)
+
         messageList = ArrayList()
         messageAdapter = MessageAdapter(this,messageList)
 
@@ -82,6 +88,18 @@ class ChatActivity : AppCompatActivity() {
                 }
 
             })
+
+        // scroll button
+        scrollButton.setOnClickListener {
+            scrollViewCustom.fullScroll(ScrollView.FOCUS_RIGHT)
+            scrollButton.visibility = View.GONE
+            scrollBackButton.visibility = View.VISIBLE
+        }
+        scrollBackButton.setOnClickListener {
+            scrollViewCustom.fullScroll(ScrollView.FOCUS_LEFT)
+            scrollButton.visibility = View.VISIBLE
+            scrollBackButton.visibility = View.GONE
+        }
 
         // adding the message to database
         sendButton.setOnClickListener {
