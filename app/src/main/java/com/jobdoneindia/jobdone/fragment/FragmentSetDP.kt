@@ -213,7 +213,7 @@ class FragmentSetDP : Fragment() {
         val reducedImage: ByteArray = byteArrayOutputStream.toByteArray()
 
         //UUID
-        val imageName = UUID.randomUUID().toString()
+        val imageName = FirebaseAuth.getInstance().uid.toString()
 
         val imageReference = storageReference.child("images").child(imageName)
 

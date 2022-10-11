@@ -38,7 +38,7 @@ class LoginActivity: AppCompatActivity() {
 
         skipButton = findViewById<View>(R.id.skip_button) as Button
         skipButton!!.setOnClickListener{
-            startActivity(Intent(this,DashboardActivity::class.java))
+            startActivity(Intent(this,PaymentActivity::class.java))
         }
 
         val phoneButton = findViewById<Button>(R.id.phn_button)
