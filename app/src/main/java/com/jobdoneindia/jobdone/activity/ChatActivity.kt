@@ -1,6 +1,8 @@
 package com.jobdoneindia.jobdone.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -21,6 +23,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var chatRecyclerView: RecyclerView
     private lateinit var messageBox: EditText
     private lateinit var sendButton: ImageView
+    private lateinit var btnGetLocation: Button
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var messageList: ArrayList<Message>
     private lateinit var scrollViewCustom: HorizontalScrollView
@@ -37,6 +40,8 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
 
         val name = intent.getStringExtra("name")
+        /*val lat = intent.getStringExtra("lat")
+        val long = intent.getStringExtra("long")*/
         val receiverUid = intent.getStringExtra("uid")
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid
         mDbRef = FirebaseDatabase.getInstance().reference
@@ -52,6 +57,7 @@ class ChatActivity : AppCompatActivity() {
         scrollViewCustom = findViewById(R.id.scrollViewCustomButtons)
         scrollButton = findViewById(R.id.btnScroll)
         scrollBackButton = findViewById(R.id.btnScrollBack)
+        btnGetLocation = findViewById(R.id.btnAskLocation)
 
         messageList = ArrayList()
         messageAdapter = MessageAdapter(this,messageList)
@@ -108,7 +114,7 @@ class ChatActivity : AppCompatActivity() {
             val message = messageBox.text.toString()
 
             if (message != ""){
-                val messageObject = Message(message, senderUid, Date().time)
+                val messageObject = Message(message, senderUid, Date().time, "text")
 
                 mDbRef.child("chats").child(senderRoom!!).child("messages").push()
                     .setValue(messageObject).addOnSuccessListener {
@@ -122,6 +128,21 @@ class ChatActivity : AppCompatActivity() {
                 Toast.makeText(this,"Enter some message ", Toast.LENGTH_SHORT).show()
             }
         }
+
+        // Ask Location
+        btnGetLocation.setOnClickListener {
+            val messageObject = Message("Location", senderUid, Date().time, "location")
+
+            mDbRef.child("chats").child(senderRoom!!).child("messages").push()
+                .setValue(messageObject).addOnSuccessListener {
+                    mDbRef.child("chats").child(receiverRoom!!).child("messages").push()
+                        .setValue(messageObject)
+                }
+            mDbRef.child("Users").child("latest-messages").child(senderUid.toString()).child(receiverUid.toString()).child("msg").setValue(messageObject)
+            messageBox.setText("")
+        }
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
