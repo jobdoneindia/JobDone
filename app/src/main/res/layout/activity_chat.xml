@@ -84,10 +84,10 @@
                     android:id="@+id/btnAskPayment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ask Payment"
                     android:layout_marginLeft="5dp"
-                    app:layout_constraintStart_toEndOf="@id/btnMakeDeal"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    android:text="Ask Payment"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btnMakeDeal" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </HorizontalScrollView>
 
