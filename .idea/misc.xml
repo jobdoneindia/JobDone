@@ -108,9 +108,7 @@
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/menu/worker_menu.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/techn/AndroidStudioProjects/JobDone/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/ic_twotone_phone_iphone_24.xml" value="0.2225" />
-        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.264" />
-        <entry key="app/src/main/res/layout/activity_link_bank.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.4" />
         <entry key="app/src/main/res/layout/activity_payment.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_phone_auth_login.xml" value="0.4" />
@@ -123,9 +121,7 @@
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.536" />
         <entry key="app/src/main/res/layout/fragment_searchresults.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/fragment_select_tags.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_your_customers.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/loading_workers_dialog.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/search_item_view.xml" value="0.32135416666666666" />
       </map>
