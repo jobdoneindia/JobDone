@@ -39,6 +39,8 @@ class FragmentTags: Fragment() {
 
     private lateinit var dialog: AlertDialog
 
+    private lateinit var sharedPreferences: SharedPreferences
+
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDbRef: DatabaseReference
     private var radius = 1.0
@@ -117,8 +119,10 @@ class FragmentTags: Fragment() {
         // retrieving location in firebase db
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
         val georeference: DatabaseReference = database.reference.child("geofire")
+        sharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
         val geoFire = GeoFire(georeference)
-        val geoQuery = geoFire.queryAtLocation(GeoLocation(26.7174121, 88.3878191), radius)
+        val geoQuery = geoFire.queryAtLocation(GeoLocation(/*26.7174121*/sharedPreferences.getFloat("latitude", 0F)!!
+            .toDouble(), sharedPreferences.getFloat("longitude",0F)!!.toDouble()/*88.3878191*/), radius)
         geoQuery.removeAllListeners()
 
         //geoquery to find closest worker
@@ -130,7 +134,7 @@ class FragmentTags: Fragment() {
 
                     Toast.makeText(requireContext(), workerFoundID.split(":").toString(), Toast.LENGTH_SHORT).show()
 
-                    val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+                    /*val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)*/
                     var editor = sharedPreferences.edit()
                     editor.putString("closestworker", workerFoundID)
                     editor.putString("closeness", workerDistances)

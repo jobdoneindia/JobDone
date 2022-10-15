@@ -104,6 +104,7 @@ class ChatUserList : AppCompatActivity() {
                     if (mAuth.currentUser?.uid != currentUser?.uid && currentUser?.uid != null) {
                         /*if (workerFoundID == currentUser?.uid.toString()) {*/
                         /*senderRoom.add(mAuth.currentUser?.uid.toString() + currentUser.uid.toString())*/
+                        var location = currentUser.Location
                         var t = snapshot.child("latest-messages").child(mAuth.uid.toString()).child(currentUser?.uid.toString()).child("msg").child("timestamp").value
                         if (t == null) {
                             t = 0

@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".activity.ChatActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/img_tools_bg"
+        android:alpha="0.45"
+        android:scaleType="centerCrop"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
@@ -15,11 +21,14 @@
         android:layout_alignParentTop="true" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/white"
+        android:elevation="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:id="@+id/controls"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="0dp"
+        android:paddingTop="5dp">
 
         <!--<Button
             android:clickable="false"
@@ -38,8 +47,7 @@
             android:orientation="horizontal"
             android:scrollbars="none"
             app:layout_constraintBottom_toTopOf="@id/linearLayout"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="5dp">
+            app:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:paddingHorizontal="4dp"
@@ -76,10 +84,10 @@
                     android:id="@+id/btnAskPayment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ask Payment"
                     android:layout_marginLeft="5dp"
-                    app:layout_constraintStart_toEndOf="@id/btnMakeDeal"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    android:text="Ask Payment"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btnMakeDeal" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </HorizontalScrollView>
 
@@ -111,6 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="100"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent">
 

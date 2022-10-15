@@ -32,9 +32,12 @@
 
 
         <activity
+            android:name=".activity.PaymentActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.LinkBankActivity"
-            android:label="Link Your Bank Account"
-            android:exported="false">
+            android:exported="false"
+            android:label="Link Your Bank Account">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -98,7 +101,16 @@
 
         <meta-data
             android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+            android:resource="@array/preloaded_fonts"
+            />
+        <meta-data
+            android:name="com.razorpay.Apikey"
+            android:value="rzp_test_ekWTktpNamHzp5"
+            />
+        <meta-data
+            android:name="com.google.gms.wallet.api.enabled"
+            android:value="true"
+            />
     </application>
 
 </manifest>

@@ -68,7 +68,7 @@ class FragmentSetDP : Fragment() {
         }
         nextButton = root.findViewById(R.id.nextButton)
         root.findViewById<Button>(R.id.nextButton).setOnClickListener {
-            view: View ->
+                view: View ->
 
             nextButton.text = "Loading..."
             if (imageuri != null){
@@ -86,7 +86,7 @@ class FragmentSetDP : Fragment() {
                 // move to next frag
                 Navigation.findNavController(view).navigate(R.id.action_fragmentSetDP_to_fragmentChooseMode)
             }
-             // and go to next activity
+            // and go to next activity
             /*val intent = Intent(requireContext(), DashboardActivity::class.java)
             startActivity(intent)*/
         }

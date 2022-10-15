@@ -61,7 +61,6 @@ class EditProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
-
         profileActivityForResult()
 
         // Add back button in Action Bar
@@ -100,28 +99,39 @@ class EditProfileActivity : AppCompatActivity() {
             .into(this.findViewById<CircleImageView>(R.id.profile_pic))
 
 
+        doneButton.setOnClickListener{
+        // get image url from local database
+        val imageUrl:  String? = sharedPreferences.getString("dp_url_key", "not found")
+
+        // Set DP using Glide
+        Glide.with(this)
+            .load(imageUrl)
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .into(this.findViewById<CircleImageView>(R.id.profile_pic))
+
+
             doneButton.setOnClickListener{
 
-                val name: String = editTextName.text.toString().trim()
+            val name: String = editTextName.text.toString().trim()
 
-                // Store data locally
-                val editor: SharedPreferences.Editor = sharedPreferences.edit()
-                editor.putString("name_key", name)
-                editor.apply()
-                editor.commit()
+            // Store data locally
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString("name_key", name)
+            editor.apply()
+            editor.commit()
 
 
 
-                // upload photo to db
-                if (imageuri != null) {
-                    Toast.makeText(this, "Uploading Image...", Toast.LENGTH_LONG).show()
-                    updatePhoto()
-                } else {
-                    finish()
-                }
+            // upload photo to db
+            if (imageuri != null) {
+                Toast.makeText(this, "Uploading Image...", Toast.LENGTH_LONG).show()
+                updatePhoto()
+            } else {
+                finish()
+            }
 
-                // Store data in firebase
-                reference.child(FirebaseAuth.getInstance().currentUser?.uid.toString()).child("username").setValue(name)
+            // Store data in firebase
+            reference.child(FirebaseAuth.getInstance().currentUser?.uid.toString()).child("username").setValue(name)
         }
 
 
@@ -144,7 +154,9 @@ class EditProfileActivity : AppCompatActivity() {
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
+
         reference.child("url").setValue(url)
+
     }
 
     // Start galleryIntent for result
@@ -229,29 +241,29 @@ class EditProfileActivity : AppCompatActivity() {
 
     // Set up function for back button in Action Bar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-            when (item.itemId) {
-                android.R.id.home -> {
-                    // build alert dialog
-                    val dialogBuilder = AlertDialog.Builder(this)
+        when (item.itemId) {
+            android.R.id.home -> {
+                // build alert dialog
+                val dialogBuilder = AlertDialog.Builder(this)
 
-                    // set message of alert dialog
-                    dialogBuilder.setMessage("Discard Changes?").setCancelable(true)
-                        // positive button text and action
-                        .setPositiveButton("Discard", DialogInterface.OnClickListener {
-                                dialog, id -> finish()
-                        })
-                        // negative button text and action
-                        .setNegativeButton("Cancel",DialogInterface.OnClickListener{
+                // set message of alert dialog
+                dialogBuilder.setMessage("Discard Changes?").setCancelable(true)
+                    // positive button text and action
+                    .setPositiveButton("Discard", DialogInterface.OnClickListener {
+                            dialog, id -> finish()
+                    })
+                    // negative button text and action
+                    .setNegativeButton("Cancel",DialogInterface.OnClickListener{
                             dialog, id -> dialog.cancel()
-                        })
-                    // create dialog box
-                    val alert = dialogBuilder.create()
-                    // set title for alert dialog box
-                    alert.setTitle("Edit Profile")
-                    // show
-                    alert.show()
-                }
+                    })
+                // create dialog box
+                val alert = dialogBuilder.create()
+                // set title for alert dialog box
+                alert.setTitle("Edit Profile")
+                // show
+                alert.show()
             }
-            return super.onOptionsItemSelected(item)
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
