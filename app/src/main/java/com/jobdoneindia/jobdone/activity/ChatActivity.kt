@@ -114,11 +114,13 @@ class ChatActivity : AppCompatActivity() {
             val message = messageBox.text.toString()
 
             if (message != ""){
-                val messageObject = Message(message, senderUid, Date().time, "text")
+                val ukey = mDbRef.child("chats").child(senderRoom!!).child("messages").push().key
+                val messageObject = Message(message, senderUid, receiverUid, Date().time, "text", "", ukey.toString())
 
-                mDbRef.child("chats").child(senderRoom!!).child("messages").push()
+
+                mDbRef.child("chats").child(senderRoom!!).child("messages").child(ukey.toString())/*.push()*/
                     .setValue(messageObject).addOnSuccessListener {
-                        mDbRef.child("chats").child(receiverRoom!!).child("messages").push()
+                        mDbRef.child("chats").child(receiverRoom!!).child("messages").child(ukey.toString())/*.push()*/
                             .setValue(messageObject)
                     }
                 mDbRef.child("Users").child("latest-messages").child(senderUid.toString()).child(receiverUid.toString()).child("msg").setValue(messageObject)
@@ -131,11 +133,12 @@ class ChatActivity : AppCompatActivity() {
 
         // Ask Location
         btnGetLocation.setOnClickListener {
-            val messageObject = Message("Location", senderUid, Date().time, "location")
+            val ukey = mDbRef.child("chats").child(senderRoom!!).child("messages").push().key
+            val messageObject = Message("Location", senderUid, receiverUid, Date().time, "location", "default", ukey.toString())
 
-            mDbRef.child("chats").child(senderRoom!!).child("messages").push()
+            mDbRef.child("chats").child(senderRoom!!).child("messages").child(ukey.toString())/*.push()*/
                 .setValue(messageObject).addOnSuccessListener {
-                    mDbRef.child("chats").child(receiverRoom!!).child("messages").push()
+                    mDbRef.child("chats").child(receiverRoom!!).child("messages").child(ukey.toString())/*.push()*/
                         .setValue(messageObject)
                 }
             mDbRef.child("Users").child("latest-messages").child(senderUid.toString()).child(receiverUid.toString()).child("msg").setValue(messageObject)

@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.Message
@@ -23,6 +25,10 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
     val ITEM_RECEIVE = 1
     val ITEM_SENT = 2
     val ITEM_SENT_LOCATION = 3
+    val ITEM_RECEIVE_LOCATION = 4
+
+    val mDbRef : DatabaseReference = FirebaseDatabase.getInstance().reference
+    val mAuth = FirebaseAuth.getInstance()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -37,7 +43,13 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
             //inflate sent
             val view: View = LayoutInflater.from(context).inflate(R.layout.sent, parent, false)
             return SentViewHolder(view)
-        } else {
+        }
+        else if (viewType == 4) {
+            // inflate receive location
+            val view: View = LayoutInflater.from(context).inflate(R.layout.receive_location, parent, false)
+            return ReceiveLocationViewHolder(view)
+        }
+        else {
             //inflate sent location
             val view: View = LayoutInflater.from(context).inflate(R.layout.sent_location, parent, false)
             return SentLocationViewHolder(view)
@@ -60,8 +72,74 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
             //do stuff for receive view holder
             val viewHolder = holder as ReceiveViewHolder
             viewHolder.receiveMessage.text = currentMessage.message
-        } else {
+        }
+
+        else if (holder.javaClass == SentLocationViewHolder::class.java){
             val viewHolder = holder as SentLocationViewHolder
+
+            if (currentMessage.status == "decline") {
+                holder.btnViewMap.visibility = View.GONE
+                holder.btnRequested.visibility = View.GONE
+                holder.btnDeclined.visibility = View.VISIBLE
+            } else if (currentMessage.status == "accept") {
+                holder.btnViewMap.visibility = View.VISIBLE
+                holder.btnRequested.visibility = View.GONE
+                holder.btnDeclined.visibility = View.GONE
+                holder.txtLocation.text = "Location Request"
+            }
+
+            viewHolder.btnViewMap.setOnClickListener {
+                // Create a Uri from an intent string. Use the result to create an Intent.
+                val gmmIntentUri = Uri.parse("google.navigation:q=26.7174197,88.3878048&mode=w")
+
+                // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                // Make the Intent explicit by setting the Google Maps package
+                mapIntent.setPackage("com.google.android.apps.maps")
+
+                // Attempt to start an activity that can handle the Intent
+                context.startActivity(mapIntent)
+            }
+        }
+
+        else {
+            val viewHolder = holder as ReceiveLocationViewHolder
+
+            // check message status
+            if (currentMessage.status == "accept") {
+                holder.btnAccept.visibility = View.GONE
+                holder.btnDecline.visibility = View.GONE
+                holder.btnDeclined.visibility = View.GONE
+                holder.btnViewMap.visibility = View.VISIBLE
+            }
+
+            else if (currentMessage.status == "decline") {
+                holder.btnAccept.visibility = View.GONE
+                holder.btnDecline.visibility = View.GONE
+                holder.btnViewMap.visibility = View.GONE
+                holder.btnDeclined.visibility = View.VISIBLE
+            }
+
+            // on click for Decline Button
+            viewHolder.btnDecline.setOnClickListener {
+                val receiverRoom = currentMessage.senderId + currentMessage.receiverId
+                val senderRoom = currentMessage.receiverId + currentMessage.senderId
+                mDbRef.child("chats").child(senderRoom!!).child("messages").child(currentMessage.ukey.toString()).child("status")/*.push()*/
+                    .setValue("decline").addOnSuccessListener {
+                        mDbRef.child("chats").child(receiverRoom!!).child("messages").child(currentMessage.ukey.toString()).child("status")/*.push()*/
+                            .setValue("decline")
+                    }}
+
+            viewHolder.btnAccept.setOnClickListener {
+                val receiverRoom = currentMessage.senderId + currentMessage.receiverId
+                val senderRoom = currentMessage.receiverId + currentMessage.senderId
+                mDbRef.child("chats").child(senderRoom!!).child("messages").child(currentMessage.ukey.toString()).child("status")/*.push()*/
+                    .setValue("accept").addOnSuccessListener {
+                        mDbRef.child("chats").child(receiverRoom!!).child("messages").child(currentMessage.ukey.toString()).child("status")/*.push()*/
+                            .setValue("accept")
+                    }
+            }
+
             viewHolder.btnViewMap.setOnClickListener {
                 // Create a Uri from an intent string. Use the result to create an Intent.
                 val gmmIntentUri = Uri.parse("google.navigation:q=26.7174197,88.3878048&mode=w")
@@ -89,7 +167,11 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
             }
 
         }else {
-            return ITEM_RECEIVE
+            if (currentMessage.message_type == "location"){
+                return ITEM_RECEIVE_LOCATION
+            } else {
+                return ITEM_RECEIVE
+            }
         }
 
     }
@@ -104,6 +186,15 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
         val receiveMessage = itemView.findViewById<TextView>(R.id.txt_receive_message)
     }
     class SentLocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val btnViewMap = itemView.findViewById<Button>(R.id.btnViewMap)
+        val btnRequested = itemView.findViewById<Button>(R.id.btnRequested)
+        val btnDeclined = itemView.findViewById<Button>(R.id.btnDeclined)
+        val txtLocation = itemView.findViewById<TextView>(R.id.txt_sent_message)
+    }
+    class ReceiveLocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val btnAccept = itemView.findViewById<Button>(R.id.btnAccept)
+        val btnDecline = itemView.findViewById<Button>(R.id.btnDecline)
+        val btnDeclined = itemView.findViewById<Button>(R.id.btnDeclined)
         val btnViewMap = itemView.findViewById<Button>(R.id.btnViewMap)
     }
 }

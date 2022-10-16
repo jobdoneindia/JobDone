@@ -5,15 +5,21 @@ import java.sql.Timestamp
 class Message {
         var message: String? = null
         var senderId: String? = null
+        var receiverId: String? = null
         var timestamp: Long? = null
         var message_type: String? = null
+        var status: String? = null
+        var ukey: String? = null
 
         constructor(){}
 
-        constructor(message: String?, senderId: String?, timestamp: Long, message_type: String){
+        constructor(message: String?, senderId: String?, receiverId:String?, timestamp: Long, message_type: String, status: String, ukey: String){
             this.message = message
             this.senderId = senderId
+            this.receiverId = receiverId
             this.timestamp = timestamp
             this.message_type = message_type
+            this.status = status
+            this.ukey = ukey
         }
     }
