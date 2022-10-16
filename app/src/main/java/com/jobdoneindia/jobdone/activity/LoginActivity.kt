@@ -21,7 +21,9 @@ class LoginActivity: AppCompatActivity() {
     private val permissionId = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_JobDone)
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
 
