@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/JobDone/app/src/main/res/drawable/ic_enterphonenumber.xml" value="0.255" />
+        <entry key="..\:/JobDone/app/src/main/res/drawable/ic_notification.xml" value="0.1145" />
+        <entry key="..\:/JobDone/app/src/main/res/layout/activity_chat.xml" value="0.16810007818608289" />
+        <entry key="..\:/JobDone/app/src/main/res/layout/activity_chat_user_list.xml" value="0.24947916666666667" />
+        <entry key="..\:/JobDone/app/src/main/res/layout/activity_dashboard.xml" value="0.24947916666666667" />
+        <entry key="..\:/JobDone/app/src/main/res/layout/activity_edit_profile.xml" value="0.24947916666666667" />
+        <entry key="..\:/JobDone/app/src/main/res/layout/activity_edit_worker_profile.xml" value="0.24947916666666667" />
+        <entry key="..\:/JobDone/app/src/main/res/layout/activity_login.xml" value="0.24947916666666667" />
+        <entry key="..\:/JobDone/app/src/main/res/layout/activity_phone_auth_login.xml" value="0.24947916666666667" />
+        <entry key="..\:/JobDone/app/src/main/res/layout/activity_userprofile.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/SUBHAJIT/JobDone/app/src/main/res/drawable/ic_info.xml" value="0.1265" />
         <entry key="..\:/Users/SUBHAJIT/JobDone/app/src/main/res/layout/activity_edit_profile.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/SUBHAJIT/JobDone/app/src/main/res/layout/activity_edit_worker_profile.xml" value="0.25416666666666665" />
@@ -113,9 +123,7 @@
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.536" />
         <entry key="app/src/main/res/layout/fragment_searchresults.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/fragment_select_tags.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_your_customers.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/loading_workers_dialog.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/search_item_view.xml" value="0.32135416666666666" />
       </map>
