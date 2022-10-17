@@ -61,6 +61,7 @@ class EditProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
+
         profileActivityForResult()
 
         // Add back button in Action Bar
@@ -112,32 +113,46 @@ class EditProfileActivity : AppCompatActivity() {
 
 
             doneButton.setOnClickListener {
+                // get image url from local database
+                val imageUrl: String? = sharedPreferences.getString("dp_url_key", "not found")
 
-                val name: String = editTextName.text.toString().trim()
-
-                // Store data locally
-                val editor: SharedPreferences.Editor = sharedPreferences.edit()
-                editor.putString("name_key", name)
-                editor.apply()
-                editor.commit()
+                // Set DP using Glide
+                Glide.with(this)
+                    .load(imageUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    .into(this.findViewById<CircleImageView>(R.id.profile_pic))
 
 
-                // upload photo to db
-                if (imageuri != null) {
-                    Toast.makeText(this, "Uploading Image...", Toast.LENGTH_LONG).show()
-                    updatePhoto()
-                } else {
-                    finish()
+                doneButton.setOnClickListener {
+                    doneButton.setOnClickListener {
+
+                        val name: String = editTextName.text.toString().trim()
+
+                        // Store data locally
+                        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                        editor.putString("name_key", name)
+                        editor.apply()
+                        editor.commit()
+
+
+                        // upload photo to db
+                        if (imageuri != null) {
+                            Toast.makeText(this, "Uploading Image...", Toast.LENGTH_LONG).show()
+                            updatePhoto()
+                        } else {
+                            finish()
+                        }
+
+                        // Store data in firebase
+                        reference.child(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                            .child("username").setValue(name)
+                    }
+
+
                 }
-
-                // Store data in firebase
-                reference.child(FirebaseAuth.getInstance().currentUser?.uid.toString())
-                    .child("username").setValue(name)
             }
 
 
-        }
-    }
 
     // select an image from Gallery
     fun pickfromGallery() {
@@ -156,9 +171,7 @@ class EditProfileActivity : AppCompatActivity() {
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
-
         reference.child("url").setValue(url)
-
     }
 
     // Start galleryIntent for result

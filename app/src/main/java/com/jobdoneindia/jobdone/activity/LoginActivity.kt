@@ -10,6 +10,8 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.jobdoneindia.jobdone.R
 
 class LoginActivity: AppCompatActivity() {
@@ -19,7 +21,9 @@ class LoginActivity: AppCompatActivity() {
     private val permissionId = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_JobDone)
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
 

@@ -8,10 +8,9 @@
 
     <EditText
         android:id="@+id/enterAmountBtn"
-        android:layout_width="92dp"
-        android:layout_height="46dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="216dp"
-        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"

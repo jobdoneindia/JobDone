@@ -7,6 +7,7 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:background="@drawable/chatcornersent"
+        android:backgroundTint="#D5D3D3"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="50dp"
@@ -20,8 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Your Location"
-            android:textColor="@color/white"
+            android:text="Location"
             android:textSize="18sp" />
 
         <Button
@@ -29,7 +29,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="View in Maps"
-            android:backgroundTint="#CF5630"/>
+            android:visibility="gone"
+            android:backgroundTint="@color/orange_300"/>
+
+        <Button
+            android:clickable="false"
+            android:id="@+id/btnRequested"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Requested"
+            android:drawableLeft="@drawable/ic_clock"
+            android:drawableTint="@color/orange_300"
+            android:backgroundTint="#FDB29A"
+            android:textColor="@color/orange_300"/>
+
+        <Button
+            android:clickable="false"
+            android:id="@+id/btnDeclined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="Declined"
+            android:drawableLeft="@drawable/ic_decline"
+            android:drawableTint="@color/black"
+            android:backgroundTint="#AFABAB"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 
