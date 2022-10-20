@@ -15,9 +15,10 @@ import com.firebase.geofire.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
+/*import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessaging*/
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.UserAdapter
 import com.jobdoneindia.jobdone.firebase.FirebaseService

@@ -122,10 +122,6 @@ class EditProfileActivity : AppCompatActivity() {
                     .diskCacheStrategy(DiskCacheStrategy.DATA)
                     .into(this.findViewById<CircleImageView>(R.id.profile_pic))
 
-
-                doneButton.setOnClickListener {
-                    doneButton.setOnClickListener {
-
                         val name: String = editTextName.text.toString().trim()
 
                         // Store data locally
