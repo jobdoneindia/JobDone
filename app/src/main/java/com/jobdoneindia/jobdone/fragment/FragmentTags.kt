@@ -4,23 +4,32 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.media.Image
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.transition.TransitionInflater
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.HorizontalScrollView
 import android.widget.ImageButton
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.geofire.GeoFire
 import com.firebase.geofire.GeoLocation
 import com.firebase.geofire.GeoQueryEventListener
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -28,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.adapter.TagsAdapter
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.LoginActivity
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.runBlocking
 import java.text.FieldPosition
 
@@ -35,7 +45,35 @@ data class Categories( val service_name: String, val services_count: Int)
 
 class FragmentTags: Fragment() {
 
-    private val myCategories = mutableListOf<Categories>()
+    /*private val myCategories = mutableListOf<Categories>()*/
+    private val items = mutableListOf("Appliances", "Plumber", "Carpenter", "Home Tutor", "Pandit", "Laundry", "Electrician", "Videographer", "Vehicle Service")
+
+    private val tags = mapOf(
+        "Electrician" to arrayListOf("AC Repair", "Plug", "Socket", "Wires"),
+        "Appliances" to arrayListOf("TV Repair", "AC Repair", "Washing machine repair", "Gizzer Repair", "Air Cooler Repair", "Fridge Repair", "Mixer Grinder Repair", "Speaker Repair"),
+        "Plumber" to arrayListOf("Install Water Supply System", "Install Waste Disposal System", "Repair Pipeline Issues" ),
+        "Carpenter" to arrayListOf("New Furniture Making", "Old Furniture Repair", "Install Modular Kichen"),
+        "Painter" to arrayListOf("Furniture Painting", "Contract Works(Office, Home, Cafe)", "Wall Painting"),
+        "Driver" to arrayListOf("Personal Car", "Loading Van", "JCB", "Dumper", "Truck"),
+        "Home Tutor" to arrayListOf("Class 1-5", "Class 6-10", "Class 11-12", "Graduates", "Science Teacher", "Maths Teacher", "Commerce Teacher", "Arts Teacher"),
+        "Freelancer" to arrayListOf("Graphic Designer", "Content Writer","Web Designer", "Virtual Assistant","App Developer", "Video Editor", "Social Media Manager", "Transcriber"),
+        "Pest Control" to arrayListOf("Complete Pest Control", "Sanitisation"),
+        "Pandit" to arrayListOf("Bhagwat Katha", "Bhoomi Pooja", "Antim Sanskar", "Satya Narayan Katha","Shaadi", "Ganesh Utsav", "Hawan", "Vaastu Pooja"),
+        "Laundry" to arrayListOf("Washing CLothes", "Dry Clean", "Ironing Clothes"),
+        "RO Service" to arrayListOf("RO Repair", "RO Install", "RO Service", "RO Parts Change"),
+        "House Maid" to arrayListOf("House Cleaning", "Cooking", "Washing Clothes", "Baby Care","Utensil Cleaning"),
+        "Water Supplier" to arrayListOf("Drinking Water", "Tanker"),
+        "Photographer" to arrayListOf("Model", "Pre Wedding", "Wedding", "Album","Birthday", "Freelance"),
+        "Videographer" to arrayListOf("Wedding", "Birthday", "Freelance"),
+        "Vehicle Service" to arrayListOf("Bike Repair", "Car Repair", "Loading Van Repair", "Truck Repair", "Servicing" ),
+        "Vehicle Washing" to arrayListOf("Bike Wash", "Car Wash", "Loading Van Wash", "Truck Wash"),
+        "Goods Transport Vehicle" to arrayListOf( "Three Wheeler"," Four Wheeler", "Six Wheeler", "Eight Wheeler", "Ten Wheeler"))
+
+    private lateinit var scrollRight: ImageButton
+    private lateinit var scrollLeft: ImageButton
+    private lateinit var horizontalScrollView: HorizontalScrollView
+
+    private lateinit var chipGroup: ChipGroup
 
     private lateinit var dialog: AlertDialog
 
@@ -66,9 +104,234 @@ class FragmentTags: Fragment() {
         val transitionInflater = TransitionInflater.from(requireContext())
         exitTransition = transitionInflater.inflateTransition(R.transition.fade)
 
+        // Scroll
+        horizontalScrollView = root.findViewById(R.id.list_items)
+        scrollLeft = root.findViewById(R.id.scrollLeft)
+        scrollRight = root.findViewById(R.id.scrollRight)
+
+        // chip group
+        chipGroup = root.findViewById(R.id.chipGroup)
+        var tagList = mutableListOf<String>()
+        var selectedTags = mutableListOf<String>()
+
+        // onClick for list items
+
+        scrollLeft.setOnClickListener {
+            horizontalScrollView.fullScroll(ScrollView.FOCUS_LEFT)
+        }
+
+        scrollRight.setOnClickListener {
+            horizontalScrollView.fullScroll(ScrollView.FOCUS_RIGHT)
+        }
+
+        // All buttons
+        val btnNext = root.findViewById<Button>(R.id.btnNext)
+        val btnAppliances = root.findViewById<CircleImageView>(R.id.btnAppliances)
+        val btnPlumber = root.findViewById<CircleImageView>(R.id.btnPlumber)
+        val btnCarpenter = root.findViewById<CircleImageView>(R.id.btnCarpenter)
+        val btnHomeTutor = root.findViewById<CircleImageView>(R.id.btnHomeTutor)
+        val btnPandit = root.findViewById<CircleImageView>(R.id.btnPandit)
+        val btnLaundry = root.findViewById<CircleImageView>(R.id.btnLaundry)
+        val btnElectrician = root.findViewById<CircleImageView>(R.id.btnElectrician)
+        val btnVideographer = root.findViewById<CircleImageView>(R.id.btnVideographer)
+        val btnVehicleService = root.findViewById<CircleImageView>(R.id.btnVehicleService)
+
+        tagList.clear()
+        selectedTags.clear()
+        for (x in tags["Appliances"]!!) {
+            tagList.add(x)
+        }
+        updateTags(tagList)
+
+        // onClick for all buttons
+        btnAppliances.setOnClickListener {
+            btnAppliances.setBackgroundResource(R.drawable.shp_roundorange)
+
+            /*btnAppliances.setBackgroundResource(R.drawable.transparent_gradient)*/
+            btnPlumber.setBackgroundResource(R.drawable.transparent_gradient)
+            btnCarpenter.setBackgroundResource(R.drawable.transparent_gradient)
+            btnHomeTutor.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPandit.setBackgroundResource(R.drawable.transparent_gradient)
+            btnLaundry.setBackgroundResource(R.drawable.transparent_gradient)
+            btnElectrician.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVideographer.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVehicleService.setBackgroundResource(R.drawable.transparent_gradient)
+
+            tagList.clear()
+            selectedTags.clear()
+            for (x in tags["Appliances"]!!) {
+                tagList.add(x)
+            }
+            updateTags(tagList)
+        }
+
+        btnPlumber.setOnClickListener {
+            btnPlumber.setBackgroundResource(R.drawable.shp_roundorange)
+
+            btnAppliances.setBackgroundResource(R.drawable.transparent_gradient)
+            btnCarpenter.setBackgroundResource(R.drawable.transparent_gradient)
+            btnHomeTutor.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPandit.setBackgroundResource(R.drawable.transparent_gradient)
+            btnLaundry.setBackgroundResource(R.drawable.transparent_gradient)
+            btnElectrician.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVideographer.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVehicleService.setBackgroundResource(R.drawable.transparent_gradient)
+
+            tagList.clear()
+            selectedTags.clear()
+            for (x in tags["Plumber"]!!) {
+                tagList.add(x)
+            }
+            updateTags(tagList)
+        }
+
+        btnCarpenter.setOnClickListener {
+            btnCarpenter.setBackgroundResource(R.drawable.shp_roundorange)
+
+            btnAppliances.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPlumber.setBackgroundResource(R.drawable.transparent_gradient)
+            btnHomeTutor.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPandit.setBackgroundResource(R.drawable.transparent_gradient)
+            btnLaundry.setBackgroundResource(R.drawable.transparent_gradient)
+            btnElectrician.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVideographer.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVehicleService.setBackgroundResource(R.drawable.transparent_gradient)
+
+            tagList.clear()
+            selectedTags.clear()
+            for (x in tags["Carpenter"]!!) {
+                tagList.add(x)
+            }
+            updateTags(tagList)
+        }
+
+        btnHomeTutor.setOnClickListener {
+            btnHomeTutor.setBackgroundResource(R.drawable.shp_roundorange)
+
+            btnAppliances.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPlumber.setBackgroundResource(R.drawable.transparent_gradient)
+            btnCarpenter.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPandit.setBackgroundResource(R.drawable.transparent_gradient)
+            btnLaundry.setBackgroundResource(R.drawable.transparent_gradient)
+            btnElectrician.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVideographer.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVehicleService.setBackgroundResource(R.drawable.transparent_gradient)
+
+            tagList.clear()
+            selectedTags.clear()
+            for (x in tags["Home Tutor"]!!) {
+                tagList.add(x)
+            }
+            updateTags(tagList)
+        }
+
+        btnPandit.setOnClickListener {
+            btnPandit.setBackgroundResource(R.drawable.shp_roundorange)
+
+            btnAppliances.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPlumber.setBackgroundResource(R.drawable.transparent_gradient)
+            btnCarpenter.setBackgroundResource(R.drawable.transparent_gradient)
+            btnHomeTutor.setBackgroundResource(R.drawable.transparent_gradient)
+            btnLaundry.setBackgroundResource(R.drawable.transparent_gradient)
+            btnElectrician.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVideographer.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVehicleService.setBackgroundResource(R.drawable.transparent_gradient)
+
+            tagList.clear()
+            selectedTags.clear()
+            for (x in tags["Pandit"]!!) {
+                tagList.add(x)
+            }
+            updateTags(tagList)
+        }
+
+        btnLaundry.setOnClickListener {
+            btnLaundry.setBackgroundResource(R.drawable.shp_roundorange)
+
+            btnAppliances.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPlumber.setBackgroundResource(R.drawable.transparent_gradient)
+            btnCarpenter.setBackgroundResource(R.drawable.transparent_gradient)
+            btnHomeTutor.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPandit.setBackgroundResource(R.drawable.transparent_gradient)
+            btnElectrician.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVideographer.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVehicleService.setBackgroundResource(R.drawable.transparent_gradient)
+
+            tagList.clear()
+            selectedTags.clear()
+            for (x in tags["Laundry"]!!) {
+                tagList.add(x)
+            }
+            updateTags(tagList)
+        }
+
+        btnElectrician.setOnClickListener {
+            btnElectrician.setBackgroundResource(R.drawable.shp_roundorange)
+
+            btnAppliances.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPlumber.setBackgroundResource(R.drawable.transparent_gradient)
+            btnCarpenter.setBackgroundResource(R.drawable.transparent_gradient)
+            btnHomeTutor.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPandit.setBackgroundResource(R.drawable.transparent_gradient)
+            btnLaundry.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVideographer.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVehicleService.setBackgroundResource(R.drawable.transparent_gradient)
+
+            tagList.clear()
+            selectedTags.clear()
+            for (x in tags["Electrician"]!!) {
+                tagList.add(x)
+            }
+            updateTags(tagList)
+        }
+
+        btnVideographer.setOnClickListener {
+            btnVideographer.setBackgroundResource(R.drawable.shp_roundorange)
+
+            btnAppliances.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPlumber.setBackgroundResource(R.drawable.transparent_gradient)
+            btnCarpenter.setBackgroundResource(R.drawable.transparent_gradient)
+            btnHomeTutor.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPandit.setBackgroundResource(R.drawable.transparent_gradient)
+            btnLaundry.setBackgroundResource(R.drawable.transparent_gradient)
+            btnElectrician.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVehicleService.setBackgroundResource(R.drawable.transparent_gradient)
+
+            tagList.clear()
+            selectedTags.clear()
+            for (x in tags["Videographer"]!!) {
+                tagList.add(x)
+            }
+            updateTags(tagList)
+        }
+
+        btnVehicleService.setOnClickListener {
+            btnVehicleService.setBackgroundResource(R.drawable.shp_roundorange)
+
+            btnAppliances.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPlumber.setBackgroundResource(R.drawable.transparent_gradient)
+            btnCarpenter.setBackgroundResource(R.drawable.transparent_gradient)
+            btnHomeTutor.setBackgroundResource(R.drawable.transparent_gradient)
+            btnPandit.setBackgroundResource(R.drawable.transparent_gradient)
+            btnLaundry.setBackgroundResource(R.drawable.transparent_gradient)
+            btnElectrician.setBackgroundResource(R.drawable.transparent_gradient)
+            btnVideographer.setBackgroundResource(R.drawable.transparent_gradient)
+
+            tagList.clear()
+            selectedTags.clear()
+            for (x in tags["Vehicle Service"]!!) {
+                tagList.add(x)
+            }
+            updateTags(tagList)
+        }
+
+        btnNext.setOnClickListener {
+            Navigation.findNavController(view!!).navigate(R.id.action_fragmentTags_to_fragmentSearchResults)
+        }
+
         // Storing Data
         // TODO: Read tags and number of users in those tags from database and store it in myCategories array
-        myCategories.add(Categories( "Plumber", 20))
+      /*  myCategories.add(Categories( "Plumber", 20))
         myCategories.add(Categories( "Ac Repairer", 20))
         myCategories.add(Categories( "Fan Repairer", 21))
         myCategories.add(Categories( "Socket Change", 82))
@@ -105,7 +368,7 @@ class FragmentTags: Fragment() {
                 // TODO: Pass data (which item was selected) to the next fragment
                 Navigation.findNavController(view!!).navigate(R.id.action_fragmentTags_to_fragmentSearchResults)
             }
-        })
+        })*/
 
         // OnClick for back button
         root.findViewById<ImageButton>(R.id.back_button).setOnClickListener {
@@ -179,6 +442,38 @@ class FragmentTags: Fragment() {
 
     fun closeAlertDilog() {
         dialog.dismiss()
+    }
+
+    // Update tags in Chip Group
+    private fun updateTags(tagList: MutableList<String>) {
+        chipGroup.removeAllViews()
+        for (index in tagList.indices) {
+            val tagName = tagList[index]
+            val chip = Chip(requireContext())
+            val paddingDp = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 10f,
+                resources.displayMetrics
+            ).toInt()
+            chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp)
+            chip.text = tagName
+            chip.isCheckable = true
+            chip.isCheckedIconVisible = true
+            chip.setCheckedIconResource(R.drawable.ic_done)
+
+            //Added click listener on close icon to remove tag from ChipGroup
+/*            chip.setOnCloseIconClickListener {
+                tagList.remove(tagName)
+                chipGroup.removeView(chip)
+            }*/
+
+            chip.setOnCheckedChangeListener { button, b ->
+
+                Toast.makeText(requireContext(), "Selected: ${chip.text}", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+            chipGroup.addView(chip)
+        }
     }
 
     // overriding the back button
