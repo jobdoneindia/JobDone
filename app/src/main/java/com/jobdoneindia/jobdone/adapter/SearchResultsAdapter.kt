@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.futuremind.recyclerviewfastscroll.RecyclerViewScrollListener
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.ChatActivity
 import com.jobdoneindia.jobdone.fragment.SearchItem
@@ -43,7 +41,7 @@ class SearchResultsAdapter(val context: Context, val searchItems: MutableList<Se
         holder.bio.text = searchItems[position].bio
         holder.overall_rating.text = searchItems[position].overall_rating
         holder.level.text = searchItems[position].distance
-        holder.description.text = searchItems[position].description
+        holder.description.text = searchItems[position].profession
 
         // Set DP using Glide
         Glide.with(context)

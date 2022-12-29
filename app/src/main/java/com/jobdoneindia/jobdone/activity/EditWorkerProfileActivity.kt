@@ -83,7 +83,6 @@ class EditWorkerProfileActivity : AppCompatActivity() {
         doneButton.setOnClickListener {
 
             val workerName = findViewById<EditText>(R.id.workerName).text.toString().trim()
-            val workerBio = findViewById<EditText>(R.id.workerBio).text.toString().trim()
 
             //store data locally
             // Store data locally
@@ -92,7 +91,6 @@ class EditWorkerProfileActivity : AppCompatActivity() {
 
             // store data in firebase
             reference.child("Workername").setValue(workerName)
-            reference.child("Workerbio").setValue(workerBio)
 
             if (imageuri != null) {
                 Toast.makeText(this, "Uploading Image...", Toast.LENGTH_LONG).show()

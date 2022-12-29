@@ -4,20 +4,21 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.transition.TransitionInflater
+import android.transition.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.ImageButton
+import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.firebase.geofire.GeoFire
-import com.firebase.geofire.GeoLocation
-import com.firebase.geofire.GeoQueryDataEventListener
-import com.firebase.geofire.GeoQueryEventListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -25,7 +26,7 @@ import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.User
 import com.jobdoneindia.jobdone.adapter.SearchResultsAdapter
 
-data class SearchItem(val name: String, val bio: String, val overall_rating: String, var distance: String, val description: String, val uid: String, val url: String)
+data class SearchItem(val name: String, val bio: String, val overall_rating: String, var distance: String, val profession: String, val uid: String, val url: String)
 
 class FragmentSearchResults: Fragment()  {
 
@@ -41,6 +42,9 @@ class FragmentSearchResults: Fragment()  {
     private lateinit var workerFoundID: String
 
     private lateinit var userLocation: ArrayList<Double>
+
+    private lateinit var distanceSpinner: Spinner
+    private lateinit var categorySpinner: Spinner
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,9 +64,33 @@ class FragmentSearchResults: Fragment()  {
 
         // TODO: Add a "Schedule a job" Button and create ActivityPostAJob.kt
 
+        val txtNotFound: TextView = root.findViewById(R.id.txtNotFound)
 
-        //  TODO: Search the database using tag received from previous fragment and location of user
+        // Select radius
+        val distanceOptions = resources.getStringArray(R.array.distanceOptions)
+        distanceSpinner = root.findViewById(R.id.distanceSpinner)
+        if (distanceSpinner != null) {
+            val distanceAdapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                distanceOptions
+            )
+            distanceSpinner.adapter = distanceAdapter
 
+        }
+
+        // Select Category
+        val categoryOptions = resources.getStringArray(R.array.categoryOptions)
+        categorySpinner = root.findViewById(R.id.categorySpinner)
+        if (categorySpinner != null) {
+            val categoryAdapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                categoryOptions
+            )
+            categorySpinner.adapter = categoryAdapter
+
+        }
 
         // OnClick listener for recyclerview items
         var adapter = SearchResultsAdapter(requireContext(),mySearchItems)
@@ -82,27 +110,6 @@ class FragmentSearchResults: Fragment()  {
         // TODO: See SearchResultsAdapter.kt
         searchItemList.layoutManager = LinearLayoutManager(activity)
 
-        // detect scroll
-
-        // TODO: Read data from worker profiles from database and store it in mySearchItems array
-        /*mySearchItems.add(SearchItem("Ramesh Kumar","Electrician hu mai bol","4.5 / 5","5km","I check for defects, assemble products, monitor manufacturing equipment, and closely follow safety procedures to prevent accidents in environments where materials may be hazardous."))
-        mySearchItems.achdd(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))
-        mySearchItems.add(SearchItem("Ramesh Kumar","nice guy","4.5 / 5","5km","very nice guy"))*/
-
         mDbRef.child("Users").addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -117,7 +124,7 @@ class FragmentSearchResults: Fragment()  {
                         /*distance = (distance(currentUser?.Location!![0], currentUser?.Location!![1], userLocation[0], userLocation[1])/0.621371).toInt()*/
                         unsortedSearchItems.add(SearchItem(
                             currentUser!!.username.toString(),
-                            null.toString(), "null", "${distance}km", "null", currentUser.uid.toString(), currentUser.url.toString()
+                            null.toString(), "null", "${distance}km", currentUser.Profession.toString(), currentUser.uid.toString(), currentUser.url.toString()
                         ))
                     }
                     /*}*/
@@ -141,17 +148,107 @@ class FragmentSearchResults: Fragment()  {
 
         })
 
+        // DistanceSpinner on item selected
+        distanceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                when(distanceOptions[position]) {
+                    "5km" -> {
+                        mySearchItems.clear()
+                        for (i in 0..sharedPreferences.getString("closestworker", "null").toString().split(":").lastIndex) {
+                            for (j in 0..unsortedSearchItems.lastIndex) {
+                                if (sharedPreferences.getString("closestworker", "null").toString().split(":")[i] == unsortedSearchItems[j].uid) {
+                                    unsortedSearchItems[j].distance = sharedPreferences.getString("closeness", "null").toString().split(":")[i] + " km"
+                                    if (unsortedSearchItems[j].distance.split(" ")[0].toInt() <= 5){
+                                        mySearchItems.add(unsortedSearchItems[j])
+                                    }
+                                }
+                            }
+                        }
+                        adapter.notifyDataSetChanged()
+                    }
+
+                    "20km" -> {
+                        mySearchItems.clear()
+                        for (i in 0..sharedPreferences.getString("closestworker", "null").toString().split(":").lastIndex) {
+                            for (j in 0..unsortedSearchItems.lastIndex) {
+                                if (sharedPreferences.getString("closestworker", "null").toString().split(":")[i] == unsortedSearchItems[j].uid) {
+                                    unsortedSearchItems[j].distance = sharedPreferences.getString("closeness", "null").toString().split(":")[i] + " km"
+                                    if (unsortedSearchItems[j].distance.split(" ")[0].toInt() <= 20){
+                                        mySearchItems.add(unsortedSearchItems[j])
+                                    }
+                                }
+                            }
+                        }
+                        adapter.notifyDataSetChanged()
+                    }
+
+                    "500km" -> {
+                        mySearchItems.clear()
+                        for (i in 0..sharedPreferences.getString("closestworker", "null").toString().split(":").lastIndex) {
+                            for (j in 0..unsortedSearchItems.lastIndex) {
+                                if (sharedPreferences.getString("closestworker", "null").toString().split(":")[i] == unsortedSearchItems[j].uid) {
+                                    unsortedSearchItems[j].distance = sharedPreferences.getString("closeness", "null").toString().split(":")[i] + " km"
+                                    mySearchItems.add(unsortedSearchItems[j])
+                                }
+                            }
+                        }
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+
+                if (adapter.itemCount == 0) {
+                    txtNotFound.visibility = View.VISIBLE
+                } else {
+                    txtNotFound.visibility = View.GONE
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
+
+        // CategorySpinner on item selected
+        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                mySearchItems.clear()
+                for (i in 0..sharedPreferences.getString("closestworker", "null").toString().split(":").lastIndex) {
+                    for (j in 0..unsortedSearchItems.lastIndex) {
+                        if (sharedPreferences.getString("closestworker", "null").toString().split(":")[i] == unsortedSearchItems[j].uid) {
+                            unsortedSearchItems[j].distance = sharedPreferences.getString("closeness", "null").toString().split(":")[i] + " km"
+                            if (unsortedSearchItems[j].profession.toString() == categoryOptions[position] || categoryOptions[position] == "All") {
+                                mySearchItems.add(unsortedSearchItems[j])
+                            }
+                        }
+                    }
+                }
+                adapter.notifyDataSetChanged()
+
+                if (adapter.itemCount == 0) {
+                    txtNotFound.visibility = View.VISIBLE
+                } else {
+                    txtNotFound.visibility = View.GONE
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
+
         // Back button
         val backButton = root.findViewById<ImageButton>(R.id.back_button)
         backButton.setOnClickListener {
-            view:View ->
-            Navigation.findNavController(view).navigate(R.id.action_fragmentSearchResults_to_fragmentTags)
+                view:View ->
+            Navigation.findNavController(view).navigate(R.id.action_fragmentSearchResults_to_fragmentMainButton)
         }
 
         // FAB i.e schedule your work
         val btnScheduleJob = root.findViewById<FloatingActionButton>(R.id.btnScheduleJob)
         btnScheduleJob.setOnClickListener {
-            view:View ->
+                view:View ->
             run {
                 Navigation.findNavController(view)
                     .navigate(R.id.action_fragmentSearchResults_to_fragmentScheduleThisJob)
@@ -171,63 +268,5 @@ class FragmentSearchResults: Fragment()  {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }
-
-    /*private fun getClosestWorkers() {
-        // retrieving location in firebase db
-        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
-        val georeference : DatabaseReference = database.reference.child("geofire")
-        val geoFire = GeoFire(georeference)
-        val geoQuery = geoFire.queryAtLocation(GeoLocation(26.7174121,88.3878191), radius)
-        geoQuery.removeAllListeners()
-
-        //geoquery to find closest worker
-        geoQuery.addGeoQueryEventListener(object : GeoQueryEventListener {
-            override fun onKeyEntered(key: String?, location: GeoLocation?) {
-                if (!workerFound && key != mAuth.currentUser?.uid.toString()) {
-                    workerFound = true
-                    workerFoundID = key.toString()
-                    Toast.makeText(requireContext(),radius.toString(),Toast.LENGTH_SHORT).show()
-                }
-            }
-            override fun onKeyExited(key: String?) {
-                TODO("Not yet implemented")
-            }
-            override fun onKeyMoved(key: String?, location: GeoLocation?) {
-                TODO("Not yet implemented")
-            }
-            override fun onGeoQueryReady() {
-                if (!workerFound) {
-                    radius++
-                    getClosestWorkers()
-                }
-            }
-            override fun onGeoQueryError(error: DatabaseError?) {
-                TODO("Not yet implemented")
-            }
-
-        })
-        }
-        */
-
-    private fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
-        val theta = lon1 - lon2
-        var dist = (Math.sin(deg2rad(lat1))
-                * Math.sin(deg2rad(lat2))
-                + (Math.cos(deg2rad(lat1))
-                * Math.cos(deg2rad(lat2))
-                * Math.cos(deg2rad(theta))))
-        dist = Math.acos(dist)
-        dist = rad2deg(dist)
-        dist = dist * 60 * 1.1515
-        return dist
-    }
-
-    private fun deg2rad(deg: Double): Double {
-        return deg * Math.PI / 180.0
-    }
-
-    private fun rad2deg(rad: Double): Double {
-        return rad * 180.0 / Math.PI
     }
 }

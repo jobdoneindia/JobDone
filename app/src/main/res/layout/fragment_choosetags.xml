@@ -31,13 +31,14 @@
         android:fontFamily="@font/poppins_semibold"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:text="Select Service"
+        android:text=""
         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         android:lineSpacingExtra="-8dp"
         app:layout_constraintStart_toEndOf="@id/back_button"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scrollLeft"
@@ -47,6 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <HorizontalScrollView
+        android:visibility="gone"
         android:id="@+id/list_items"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -270,6 +272,7 @@
     </HorizontalScrollView>
 
     <ImageButton
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scrollRight"
@@ -279,6 +282,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.divider.MaterialDivider
+        android:visibility="gone"
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -286,6 +290,7 @@
         app:dividerColor="#CFC9C9"/>
 
     <com.google.android.material.chip.ChipGroup
+        android:visibility="gone"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -293,6 +298,7 @@
         app:layout_constraintTop_toBottomOf="@id/divider"/>
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

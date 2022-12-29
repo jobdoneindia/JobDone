@@ -22,4 +22,23 @@
         <item>This Month</item>
         <item>This Year</item>
     </string-array>
+
+    <string-array name="distanceOptions">
+        <item>500km</item>
+        <item>20km</item>
+        <item>5km</item>
+    </string-array>
+
+    <string-array name="categoryOptions">
+        <item>All</item>
+        <item>Appliances</item>
+        <item>Plumber</item>
+        <item>Carpenter</item>
+        <item>HomeTutor</item>
+        <item>Pandit</item>
+        <item>Laundry</item>
+        <item>Electrician</item>
+        <item>Videographer</item>
+        <item>VehicleService</item>
+    </string-array>
 </resources>
