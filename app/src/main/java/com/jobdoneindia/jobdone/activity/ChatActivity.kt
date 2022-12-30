@@ -2,6 +2,7 @@ package com.jobdoneindia.jobdone.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -9,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -31,8 +33,13 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var scrollBackButton: ImageButton
     private lateinit var mDbRef: DatabaseReference
 
+    var receiverPhoneNum:String? = null
+    var receiverUid:String? = null
+
     var receiverRoom: String? = null
     var senderRoom: String? = null
+
+    val REQUEST_PHONE_CALL = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +47,7 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
 
         val name = intent.getStringExtra("name")
-        val receiverUid = intent.getStringExtra("uid")
+        receiverUid = intent.getStringExtra("uid")
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid
         mDbRef = FirebaseDatabase.getInstance().reference
 
@@ -63,6 +70,20 @@ class ChatActivity : AppCompatActivity() {
 
         chatRecyclerView.layoutManager = LinearLayoutManager(this)
         chatRecyclerView.adapter = messageAdapter
+
+
+        // Logic for retrieving phone number of receiver from firebase database
+        val dbRef = FirebaseDatabase.getInstance().reference
+        dbRef.child("Users").child(receiverUid.toString()).child("phoneNumber")
+
+            .addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    receiverPhoneNum = snapshot.value.toString()
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@ChatActivity,"Can't make a call", Toast.LENGTH_SHORT).show()
+                }
+            })
 
         // logic for adding data to recyclerView
         mDbRef.child("chats").child(senderRoom!!).child("messages")
@@ -143,7 +164,6 @@ class ChatActivity : AppCompatActivity() {
             messageBox.setText("")
         }
 
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -158,7 +178,15 @@ class ChatActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         val id: Int = item.getItemId()
         return if (id == R.id.action_call) {
-            // TODO: Yuvichh idhar code daal call ka
+
+            //Checks phone permission
+            if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE), REQUEST_PHONE_CALL)
+            }else{
+                val dialIntent = Intent(Intent.ACTION_CALL)
+                dialIntent.data = Uri.parse("tel:" + (receiverPhoneNum?.substring(3)))
+                startActivity(dialIntent)
+            }
             true
         } else super.onOptionsItemSelected(item)
     }
