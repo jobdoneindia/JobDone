@@ -49,8 +49,7 @@
             android:editable="false"
             android:hint="Select Profession"
             tools:listitem="@layout/support_simple_spinner_dropdown_item"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

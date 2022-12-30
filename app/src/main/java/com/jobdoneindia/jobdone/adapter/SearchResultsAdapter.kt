@@ -38,7 +38,7 @@ class SearchResultsAdapter(val context: Context, val searchItems: MutableList<Se
         val currentUser = searchItems[position]
 
         holder.name.text = searchItems[position].name
-        holder.bio.text = searchItems[position].bio
+        holder.bio.text = searchItems[position].profession
         holder.overall_rating.text = searchItems[position].overall_rating
         holder.level.text = searchItems[position].distance
         holder.description.text = searchItems[position].profession

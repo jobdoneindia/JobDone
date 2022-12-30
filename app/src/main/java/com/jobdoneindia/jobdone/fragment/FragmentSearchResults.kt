@@ -72,7 +72,7 @@ class FragmentSearchResults: Fragment()  {
         if (distanceSpinner != null) {
             val distanceAdapter = ArrayAdapter(
                 requireContext(),
-                android.R.layout.simple_spinner_item,
+                android.R.layout.simple_spinner_dropdown_item,
                 distanceOptions
             )
             distanceSpinner.adapter = distanceAdapter
@@ -85,7 +85,7 @@ class FragmentSearchResults: Fragment()  {
         if (categorySpinner != null) {
             val categoryAdapter = ArrayAdapter(
                 requireContext(),
-                android.R.layout.simple_spinner_item,
+                android.R.layout.simple_spinner_dropdown_item,
                 categoryOptions
             )
             categorySpinner.adapter = categoryAdapter
