@@ -188,7 +188,8 @@ class FragmentMainButton: Fragment() {
                     if (location != null) {
                         val geocoder = Geocoder(requireContext(), Locale.getDefault())
 
-                        val list: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                        val list: List<Address> =
+                            geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
                         txtAddress.text = list[0].getAddressLine(0)
 
                         // save latitude and longitude locally

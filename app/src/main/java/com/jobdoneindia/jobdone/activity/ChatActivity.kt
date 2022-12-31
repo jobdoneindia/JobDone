@@ -60,7 +60,7 @@ class ChatActivity : AppCompatActivity() {
     val firebase : FirebaseUser = FirebaseAuth.getInstance().currentUser!!
 
     val TAG = "ChatActivity"
-    var seenListener: ValueEventListener? = null
+  /*  var seenListener: ValueEventListener? = null*/
 
     val REQUEST_PHONE_CALL = 1
 
@@ -257,7 +257,7 @@ class ChatActivity : AppCompatActivity() {
         val uid =  FirebaseAuth.getInstance().currentUser?.uid
         val reference : DatabaseReference = database.reference.child("chats").child(uid.toString())
 
-      seenListener  = reference.addValueEventListener(object: ValueEventListener {
+      /*seenListener   = reference.addValueEventListener(object: ValueEventListener {
 
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -284,7 +284,7 @@ class ChatActivity : AppCompatActivity() {
 
             }
 
-        })
+        }*//*)*/
         //Ask Payment
         btnAskPayment.setOnClickListener {
 
@@ -344,7 +344,7 @@ class ChatActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-       mDbRef.removeEventListener(seenListener!!)
+       /*mDbRef.removeEventListener(seenListener!!)*/
         status("offline")
 
     }

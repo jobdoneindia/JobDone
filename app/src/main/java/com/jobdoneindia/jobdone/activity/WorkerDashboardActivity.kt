@@ -259,7 +259,8 @@ class WorkerDashboardActivity : AppCompatActivity() {
                     val location: Location? = task.result
                     if (location != null) {
                         val geocoder = Geocoder(this, Locale.getDefault())
-                        val list: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                        val list: List<Address> =
+                            geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
                         mainBinding.txtAddress.text = list[0].getAddressLine(0)
 
                         // save latitude and longitude locally

@@ -1,6 +1,7 @@
 package com.jobdoneindia.jobdone.activity
 
 import android.Manifest
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -8,16 +9,20 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.ktx.Firebase
 import com.jobdoneindia.jobdone.R
 
 class LoginActivity: AppCompatActivity() {
 
     private var skipButton: Button? = null
-
+    private var mListener: FirebaseAuth.AuthStateListener? = null
+    private lateinit var firebaseAuth: FirebaseAuth
     private val permissionId = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,5 +89,42 @@ class LoginActivity: AppCompatActivity() {
                 }, 2000)
             }
         }
+
     }
+
+
+
+    override fun onBackPressed() {
+      /*  AlertDialog.Builder(this)
+            .setTitle("Confirmation")
+            .setMessage("Are you sure you want to exit?")
+            .setNegativeButton(android.R.string.no, null)
+            .setPositiveButton(android.R.string.yes, object : DialogInterface.OnClickListener {
+
+                override fun onClick(arg0: DialogInterface, arg1: Int) {
+                    onSuperBackPressed()
+                }
+            }).create().show()*/
+    }
+    fun onSuperBackPressed() {
+        super.onBackPressed()
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        val mAuth = FirebaseAuth.getInstance()
+        mAuth?.removeAuthStateListener(mListener!!)
+
+    }
+   /* // APP REMEMBERS THE USER WHO LOGIN-ED PREVIOUSLY
+    override fun onStart() {
+        super.onStart()
+        val user = firebaseAuth.currentUser
+
+        if (user != null){
+            val intent = Intent(this,DashboardActivity::class.java)
+            *//* intent.putExtra("phoneNumber",phone)*//*
+            startActivity(intent)
+            finish()
+        }
+    }*/
 }

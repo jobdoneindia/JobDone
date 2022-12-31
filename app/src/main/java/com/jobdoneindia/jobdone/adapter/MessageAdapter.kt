@@ -304,11 +304,13 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
 
     class  SentViewHolder(itemView: View) : ViewHolder(itemView){
         val sentMessage = itemView.findViewById<TextView>(R.id.txt_sent_message)
+/*
         val is_seen = itemView.findViewById<TextView>(R.id.txt_seen)
+*/
     }
     class  ReceiveViewHolder(itemView: View) : ViewHolder(itemView){
         val receiveMessage = itemView.findViewById<TextView>(R.id.txt_receive_message)
-        val is_seen = itemView.findViewById<TextView>(R.id.txt_seen)
+       /* val is_seen = itemView.findViewById<TextView>(R.id.txt_seen)*/
     }
     class SentLocationViewHolder(itemView: View) : ViewHolder(itemView) {
         val btnViewMap = itemView.findViewById<Button>(R.id.btnViewMap)

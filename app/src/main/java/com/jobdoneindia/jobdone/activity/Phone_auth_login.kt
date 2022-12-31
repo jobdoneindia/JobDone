@@ -284,6 +284,7 @@ class Phone_auth_login : AppCompatActivity() {
                 /*intent.putExtra("phoneNumber",phone)*/
                 startActivity(intent)
 
+
             }
             .addOnFailureListener {e->
                 //login failed
@@ -291,7 +292,18 @@ class Phone_auth_login : AppCompatActivity() {
                 Toast.makeText(this,"Error try again", Toast.LENGTH_SHORT).show()
             }
 
+
     }
+    // APP REMEMBERS THE USER WHO LOGIN-ED PREVIOUSLY
+   /* override fun onStart() {
+        super.onStart()
+        val user = firebaseAuth.currentUser
 
-
+        if (user != null){
+            val intent = Intent(this@Phone_auth_login,DashboardActivity::class.java)
+            *//* intent.putExtra("phoneNumber",phone)*//*
+            startActivity(intent)
+            finish()
+        }
+    }*/
 }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
@@ -69,7 +70,7 @@ class ProfileActivity : AppCompatActivity() {
 
             reference.child(uid.toString()).removeValue()
 
-            val intent = Intent(this@ProfileActivity,LoginActivity::class.java)
+            val intent = Intent(this@ProfileActivity,Phone_auth_login::class.java)
             startActivity(intent)
         }
 
@@ -135,4 +136,15 @@ class ProfileActivity : AppCompatActivity() {
         }
 
     }
+//FOR USER REMEMBERING
+   /* override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.logout_button){
+
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(this@ProfileActivity , LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }*/
 }

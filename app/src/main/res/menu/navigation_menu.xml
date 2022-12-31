@@ -13,7 +13,10 @@
     <item
         android:id="@+id/menuChats"
         android:icon="@drawable/ic_chat"
-        android:title="Chats"/>
+        android:title="Chats"
+
+
+        />
 
     <item
         android:id="@+id/menuAccount"

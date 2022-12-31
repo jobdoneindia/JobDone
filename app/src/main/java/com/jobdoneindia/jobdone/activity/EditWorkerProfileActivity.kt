@@ -328,8 +328,8 @@ class EditWorkerProfileActivity : AppCompatActivity() {
                     // positive button text and action
                     .setPositiveButton("Discard", DialogInterface.OnClickListener {
                             dialog, id ->
-                                finish()
-                                startActivity(Intent(applicationContext, WorkerProfileActivity::class.java))
+                        finish()
+                        startActivity(Intent(applicationContext, WorkerProfileActivity::class.java))
 
                     })
                     // negative button text and action
