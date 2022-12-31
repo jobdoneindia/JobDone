@@ -35,7 +35,7 @@
         </service>
 
       <!--activity to crop image-->
-        <activity
+       <!-- <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
@@ -50,7 +50,7 @@
                 android:resource="@xml/fileproviderpath">
 
             </meta-data>
-        </provider>
+        </provider>-->
 
 
         <activity
