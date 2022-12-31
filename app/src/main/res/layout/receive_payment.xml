@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:background="@drawable/chatcorner_receive"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/txt_sent_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Send Money"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnDeclined"
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Declined"
+            android:backgroundTint="#FDC7C7"
+            android:textColor="#DF4B4B"
+            android:drawableLeft="@drawable/ic_decline"
+            android:drawableTint="#DF4B4B"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btnAccepted"
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accepted"
+            android:backgroundTint="#61ACA1"
+            android:textColor="#000000"
+            android:drawableTint="#4BD3DF"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btnAccept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pay"
+            android:backgroundTint="#AEC4EC"
+            android:textColor="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/btnDecline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Decline"
+            android:textColor="@color/black"
+            android:backgroundTint="#CAC4C4" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -26,6 +26,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var messageBox: EditText
     private lateinit var sendButton: ImageView
     private lateinit var btnGetLocation: Button
+    private lateinit var btnAskPayment: Button
+    private lateinit var btnGetReview: Button
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var messageList: ArrayList<Message>
     private lateinit var scrollViewCustom: HorizontalScrollView
@@ -63,10 +65,11 @@ class ChatActivity : AppCompatActivity() {
         scrollButton = findViewById(R.id.btnScroll)
         scrollBackButton = findViewById(R.id.btnScrollBack)
         btnGetLocation = findViewById(R.id.btnAskLocation)
+        btnAskPayment = findViewById(R.id.btnAskPayment)
+        btnGetReview = findViewById(R.id.btnAskRating)
 
         messageList = ArrayList()
         messageAdapter = MessageAdapter(this,messageList)
-
 
         chatRecyclerView.layoutManager = LinearLayoutManager(this)
         chatRecyclerView.adapter = messageAdapter
@@ -164,6 +167,36 @@ class ChatActivity : AppCompatActivity() {
             messageBox.setText("")
         }
 
+        //Ask Payment
+        btnAskPayment.setOnClickListener {
+
+            val ukey = mDbRef.child("chats").child(senderRoom!!).child("messages").push().key
+            val messageObject = Message("Payment", senderUid, receiverUid, Date().time, "payment", "default", ukey.toString())
+
+            mDbRef.child("chats").child(senderRoom!!).child("messages").child(ukey.toString())/*.push()*/
+                .setValue(messageObject).addOnSuccessListener {
+                    mDbRef.child("chats").child(receiverRoom!!).child("messages").child(ukey.toString())/*.push()*/
+                        .setValue(messageObject)
+                }
+            mDbRef.child("Users").child("latest-messages").child(senderUid.toString()).child(receiverUid.toString()).child("msg").setValue(messageObject)
+            messageBox.setText("")
+
+        }
+
+        // Ask Review
+/*        btnGetReview.setOnClickListener {
+            val ukey = mDbRef.child( "chats").child(senderRoom!!).child("messages").push().key
+            val messageObject = Message("Review", senderUid, receiverUid, Date().time, "review", "default", ukey.toString())
+
+            mDbRef.child("chats").child(senderRoom!!).child("messages").child(ukey.toString())
+                .setValue(messageObject).addOnSuccessListener {
+                    mDbRef.child("chats").child(receiverRoom!!).child("messages").child(ukey.toString())
+                        .setValue(messageObject)
+                }
+            mDbRef.child("Users").child("latest-messages").child(senderUid.toString()).child(receiverUid.toString()).child("msg").setValue(messageObject)
+            messageBox.setText("")
+        }*/
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -179,7 +212,7 @@ class ChatActivity : AppCompatActivity() {
         val id: Int = item.getItemId()
         return if (id == R.id.action_call) {
 
-            //Checks phone permission
+            //Checks calling permission
             if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE), REQUEST_PHONE_CALL)
             }else{

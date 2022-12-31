@@ -69,16 +69,17 @@
                     app:layout_constraintStart_toEndOf="@id/btnAskLocation"
                     android:layout_marginLeft="5dp"
                     android:text="Ask Rating"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
-                <Button
-                    android:id="@+id/btnMakeDeal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Make a Deal"
-                    android:layout_marginLeft="5dp"
-                    app:layout_constraintStart_toEndOf="@id/btnAskRating"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <!--                <Button-->
+                <!--                    android:id="@+id/btnMakeDeal"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginLeft="5dp"-->
+                <!--                    android:text="Make a Deal"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                    app:layout_constraintStart_toEndOf="@id/btnAskRating" />-->
 
                 <Button
                     android:id="@+id/btnAskPayment"
@@ -86,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:text="Ask Payment"
                     android:layout_marginLeft="5dp"
-                    app:layout_constraintStart_toEndOf="@id/btnMakeDeal"
+                    app:layout_constraintStart_toEndOf="@id/btnAskRating"
                     app:layout_constraintBottom_toBottomOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </HorizontalScrollView>
