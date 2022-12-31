@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:background="@drawable/chatcornersent"
+        android:backgroundTint="#D5D3D3"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+
+        <TextView
+            android:id="@+id/txt_sent_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Review"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnViewReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Review"
+            android:visibility="gone"
+            android:backgroundTint="@color/orange_300"/>
+
+        <Button
+            android:clickable="false"
+            android:id="@+id/btnReviewRequested"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Requested"
+            android:drawableLeft="@drawable/ic_clock"
+            android:drawableTint="@color/orange_300"
+            android:backgroundTint="#FDB29A"
+            android:textColor="@color/orange_300"/>
+
+        <Button
+            android:clickable="false"
+            android:id="@+id/btnReviewDeclined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="Declined"
+            android:drawableLeft="@drawable/ic_decline"
+            android:drawableTint="@color/black"
+            android:backgroundTint="#AFABAB"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
