@@ -87,6 +87,7 @@
                     android:layout_height="wrap_content"
                     android:text="Ask Payment"
                     android:layout_marginLeft="5dp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toEndOf="@id/btnAskRating"
                     app:layout_constraintBottom_toBottomOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
