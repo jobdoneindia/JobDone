@@ -25,12 +25,13 @@ import com.jobdoneindia.jobdone.firebase.FirebaseService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import java.util.HashMap
 
-data class inboxItem(val uid: String, val username: String, val url: String, var lastMsg: String, var timestamp: Long)
+data class inboxItem(val uid: String, val username: String, val url: String, var lastMsg: String, var timestamp: Long , var status: String)
 
 
 class ChatUserList : AppCompatActivity() {
-
+    val firebase : FirebaseUser = FirebaseAuth.getInstance().currentUser!!
     private lateinit var userRecyclerView: RecyclerView
     private lateinit var userList: ArrayList<inboxItem>
     private lateinit var adapter: UserAdapter
@@ -50,10 +51,9 @@ class ChatUserList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_user_list)
 
-       val firebase : FirebaseUser = FirebaseAuth.getInstance().currentUser!!
-        val receiverUid = intent.getStringExtra("uid")
-        var userid = firebase.uid
-        FirebaseMessaging.getInstance().subscribeToTopic("/topics/$userid")
+
+
+
 
         // Add back button in Action Bar
         val actionBar: ActionBar? = supportActionBar
@@ -71,7 +71,7 @@ class ChatUserList : AppCompatActivity() {
         timestamps = ArrayList()
         sorted_timestamps = ArrayList()
 
-        adapter = UserAdapter(this, userList)
+        adapter = UserAdapter(this, userList , true)
 
         userRecyclerView = findViewById(R.id.userRecyclerView)
 
@@ -98,15 +98,15 @@ class ChatUserList : AppCompatActivity() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 userList.clear()
-                /*unsortedUserList.clear()
+                unsortedUserList.clear()
                 timestamps.clear()
-                sorted_timestamps.clear()*/
+                sorted_timestamps.clear()
                 for (postSnapshot in snapshot.children) {
                     val currentUser = postSnapshot.getValue(User::class.java)
                     if (mAuth.currentUser?.uid != currentUser?.uid && currentUser?.uid != null) {
                         /*if (workerFoundID == currentUser?.uid.toString()) {*/
                         /*senderRoom.add(mAuth.currentUser?.uid.toString() + currentUser.uid.toString())*/
-                        var location = currentUser.Location
+                        /*var location = currentUser.Location*/
                         var t = snapshot.child("latest-messages").child(mAuth.uid.toString()).child(currentUser?.uid.toString()).child("msg").child("timestamp").value
                         if (t == null) {
                             t = 0
@@ -120,11 +120,11 @@ class ChatUserList : AppCompatActivity() {
                         var lastMsg = snapshot.child("latest-messages").child(mAuth.uid.toString()).child(currentUser?.uid.toString()).child("msg").child("message").value
                         userList.add(inboxItem(currentUser?.uid.toString(), currentUser?.username.toString(), currentUser?.url.toString(),
                             lastMsg.toString(),
-                            t.toString().toLong()
-                        ))
+                            t.toString().toLong() ,
+                        currentUser.status.toString()))
 
 
-                        FirebaseMessaging.getInstance().subscribeToTopic("/topics/$receiverUid")
+
 
 /*                        }*/
                     }
@@ -139,9 +139,9 @@ class ChatUserList : AppCompatActivity() {
                             userList.add(unsortedUserList[j])
                         }
                     }
-                }
+                }*/
 
-                Toast.makeText(this@ChatUserList,sorted_timestamps.toString(),Toast.LENGTH_SHORT).show()*/
+                /*Toast.makeText(this@ChatUserList,sorted_timestamps.toString(),Toast.LENGTH_SHORT).show()*/
 
                 adapter.notifyDataSetChanged()
             }
@@ -155,6 +155,32 @@ class ChatUserList : AppCompatActivity() {
         })
 
     }
+
+
+    // TO SHOW STATUS
+    fun status(status : String) {
+        mDbRef = FirebaseDatabase.getInstance().getReference("Users").child(firebase.uid)
+
+        var map : HashMap<String, Any>
+                = HashMap<String,Any>()
+
+        map.put("status" , status)
+        mDbRef.updateChildren(map)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        status("online")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        status("offline")
+    }
+
+
+
 
     class StackWithList{
         val elements: MutableList<inboxItem> = mutableListOf()

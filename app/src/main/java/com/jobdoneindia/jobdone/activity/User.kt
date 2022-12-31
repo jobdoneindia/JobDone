@@ -6,6 +6,7 @@ class User {
     var url: String? = null
     var phoneNumber: String? = null
     var Location:ArrayList<Double>? = null
+    var status : String? = null
     var Profession: String? = null
 
     constructor(
@@ -14,6 +15,7 @@ class User {
         url: String?,
         phoneNumber: String?,
         Location:ArrayList<Double>?,
+        status: String?,
         Profession: String?,
     ){
         this.uid = uid
@@ -21,6 +23,7 @@ class User {
         this.url = url
         this.phoneNumber = phoneNumber
         this.Location = Location
+        this.status = status
         this.Profession = Profession
 
     }

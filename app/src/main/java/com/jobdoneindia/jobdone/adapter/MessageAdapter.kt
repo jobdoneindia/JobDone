@@ -1,22 +1,28 @@
 package com.jobdoneindia.jobdone.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.Message
+import de.hdodenhof.circleimageview.CircleImageView
 import com.jobdoneindia.jobdone.activity.PaymentActivity
 
 class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
@@ -32,11 +38,11 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
     val ITEM_RECEIVE_REVIEW = 7
     val ITEM_SENT_REVIEW = 8
 
+
     val mDbRef : DatabaseReference = FirebaseDatabase.getInstance().reference
     val mAuth = FirebaseAuth.getInstance()
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         if (viewType == 1){
             // inflate receive
@@ -75,15 +81,18 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
             val view: View = LayoutInflater.from(context).inflate(R.layout.receive_review, parent, false)
             return ReceiveReviewViewHolder(view)
         }
-        else{
+        else {
             val view: View = LayoutInflater.from(context).inflate(R.layout.sent_review, parent, false)
             return SentReviewViewHolder(view)
         }
 
     }
 
+
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentMessage = messageList[position]
+
 
         if (holder.javaClass == SentViewHolder::class.java) {
             //do the stuff for sent view holder
@@ -96,6 +105,7 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
             //do stuff for receive view holder
             val viewHolder = holder as ReceiveViewHolder
             viewHolder.receiveMessage.text = currentMessage.message
+        } else if (holder.javaClass==SentViewHolder::class.java){
         }
 
         else if (holder.javaClass == SentLocationViewHolder::class.java){
@@ -178,6 +188,22 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
             }
         }
 
+
+        /*if (holder.javaClass == SentViewHolder::class.java){
+            val ViewHolder = holder as SentViewHolder
+
+            if (position==messageList.size-1){
+                if (currentMessage.isseen == true){
+                    holder.is_seen.text = "Seen"
+                }else if (currentMessage.isseen==false){
+                    holder.is_seen.text = "Delivered"
+                }
+                holder.is_seen.visibility = View.VISIBLE
+            }else{
+                holder.is_seen.visibility = View.GONE
+            }
+        }*/
+
         else if (holder.javaClass == SentPaymentViewHolder::class.java){
             val viewHolder = holder as SentPaymentViewHolder
 
@@ -243,6 +269,7 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
 
     }
 
+
     override fun getItemViewType(position: Int): Int {
         val currentMessage = messageList[position]
 
@@ -258,14 +285,14 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
             }
 
         }else{
-            if (currentMessage.message_type == "location"){
-                return ITEM_RECEIVE_LOCATION
+            return if (currentMessage.message_type == "location"){
+                ITEM_RECEIVE_LOCATION
             } else if(currentMessage.message_type == "payment"){
-                return ITEM_RECEIVE_PAYMENT
+                ITEM_RECEIVE_PAYMENT
             } else if(currentMessage.message_type == "review"){
-                return ITEM_RECEIVE_REVIEW
+                ITEM_RECEIVE_REVIEW
             } else {
-                return ITEM_RECEIVE
+                ITEM_RECEIVE
             }
         }
 
@@ -274,13 +301,16 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
     override fun getItemCount(): Int {
         return  messageList.size
     }
-    class  SentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+
+    class  SentViewHolder(itemView: View) : ViewHolder(itemView){
         val sentMessage = itemView.findViewById<TextView>(R.id.txt_sent_message)
+        val is_seen = itemView.findViewById<TextView>(R.id.txt_seen)
     }
-    class  ReceiveViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class  ReceiveViewHolder(itemView: View) : ViewHolder(itemView){
         val receiveMessage = itemView.findViewById<TextView>(R.id.txt_receive_message)
+        val is_seen = itemView.findViewById<TextView>(R.id.txt_seen)
     }
-    class SentLocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SentLocationViewHolder(itemView: View) : ViewHolder(itemView) {
         val btnViewMap = itemView.findViewById<Button>(R.id.btnViewMap)
         val btnRequested = itemView.findViewById<Button>(R.id.btnRequested)
         val btnDeclined = itemView.findViewById<Button>(R.id.btnDeclined)
@@ -317,4 +347,7 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
         val txtPayment = itemView.findViewById<TextView>(R.id.txt_sent_message)
         val btnPaid = itemView.findViewById<Button>(R.id.btnPaid)
     }
+
+
+
 }
