@@ -46,16 +46,7 @@ class FragmentSelectTags : Fragment() {
         "Videographer" to arrayListOf("Wedding", "Birthday", "Freelance"),
         "Vehicle Service" to arrayListOf("Bike Repair", "Car Repair", "Loading Van Repair", "Truck Repair", "Servicing" ),
         "Vehicle Washing" to arrayListOf("Bike Wash", "Car Wash", "Loading Van Wash", "Truck Wash"),
-        "Goods Transport Vehicle" to arrayListOf( "Three Wheeler"," Four Wheeler", "Six Wheeler", "Eight Wheeler", "Ten Wheeler"),
-        /*"" to arrayListOf(),
-        "" to arrayListOf(),
-        "" to arrayListOf(),
-        "" to arrayListOf(),
-        "" to arrayListOf(),
-        "" to arrayListOf(),
-        "" to arrayListOf(),
-        "" to arrayListOf(),*/
-    )
+        "Goods Transport Vehicle" to arrayListOf( "Three Wheeler"," Four Wheeler", "Six Wheeler", "Eight Wheeler", "Ten Wheeler"),)
 
     private var selectedTags = mutableListOf<String>()
 
@@ -166,6 +157,9 @@ class FragmentSelectTags : Fragment() {
         newChip.isCheckable = false
 
         newChip.setOnClickListener {
+            selectedTags.clear()
+            updateTags(tagList)
+
             // get alert_dialog.xml view
             val li = LayoutInflater.from(requireContext())
             val promptsView = li.inflate(R.layout.alert_dialog, null)

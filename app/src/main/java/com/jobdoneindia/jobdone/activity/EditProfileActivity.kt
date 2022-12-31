@@ -16,6 +16,7 @@ import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -248,6 +249,29 @@ class EditProfileActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    // on back pressed
+    override fun onBackPressed() {
+        // build alert dialog
+        val dialogBuilder = AlertDialog.Builder(this)
+
+        // set message of alert dialog
+        dialogBuilder.setMessage("Discard Changes?").setCancelable(true)
+            // positive button text and action
+            .setPositiveButton("Discard", DialogInterface.OnClickListener {
+                    dialog, id -> finish()
+            })
+            // negative button text and action
+            .setNegativeButton("Cancel",DialogInterface.OnClickListener{
+                    dialog, id -> dialog.cancel()
+            })
+        // create dialog box
+        val alert = dialogBuilder.create()
+        // set title for alert dialog box
+        alert.setTitle("Edit Profile")
+        // show
+        alert.show()
     }
 
     // Set up function for back button in Action Bar

@@ -137,20 +137,73 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/txtAboutYou"
         app:layout_constraintStart_toStartOf="@id/txtAboutYou"
-        android:text="Production Worker"
-        android:textStyle="bold"
-        android:id="@+id/worker_bio"/>
-    <TextView
-        android:id="@+id/txtWorkerDescription"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:text="Your Profession:"
+        android:id="@+id/txtProfessionTitle"/>
+    <com.google.android.material.chip.Chip
+        android:clickable="false"
+        android:id="@+id/txtProfession"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I check for defects, assemble products, monitor manufacturing equipment, and closely follow safety procedures to prevent accidents in environments where materials may be hazardous."
-        app:layout_constraintTop_toBottomOf="@+id/worker_bio"
-        app:layout_constraintStart_toStartOf="@id/worker_bio"
+        android:text="Empty"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+        app:layout_constraintTop_toBottomOf="@+id/txtProfessionTitle"
+        app:layout_constraintStart_toStartOf="@id/txtProfessionTitle"
         />
 
-    <!-- Ratings section -->
     <TextView
+        android:id="@+id/txtTagsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txtProfession"
+        app:layout_constraintStart_toStartOf="@id/txtProfession"
+        android:text="Your Tags: "
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:layout_marginTop="10dp"/>
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txtTagsTitle"
+        app:layout_constraintStart_toStartOf="@id/txtTagsTitle">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.chip.Chip
+            android:clickable="false"
+            android:id="@+id/tag1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Empty"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            />
+
+        <com.google.android.material.chip.Chip
+            android:clickable="false"
+            android:id="@+id/tag2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Empty"
+            android:layout_marginStart="10dp"
+            style="@style/Widget.MaterialComponents.Chip.Choice" />
+
+        <com.google.android.material.chip.Chip
+            android:clickable="false"
+            android:id="@+id/tag3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Empty"
+            android:layout_marginStart="10dp"
+            style="@style/Widget.MaterialComponents.Chip.Choice" />
+
+    </LinearLayout>
+    </HorizontalScrollView>
+
+
+    <!-- Ratings section -->
+    <!--<TextView
         android:id="@+id/txtYourRatings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -162,7 +215,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="15dp"
         app:layout_constraintStart_toStartOf="parent"/>
-        <!--Overall Rating-->
+        &lt;!&ndash;Overall Rating&ndash;&gt;
         <TextView
             android:id="@+id/txtOverall"
             android:layout_width="wrap_content"
@@ -183,7 +236,7 @@
             android:drawablePadding="5dp"
             app:drawableLeftCompat="@drawable/ic_star" />
 
-        <!--Tag 1 Rating-->
+        &lt;!&ndash;Tag 1 Rating&ndash;&gt;
     <TextView
         android:id="@+id/txtTag1"
         android:layout_width="wrap_content"
@@ -203,7 +256,7 @@
             android:drawablePadding="5dp"
             app:drawableStartCompat="@drawable/ic_star" />
 
-        <!--Tag 2 Rating-->
+        &lt;!&ndash;Tag 2 Rating&ndash;&gt;
     <TextView
         android:id="@+id/txtTag2"
         android:layout_width="wrap_content"
@@ -223,7 +276,7 @@
             android:drawablePadding="5dp"
             app:drawableLeftCompat="@drawable/ic_star" />
 
-        <!--Tag 3 Rating-->
+        &lt;!&ndash;Tag 3 Rating&ndash;&gt;
     <TextView
         android:id="@+id/txtTag3"
         android:layout_width="wrap_content"
@@ -241,7 +294,7 @@
             android:text="4.5"
             android:gravity="center"
             android:drawablePadding="5dp"
-            app:drawableLeftCompat="@drawable/ic_star" />
+            app:drawableLeftCompat="@drawable/ic_star" />-->
 
     <!--LOG OUT Button-->
     <Button

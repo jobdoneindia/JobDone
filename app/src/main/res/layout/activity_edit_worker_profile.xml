@@ -47,7 +47,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name"/>
+                android:text="Name"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:fontFamily="@font/poppins_semibold"/>
             <EditText
                 android:id="@+id/workerName"
                 android:layout_width="match_parent"
@@ -85,6 +87,7 @@
                 android:id="@+id/txtSelectProfession"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:text="Your Profession:"
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 android:fontFamily="@font/poppins_semibold"
@@ -93,7 +96,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/spinner_group"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:layout_height="wrap_content"

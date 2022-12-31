@@ -9,20 +9,25 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.*
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -33,7 +38,6 @@ import com.jobdoneindia.jobdone.R
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
-import java.util.*
 
 class EditWorkerProfileActivity : AppCompatActivity() {
 
@@ -52,6 +56,127 @@ class EditWorkerProfileActivity : AppCompatActivity() {
 
     lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
 
+    private val items = mutableListOf(
+        "Electrician",
+        "Appliances",
+        "Plumber",
+        "Carpenter",
+        "Painter",
+        "Driver",
+        "Home Tutor",
+        "Freelancer",
+        "Pest Control",
+        "Pandit",
+        "Laundry",
+        "RO Service",
+        "House Maid",
+        "Water Supplier",
+        "Photographer",
+        "Videographer",
+        "Vehicle Service",
+        "Vehicle Washing",
+    )
+    private val tags = mapOf(
+        "Electrician" to arrayListOf("AC Repair", "Plug", "Socket", "Wires"),
+        "Appliances" to arrayListOf(
+            "TV Repair",
+            "AC Repair",
+            "Washing machine repair",
+            "Gizzer Repair",
+            "Air Cooler Repair",
+            "Fridge Repair",
+            "Mixer Grinder Repair",
+            "Speaker Repair"
+        ),
+        "Plumber" to arrayListOf(
+            "Install Water Supply System",
+            "Install Waste Disposal System",
+            "Repair Pipeline Issues"
+        ),
+        "Carpenter" to arrayListOf(
+            "New Furniture Making",
+            "Old Furniture Repair",
+            "Install Modular Kichen"
+        ),
+        "Painter" to arrayListOf(
+            "Furniture Painting",
+            "Contract Works(Office, Home, Cafe)",
+            "Wall Painting"
+        ),
+        "Driver" to arrayListOf("Personal Car", "Loading Van", "JCB", "Dumper", "Truck"),
+        "Home Tutor" to arrayListOf(
+            "Class 1-5",
+            "Class 6-10",
+            "Class 11-12",
+            "Graduates",
+            "Science Teacher",
+            "Maths Teacher",
+            "Commerce Teacher",
+            "Arts Teacher"
+        ),
+        "Freelancer" to arrayListOf(
+            "Graphic Designer",
+            "Content Writer",
+            "Web Designer",
+            "Virtual Assistant",
+            "App Developer",
+            "Video Editor",
+            "Social Media Manager",
+            "Transcriber"
+        ),
+        "Pest Control" to arrayListOf("Complete Pest Control", "Sanitisation"),
+        "Pandit" to arrayListOf(
+            "Bhagwat Katha",
+            "Bhoomi Pooja",
+            "Antim Sanskar",
+            "Satya Narayan Katha",
+            "Shaadi",
+            "Ganesh Utsav",
+            "Hawan",
+            "Vaastu Pooja"
+        ),
+        "Laundry" to arrayListOf("Washing CLothes", "Dry Clean", "Ironing Clothes"),
+        "RO Service" to arrayListOf("RO Repair", "RO Install", "RO Service", "RO Parts Change"),
+        "House Maid" to arrayListOf(
+            "House Cleaning",
+            "Cooking",
+            "Washing Clothes",
+            "Baby Care",
+            "Utensil Cleaning"
+        ),
+        "Water Supplier" to arrayListOf("Drinking Water", "Tanker"),
+        "Photographer" to arrayListOf(
+            "Model",
+            "Pre Wedding",
+            "Wedding",
+            "Album",
+            "Birthday",
+            "Freelance"
+        ),
+        "Videographer" to arrayListOf("Wedding", "Birthday", "Freelance"),
+        "Vehicle Service" to arrayListOf(
+            "Bike Repair",
+            "Car Repair",
+            "Loading Van Repair",
+            "Truck Repair",
+            "Servicing"
+        ),
+        "Vehicle Washing" to arrayListOf("Bike Wash", "Car Wash", "Loading Van Wash", "Truck Wash"),
+        "Goods Transport Vehicle" to arrayListOf(
+            "Three Wheeler",
+            " Four Wheeler",
+            "Six Wheeler",
+            "Eight Wheeler",
+            "Ten Wheeler"
+        ),
+    )
+
+    private var selectedTags = mutableListOf<String>()
+
+    private lateinit var adapterItems: ArrayAdapter<String>
+    private lateinit var chipGroup: ChipGroup
+    private lateinit var selectProfessionSpinner: AutoCompleteTextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_worker_profile)
@@ -63,14 +188,54 @@ class EditWorkerProfileActivity : AppCompatActivity() {
         profileActivityForResult()
 
         //database reference
-        val database :FirebaseDatabase = FirebaseDatabase.getInstance()
-        val uid = FirebaseAuth.getInstance().currentUser?.uid
-        val reference:DatabaseReference = database.reference.child(uid.toString()).child("Worker-Details")
+        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+        val reference : DatabaseReference = database.reference.child("Users")
+
+        val editTextName = findViewById<EditText>(R.id.workerName)
 
         val sharedPreferences: SharedPreferences = getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
 
         // get image url from local database
         val imageUrl:  String? = sharedPreferences.getString("dp_url_key", "not found")
+
+        val sharedName: String? = sharedPreferences.getString("name_key", "Your Name")
+        editTextName.setText(sharedName.toString())
+
+        // tags and profession selection
+        chipGroup = findViewById(R.id.chip_group_tags)
+
+        // autocompleteTextView
+        var tagList = mutableListOf<String>()
+        adapterItems = ArrayAdapter(this, R.layout.dropdown_item,items)
+
+
+        val currentTags = sharedPreferences.getString("tags_key", "null")?.drop(1)?.dropLast(1)?.split(",")
+        val currentProfession: String? = sharedPreferences.getString("profession_key", "null")
+        // Spinner Logic
+        selectProfessionSpinner = findViewById(R.id.select_profession_spinner)
+        selectProfessionSpinner.setText(currentProfession.toString())
+        selectProfessionSpinner.setAdapter(adapterItems)
+        selectProfessionSpinner.setOnItemClickListener { adapterView, view, position, id ->
+            tagList.clear()
+            selectedTags.clear()
+            val item: String = adapterView.getItemAtPosition(position).toString()
+            for (x in tags[item]!!) {
+                tagList.add(x)
+            }
+            updateTags(tagList)
+        }
+
+        tagList.clear()
+        selectedTags.clear()
+        for (x in currentTags!!) {
+            tagList.add(x)
+        }
+        updateTags(tagList)
+
+        for (i in 0 until chipGroup.childCount) {
+            val chip = chipGroup.getChildAt(i) as Chip
+            chip.isChecked = true
+        }
 
         // Set DP using Glide
         Glide.with(this)
@@ -84,40 +249,73 @@ class EditWorkerProfileActivity : AppCompatActivity() {
 
             val workerName = findViewById<EditText>(R.id.workerName).text.toString().trim()
 
-            //store data locally
             // Store data locally
             val editor: SharedPreferences.Editor = sharedPreferences.edit()
             editor.putString("name_key", workerName)
+            editor.putString("profession_key", selectProfessionSpinner.text.toString())
+            editor.putString("tags_key", selectedTags.toString())
+            editor.apply()
+            editor.commit()
 
-            // store data in firebase
-            reference.child("Workername").setValue(workerName)
-
+            // upload photo to db
             if (imageuri != null) {
                 Toast.makeText(this, "Uploading Image...", Toast.LENGTH_LONG).show()
                 uploadPhoto()
             } else {
                 finish()
+                startActivity(Intent(applicationContext, WorkerProfileActivity::class.java))
             }
+
+            // Store data in firebase
+            reference.child(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                .child("username").setValue(workerName)
+
+            // store profession and tags in realtime database
+            val uid = FirebaseAuth.getInstance().currentUser?.uid
+            reference.child(uid.toString()).child("Profession").setValue(selectProfessionSpinner.text.toString())
+            reference.child(uid.toString()).child("Tags").setValue(selectedTags)
         }
 
         // Tags Selectors
         val tags = resources.getStringArray(R.array.tags)
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tags)
 
-        // TODO: Feature to select DP and update in database
         profilePic = findViewById(R.id.profile_pic)
         btnSetDP = findViewById(R.id.btnSetDP)
         btnSetDP.setOnClickListener {
             pickfromGallery()
         }
 
-        // TODO: Feature to set current location
-
-        // TODO: Update Database - OnClick Listener for FAB button
-
 
 
     }
+
+    // on back pressed
+    override fun onBackPressed() {
+        // build alert dialog
+        val dialogBuilder = AlertDialog.Builder(this)
+
+        // set message of alert dialog
+        dialogBuilder.setMessage("Discard Changes?").setCancelable(true)
+            // positive button text and action
+            .setPositiveButton("Discard", DialogInterface.OnClickListener {
+                    dialog, id ->
+                finish()
+                startActivity(Intent(applicationContext, WorkerProfileActivity::class.java))
+
+            })
+            // negative button text and action
+            .setNegativeButton("Cancel", DialogInterface.OnClickListener{
+                    dialog, id -> dialog.cancel()
+            })
+        // create dialog box
+        val alert = dialogBuilder.create()
+        // set title for alert dialog box
+        alert.setTitle("Edit Profile")
+        // show
+        alert.show()
+    }
+
     // Set up function for back button in Action Bar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -129,7 +327,10 @@ class EditWorkerProfileActivity : AppCompatActivity() {
                 dialogBuilder.setMessage("Discard Changes?").setCancelable(true)
                     // positive button text and action
                     .setPositiveButton("Discard", DialogInterface.OnClickListener {
-                            dialog, id -> finish()
+                            dialog, id ->
+                                finish()
+                                startActivity(Intent(applicationContext, WorkerProfileActivity::class.java))
+
                     })
                     // negative button text and action
                     .setNegativeButton("Cancel", DialogInterface.OnClickListener{
@@ -272,6 +473,95 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             }
 
         }
+
+    }
+
+    // Update tags in Chip Group
+    private fun updateTags(tagList: MutableList<String>) {
+        chipGroup.removeAllViews()
+        for (index in tagList.indices) {
+            val tagName = tagList[index]
+            val chip = Chip(this)
+            val paddingDp = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 10f,
+                resources.displayMetrics
+            ).toInt()
+            chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp)
+            chip.text = tagName
+            chip.isCheckable = true
+            chip.isCheckedIconVisible = true
+            chip.setCheckedIconResource(R.drawable.ic_done)
+
+            //Added click listener on close icon to remove tag from ChipGroup
+/*            chip.setOnCloseIconClickListener {
+                tagList.remove(tagName)
+                chipGroup.removeView(chip)
+            }*/
+
+            chip.setOnCheckedChangeListener { button, b ->
+                if (chip.isChecked == true) {
+                    if (selectedTags.size < 3) {
+                        selectedTags.add(chip.text.toString())
+                    } else {
+                        chip.isChecked = false
+                    }
+
+                } else {
+                    selectedTags.remove(chip.text.toString())
+                }
+                Toast.makeText(this, "Selected: ${selectedTags}", Toast.LENGTH_SHORT).show()
+            }
+
+            chipGroup.addView(chip)
+        }
+        val newChip = Chip(this)
+
+        val paddingDp = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 10f,
+            resources.displayMetrics
+        ).toInt()
+        newChip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp)
+        newChip.text = "+ Add New"
+        newChip.isCheckable = false
+
+        newChip.setOnClickListener {
+            selectedTags.clear()
+            updateTags(tagList)
+
+            // get alert_dialog.xml view
+            val li = LayoutInflater.from(this)
+            val promptsView = li.inflate(R.layout.alert_dialog, null)
+            val alertDialogBuilder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
+
+            // set alert_dialog.xml to alertdialog builder
+            alertDialogBuilder.setView(promptsView)
+            val userInput = promptsView.findViewById<View>(R.id.etUserInput) as EditText
+
+            // set dialog message
+            alertDialogBuilder
+                .setPositiveButton(
+                    "OK",
+                    DialogInterface.OnClickListener { dialog, id -> // get user input and set it to result
+                        // edit text
+                        Toast.makeText(
+                            this,
+                            "Entered: " + userInput.text.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        tagList.add(userInput.text.toString())
+                        updateTags(tagList)
+                    })
+                .setNegativeButton("Cancel",
+                    DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+
+            // create alert dialog
+            val alertDialog: android.app.AlertDialog = alertDialogBuilder.create()
+
+            // show it
+            alertDialog.show()
+        }
+
+        chipGroup.addView(newChip)
 
     }
 

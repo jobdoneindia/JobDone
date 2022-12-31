@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
@@ -35,6 +36,10 @@ class WorkerProfileActivity : AppCompatActivity() {
 
         val userName = findViewById<TextView>(R.id.user_name)
         val userAddress = findViewById<TextView>(R.id.user_address)
+        val txtProfession = findViewById<TextView>(R.id.txtProfession)
+        val tag1 = findViewById<Chip>(R.id.tag1)
+        val tag2 = findViewById<Chip>(R.id.tag2)
+        val tag3 = findViewById<Chip>(R.id.tag3)
 
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
         val uid  = FirebaseAuth.getInstance().currentUser?.uid
@@ -44,8 +49,15 @@ class WorkerProfileActivity : AppCompatActivity() {
         val sharedPreferences: SharedPreferences = getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
         val sharedName: String? = sharedPreferences.getString("name_key", "Siraj Alarm")
         val sharedAddress: String? = sharedPreferences.getString("location_key", "India, Earth")
+        val sharedProfession: String? = sharedPreferences.getString("profession_key", "Null")
+        val sharedTags: String? = sharedPreferences.getString("tags_key", "null")?.drop(1)?.dropLast(1)
+
         userName.text = sharedName.toString()
         userAddress.text = sharedAddress.toString()
+        txtProfession.text = sharedProfession.toString()
+        tag1.text = sharedTags!!.split(",")[0]
+        tag2.text = sharedTags!!.split(",")[1]
+        tag3.text = sharedTags!!.split(",")[2]
 
         // workerToggle switch on
         workerToggle.isChecked = true
@@ -107,6 +119,7 @@ class WorkerProfileActivity : AppCompatActivity() {
 
         // edit button (fab) onClick listener
         editButton.setOnClickListener {
+            finish()
             startActivity(Intent(applicationContext, EditWorkerProfileActivity::class.java))
         }
 
