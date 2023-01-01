@@ -2,12 +2,14 @@ package com.jobdoneindia.jobdone.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -71,6 +73,22 @@ class SearchResultsAdapter(val context: Context, val searchItems: MutableList<Se
 
         holder.btnMsg.setOnClickListener {
             val intent = Intent(context, ChatActivity::class.java)
+
+            // store data locally
+            val sharedPreferences: SharedPreferences =context.getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            var userList = sharedPreferences.getString("chat_user_list", "null")
+
+            if (userList == "null") {
+                editor.putString("chat_user_list", currentUser.uid)
+                editor.apply()
+                editor.commit()
+            } else {
+                userList += ":" + currentUser.uid
+                editor.putString("chat_user_list", userList)
+                editor.apply()
+                editor.commit()
+            }
 
             intent.putExtra("username",currentUser.name)
             intent.putExtra("uid",currentUser.uid)

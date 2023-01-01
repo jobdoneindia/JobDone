@@ -123,16 +123,27 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
             }
 
             viewHolder.btnViewMap.setOnClickListener {
-                // Create a Uri from an intent string. Use the result to create an Intent.
-                val gmmIntentUri = Uri.parse("google.navigation:q=26.7174197,88.3878048&mode=w")
+                mDbRef.child("Users").child(currentMessage.receiverId.toString()).addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val lat = snapshot.child("Location").child("0").value.toString()
+                        val long = snapshot.child("Location").child("1").value.toString()
 
-                // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
-                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                // Make the Intent explicit by setting the Google Maps package
-                mapIntent.setPackage("com.google.android.apps.maps")
+                        val gmmIntentUri = Uri.parse("google.navigation:q=${lat},${long}&mode=w")
 
-                // Attempt to start an activity that can handle the Intent
-                context.startActivity(mapIntent)
+                        // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+                        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                        // Make the Intent explicit by setting the Google Maps package
+                        mapIntent.setPackage("com.google.android.apps.maps")
+
+                        // Attempt to start an activity that can handle the Intent
+                        context.startActivity(mapIntent)
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
             }
         }
 
@@ -176,15 +187,29 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
 
             viewHolder.btnViewMap.setOnClickListener {
                 // Create a Uri from an intent string. Use the result to create an Intent.
-                val gmmIntentUri = Uri.parse("google.navigation:q=26.7174197,88.3878048&mode=w")
+                /*val gmmIntentUri = Uri.parse("google.navigation:q=26.7174197,88.3878048&mode=w")*/
 
-                // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
-                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                // Make the Intent explicit by setting the Google Maps package
-                mapIntent.setPackage("com.google.android.apps.maps")
+                mDbRef.child("Users").child(currentMessage.receiverId.toString()).addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val lat = snapshot.child("Location").child("0").value.toString()
+                        val long = snapshot.child("Location").child("1").value.toString()
 
-                // Attempt to start an activity that can handle the Intent
-                context.startActivity(mapIntent)
+                        val gmmIntentUri = Uri.parse("google.navigation:q=${lat},${long}&mode=w")
+
+                        // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+                        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                        // Make the Intent explicit by setting the Google Maps package
+                        mapIntent.setPackage("com.google.android.apps.maps")
+
+                        // Attempt to start an activity that can handle the Intent
+                        context.startActivity(mapIntent)
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
             }
         }
 

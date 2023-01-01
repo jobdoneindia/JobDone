@@ -95,7 +95,7 @@ class FragmentMainButton: Fragment() {
         // fetching data from local database
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         sharedPreferences = requireContext().getSharedPreferences(userSharedPreferences, Context.MODE_PRIVATE)
-        val sharedLocation: String? = sharedPreferences.getString("location_key", "DefaultLocation")
+        val sharedLocation: String? = sharedPreferences.getString("location_key", "Please Update Location")
         val sharedName: String? = sharedPreferences.getString("name_key", "Siraj Alarm")
         txtAddress = root.findViewById(R.id.txtAddress)
         txtAddress.text = sharedLocation.toString()
@@ -116,7 +116,7 @@ class FragmentMainButton: Fragment() {
             .into(userDP)
 
         // get location if location permission is not allowed
-        if (sharedLocation == "DefaultLocation" || !checkPermissions()) {
+        if (sharedLocation == "Please Update Location" || !checkPermissions()) {
             checkGpsStatus()
             getLocation(sharedPreferences)
             saveLocationLocally(sharedPreferences)

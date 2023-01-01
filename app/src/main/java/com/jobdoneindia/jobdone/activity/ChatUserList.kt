@@ -3,8 +3,11 @@ package com.jobdoneindia.jobdone.activity
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
@@ -40,6 +43,7 @@ class ChatUserList : AppCompatActivity() {
     private var radius: Double = 1.0
     private var workerFound = false
     private var workerFoundID: String = ""
+    private lateinit var divFiller: LinearLayout
 
     private lateinit var timestamps: ArrayList<Long>
     private lateinit var sorted_timestamps: ArrayList<Long>
@@ -53,7 +57,7 @@ class ChatUserList : AppCompatActivity() {
 
 
 
-
+        divFiller = findViewById(R.id.divFiller)
 
         // Add back button in Action Bar
         val actionBar: ActionBar? = supportActionBar
@@ -118,14 +122,17 @@ class ChatUserList : AppCompatActivity() {
                         }*/
 
                         var lastMsg = snapshot.child("latest-messages").child(mAuth.uid.toString()).child(currentUser?.uid.toString()).child("msg").child("message").value
-                        userList.add(inboxItem(currentUser?.uid.toString(), currentUser?.username.toString(), currentUser?.url.toString(),
-                            lastMsg.toString(),
-                            t.toString().toLong() ,
-                        currentUser.status.toString()))
 
+                        val sharedPreferences: SharedPreferences = getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+                        var userUIDs = sharedPreferences.getString("chat_user_list", "null")
 
-
-
+                        // checks if this person has been added by the user to the inbox
+                        if (currentUser?.uid.toString() in userUIDs!!.split(":") || currentUser?.uid.toString() == userUIDs) {
+                            userList.add(inboxItem(currentUser?.uid.toString(), currentUser?.username.toString(), currentUser?.url.toString(),
+                                lastMsg.toString(),
+                                t.toString().toLong() ,
+                                currentUser.status.toString()))
+                        }
 /*                        }*/
                     }
                 }
@@ -144,6 +151,11 @@ class ChatUserList : AppCompatActivity() {
                 /*Toast.makeText(this@ChatUserList,sorted_timestamps.toString(),Toast.LENGTH_SHORT).show()*/
 
                 adapter.notifyDataSetChanged()
+                if (adapter.itemCount == 0) {
+                    divFiller.visibility = View.VISIBLE
+                } else {
+                    divFiller.visibility = View.GONE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

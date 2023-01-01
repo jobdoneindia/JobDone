@@ -6,6 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".activity.ChatUserList">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/divFiller"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_nomsg"
+        />
+
+    <TextView
+        android:textColor="#737171"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Inbox is Empty. Send a message to get started."/>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userRecyclerView"

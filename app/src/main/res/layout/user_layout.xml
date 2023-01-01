@@ -78,7 +78,7 @@
                 android:id="@+id/last_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last Message"
+                android:text=""
                 android:textColor="@color/textGrey" />
 
 

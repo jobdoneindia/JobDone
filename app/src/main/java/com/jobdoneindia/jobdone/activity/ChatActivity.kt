@@ -116,7 +116,7 @@ class ChatActivity : AppCompatActivity() {
 
         divCustom = findViewById(R.id.divCustomMessages)
         val sharedName: String? = sharedPreferences.getString("mode_key", "customer")
-        if (sharedName == "customer") {
+        if (sharedName == "customer" || sharedName == "worker") {
             divCustom.visibility = View.GONE
         }
 
