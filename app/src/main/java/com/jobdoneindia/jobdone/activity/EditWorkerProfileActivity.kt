@@ -213,7 +213,9 @@ class EditWorkerProfileActivity : AppCompatActivity() {
         val currentProfession: String? = sharedPreferences.getString("profession_key", "null")
         // Spinner Logic
         selectProfessionSpinner = findViewById(R.id.select_profession_spinner)
-        selectProfessionSpinner.setText(currentProfession.toString())
+        if(currentProfession.toString() != "null") {
+            selectProfessionSpinner.setText(currentProfession.toString())
+        }
         selectProfessionSpinner.setAdapter(adapterItems)
         selectProfessionSpinner.setOnItemClickListener { adapterView, view, position, id ->
             tagList.clear()
@@ -225,16 +227,18 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             updateTags(tagList)
         }
 
-        tagList.clear()
-        selectedTags.clear()
-        for (x in currentTags!!) {
-            tagList.add(x)
-        }
-        updateTags(tagList)
+        if (currentTags.toString() != "null") {
+            tagList.clear()
+            selectedTags.clear()
+            for (x in currentTags!!) {
+                tagList.add(x)
+            }
+            updateTags(tagList)
 
-        for (i in 0 until chipGroup.childCount) {
-            val chip = chipGroup.getChildAt(i) as Chip
-            chip.isChecked = true
+            for (i in 0 until chipGroup.childCount) {
+                val chip = chipGroup.getChildAt(i) as Chip
+                chip.isChecked = true
+            }
         }
 
         // Set DP using Glide

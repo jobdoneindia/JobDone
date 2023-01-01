@@ -58,7 +58,7 @@
                 android:inputType="textPersonName"
                 />
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bio"/>
@@ -82,7 +82,7 @@
                 android:inputType="textMultiLine"
                 android:hint="E.g I check for defects, assemble products, mo..."
                 android:text="I check for defects, assemble products, monitor manufacturing equipment, and closely follow safety procedures to prevent accidents in environments where materials may be hazardous."
-                android:maxLength="200"/>
+                android:maxLength="200"/>-->
 
             <TextView
                 android:id="@+id/txtSelectProfession"

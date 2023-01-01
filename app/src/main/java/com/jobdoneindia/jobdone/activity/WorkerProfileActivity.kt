@@ -49,15 +49,21 @@ class WorkerProfileActivity : AppCompatActivity() {
         val sharedPreferences: SharedPreferences = getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
         val sharedName: String? = sharedPreferences.getString("name_key", "Siraj Alarm")
         val sharedAddress: String? = sharedPreferences.getString("location_key", "India, Earth")
-        val sharedProfession: String? = sharedPreferences.getString("profession_key", "Null")
+        val sharedProfession: String? = sharedPreferences.getString("profession_key", "null")
         val sharedTags: String? = sharedPreferences.getString("tags_key", "null")?.drop(1)?.dropLast(1)
 
         userName.text = sharedName.toString()
         userAddress.text = sharedAddress.toString()
-        txtProfession.text = sharedProfession.toString()
-        tag1.text = sharedTags!!.split(",")[0]
-        tag2.text = sharedTags!!.split(",")[1]
-        tag3.text = sharedTags!!.split(",")[2]
+
+        if (sharedProfession.toString() != "null") {
+            txtProfession.text = sharedProfession.toString()
+        }
+
+        if (sharedTags.toString() != "ul") {
+            tag1.text = sharedTags!!.split(",")[0]
+            tag2.text = sharedTags!!.split(",")[1]
+            tag3.text = sharedTags!!.split(",")[2]
+        }
 
         // workerToggle switch on
         workerToggle.isChecked = true

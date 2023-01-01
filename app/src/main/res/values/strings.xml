@@ -32,14 +32,23 @@
 
     <string-array name="categoryOptions">
         <item>All</item>
+        <item>Electrician</item>
         <item>Appliances</item>
         <item>Plumber</item>
         <item>Carpenter</item>
-        <item>HomeTutor</item>
+        <item>Painter</item>
+        <item>Driver</item>
+        <item>Home Tutor</item>
+        <item>Freelancer</item>
+        <item>Pest Control</item>
         <item>Pandit</item>
         <item>Laundry</item>
-        <item>Electrician</item>
+        <item>RO Service</item>
+        <item>House Maid</item>
+        <item>Water Supplier</item>
+        <item>Photographer</item>
         <item>Videographer</item>
-        <item>VehicleService</item>
+        <item>Vehicle Service</item>
+        <item>Vehicle Washing</item>
     </string-array>
 </resources>
