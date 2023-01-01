@@ -13,7 +13,9 @@ import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.commit
 import androidx.navigation.findNavController
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
@@ -28,7 +30,7 @@ import java.util.Objects
 class DashboardActivity : AppCompatActivity() {
 
 
-    // Notification Badge count
+
 
 
     private lateinit var mDbRef: DatabaseReference
@@ -84,6 +86,7 @@ class DashboardActivity : AppCompatActivity() {
                         fragment.findNavController().navigate(R.id.action_fragmentTags_to_fragmentMainButton)
                     } else if (fragment.findNavController().currentDestination?.id == R.id.fragmentSearchResults) {
                         fragment.findNavController().navigate(R.id.fragmentMainButton)
+
                     }
                     return@setOnItemSelectedListener true
                 }
@@ -111,9 +114,6 @@ class DashboardActivity : AppCompatActivity() {
             }
             true
         }
-
-
-
 
 
     }
@@ -156,16 +156,10 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        AlertDialog.Builder(this)
-            .setTitle("Confirmation")
-            .setMessage("Are you sure you want to exit?")
-            .setNegativeButton(android.R.string.no, null)
-            .setPositiveButton(android.R.string.yes, object : DialogInterface.OnClickListener {
 
-                override fun onClick(arg0: DialogInterface, arg1: Int) {
+
                     onSuperBackPressed()
-                }
-            }).create().show()
+
     }
     fun onSuperBackPressed() {
         super.onBackPressed()
@@ -174,7 +168,9 @@ class DashboardActivity : AppCompatActivity() {
         super.onDestroy()
 
         val mAuth = FirebaseAuth.getInstance()
+/*
         mAuth?.removeAuthStateListener(mListener!!)
+*/
     }
 
 }

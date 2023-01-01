@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.CustomerPreviewAdapter
@@ -59,6 +60,8 @@ class WorkerDashboardActivity : AppCompatActivity() {
 
     private val userSharedPreferences = "usersharedpreference"
     private lateinit var sharedPreferences: SharedPreferences
+
+    val firebase : FirebaseUser = FirebaseAuth.getInstance().currentUser!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -192,6 +195,7 @@ class WorkerDashboardActivity : AppCompatActivity() {
                 }
 
                 R.id.menuChats -> {
+
                     startActivity(
                         Intent(applicationContext, ChatUserList::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
@@ -336,4 +340,43 @@ class WorkerDashboardActivity : AppCompatActivity() {
 
     }
 
+    // TO SHOW STATUS
+    fun status(status : String) {
+        mDbRef = FirebaseDatabase.getInstance().getReference("Users").child(firebase.uid)
+
+        var map : HashMap<String , Any>
+                = HashMap<String ,Any>()
+
+        map.put("status" , status)
+        mDbRef.updateChildren(map as Map<String, Any>)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        status("online")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        status("offline")
+    }
+
+    override fun onBackPressed() {
+
+
+        onSuperBackPressed()
+
+    }
+    fun onSuperBackPressed() {
+        super.onBackPressed()
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+
+        val mAuth = FirebaseAuth.getInstance()
+/*
+        mAuth?.removeAuthStateListener(mListener!!)
+*/
+    }
 }

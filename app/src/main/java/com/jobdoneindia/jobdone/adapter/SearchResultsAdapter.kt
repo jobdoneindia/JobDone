@@ -72,7 +72,7 @@ class SearchResultsAdapter(val context: Context, val searchItems: MutableList<Se
         holder.btnMsg.setOnClickListener {
             val intent = Intent(context, ChatActivity::class.java)
 
-            intent.putExtra("name",currentUser.name)
+            intent.putExtra("username",currentUser.name)
             intent.putExtra("uid",currentUser.uid)
 
             context.startActivity(intent)

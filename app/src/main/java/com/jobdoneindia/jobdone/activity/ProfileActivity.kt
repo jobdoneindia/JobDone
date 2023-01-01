@@ -16,13 +16,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.*
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileActivity : AppCompatActivity() {
-
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -45,7 +46,7 @@ class ProfileActivity : AppCompatActivity() {
         val userAddress = findViewById<TextView>(R.id.user_address)
 
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
-        val uid  = FirebaseAuth.getInstance().currentUser?.uid
+        val uid  = getInstance().currentUser?.uid
         val reference : DatabaseReference = database.reference.child(uid.toString())
 
         // fetching data from local DB
@@ -69,7 +70,7 @@ class ProfileActivity : AppCompatActivity() {
         logoutBtn.setOnClickListener{
 
             reference.child(uid.toString()).removeValue()
-
+            FirebaseAuth.getInstance().signOut()
             val intent = Intent(this@ProfileActivity,Phone_auth_login::class.java)
             startActivity(intent)
         }
@@ -136,7 +137,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
     }
-//FOR USER REMEMBERING
+    //FOR USER REMEMBERING
    /* override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.logout_button){
 

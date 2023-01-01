@@ -60,7 +60,7 @@ class ChatActivity : AppCompatActivity() {
     val firebase : FirebaseUser = FirebaseAuth.getInstance().currentUser!!
 
     val TAG = "ChatActivity"
-  /*  var seenListener: ValueEventListener? = null*/
+    var seenListener: ValueEventListener? = null
 
     val REQUEST_PHONE_CALL = 1
 
@@ -88,7 +88,7 @@ class ChatActivity : AppCompatActivity() {
         }
 
 
-        var userid = firebase.uid
+        var userid = FirebaseAuth.getInstance().currentUser?.uid
         FirebaseMessaging.getInstance().subscribeToTopic("/topics/$userid")
 
         val sharedPreferences = this.getSharedPreferences("usersharedpreference", MODE_PRIVATE)
@@ -145,14 +145,14 @@ class ChatActivity : AppCompatActivity() {
 
                     messageList.clear()
 
-                    for (postSnapshot in snapshot.children){
+                    for (postSnapshot in snapshot.children) {
                         val message: Message?
                         message = postSnapshot.getValue(Message::class.java)
 /*
                         mDbRef.child("Users").child("latest-messages").child(senderUid.toString()).child(receiverUid.toString()).child("msg").setValue(message)
 */
                         messageList.add(message!!)
-                        chatRecyclerView.scrollToPosition(messageList.size-1)
+                        chatRecyclerView.scrollToPosition(messageList.size - 1)
                     }
                     messageAdapter.notifyDataSetChanged()
 
@@ -163,7 +163,7 @@ class ChatActivity : AppCompatActivity() {
                 }
 
             })
-        /*seenMessage(userid)*/
+        seenMessage(receiverUid!!)
 
         // scroll button
         scrollButton.setOnClickListener {
@@ -230,53 +230,112 @@ class ChatActivity : AppCompatActivity() {
                 sendNotification(it)
             }
         }
+
+        //Ask Payment
+        btnAskPayment.setOnClickListener {
+
+            val ukey = mDbRef.child("chats").child(senderRoom!!).child("messages").push().key
+            val messageObject = Message(
+                "Payment",
+                senderUid,
+                receiverUid,
+                Date().time,
+                "payment",
+                "default",
+                ukey.toString(),
+                false
+            )
+
+            mDbRef.child("chats").child(senderRoom!!).child("messages")
+                .child(ukey.toString())/*.push()*/
+                .setValue(messageObject).addOnSuccessListener {
+                    mDbRef.child("chats").child(receiverRoom!!).child("messages")
+                        .child(ukey.toString())/*.push()*/
+                        .setValue(messageObject)
+                }
+/*
+            mDbRef.child("Users").child("latest-messages").child(senderUid.toString()).child(receiverUid.toString()).child("msg").setValue(messageObject)
+*/
+            seenListener = mDbRef.addValueEventListener(object : ValueEventListener {
+
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    messageAdapter.notifyDataSetChanged()
+                    for (postSnapshot in snapshot.children) {
+
+                        val message: Message?
+                        message = postSnapshot.getValue(Message::class.java)
+                        if (message?.receiverId.equals(userid) && message?.senderId.equals(userid)) {
+
+                            var map: HashMap<String, Any> = HashMap<String, Any>()
+
+                            map.put("isseen", true)
+                            snapshot.ref.updateChildren(map)
+                        }
+
+                    }
+                    messageAdapter.notifyDataSetChanged()
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
+
+        }
+
+
       }
            val exceptionHandler = CoroutineExceptionHandler{_ , throwable->
            throwable.printStackTrace()
        }
            private fun sendNotification(notification: PushNotification) = CoroutineScope(IO + exceptionHandler).launch {
-        try {
-            val response = RetrofitInstance.api.postNotification(notification)
-            if (response.isSuccessful){
-                Log.d(TAG, "Response: ${Gson().toJson(response)}")
-            }else{
-                Log.e(TAG, response.errorBody().toString())
-            }
-        }catch (e:Exception){
-            Log.e(TAG, e.toString())
-            /*Toast.makeText(this@ChatActivity,e.message.toString(),Toast.LENGTH_SHORT).show()*/
-        }
-       }
+               try {
+                   val response = RetrofitInstance.api.postNotification(notification)
+                   if (response.isSuccessful) {
+                       Log.d(TAG, "Response: ${Gson().toJson(response)}")
+                   } else {
+                       Log.e(TAG, response.errorBody().toString())
+                   }
+               } catch (e: Exception) {
+                   Log.e(TAG, e.toString())
+                   /*Toast.makeText(this@ChatActivity,e.message.toString(),Toast.LENGTH_SHORT).show()*/
+               }
+
+
+
+           }
 
 
 
 //FUNCTION FOR SEEN MESSAGE//
 
-    fun seenMessage(userid : String){
-        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
-        val uid =  FirebaseAuth.getInstance().currentUser?.uid
-        val reference : DatabaseReference = database.reference.child("chats").child(uid.toString())
+    fun seenMessage(receiverUid : String) {
+        val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        val reference: DatabaseReference = database.reference.child("chats").child(uid.toString())
 
-      /*seenListener   = reference.addValueEventListener(object: ValueEventListener {
+        seenListener = reference.addValueEventListener(object : ValueEventListener {
 
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 messageAdapter.notifyDataSetChanged()
-                for (postSnapshot in snapshot.children){
+                for (postSnapshot in snapshot.children) {
 
                     val message: Message?
                     message = postSnapshot.getValue(Message::class.java)
-                    if (message?.receiverId.equals(userid) && message?.senderId.equals(userid)){
+                    if (message?.receiverId.equals(receiverUid) && message?.senderId.equals(receiverUid)) {
 
-                        var map : HashMap<String , Any>
-                                = HashMap<String,Any>()
+                        var map: HashMap<String, Any> = HashMap<String, Any>()
 
-                        map.put("isseen" , true)
+                        map.put("isseen", true)
                         snapshot.ref.updateChildren(map)
                     }
 
                 }
-                  messageAdapter.notifyDataSetChanged()
+                messageAdapter.notifyDataSetChanged()
 
             }
 
@@ -284,25 +343,9 @@ class ChatActivity : AppCompatActivity() {
 
             }
 
-        }*//*)*/
-        //Ask Payment
-        btnAskPayment.setOnClickListener {
+        })
 
-            val ukey = mDbRef.child("chats").child(senderRoom!!).child("messages").push().key
-            val messageObject = Message("Payment", senderUid, receiverUid, Date().time, "payment", "default", ukey.toString() , false)
-
-            mDbRef.child("chats").child(senderRoom!!).child("messages").child(ukey.toString())/*.push()*/
-                .setValue(messageObject).addOnSuccessListener {
-                    mDbRef.child("chats").child(receiverRoom!!).child("messages").child(ukey.toString())/*.push()*/
-                        .setValue(messageObject)
-                }
-/*
-            mDbRef.child("Users").child("latest-messages").child(senderUid.toString()).child(receiverUid.toString()).child("msg").setValue(messageObject)
-*/
-            messageBox.setText("")
-
-        }
-
+    }
         // Ask Review
 /*        btnGetReview.setOnClickListener {
             val ukey = mDbRef.child( "chats").child(senderRoom!!).child("messages").push().key
@@ -317,7 +360,7 @@ class ChatActivity : AppCompatActivity() {
             messageBox.setText("")
         }*/
 
-    }
+
 
 
 
@@ -343,8 +386,12 @@ class ChatActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
+
+        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+        val uid =  FirebaseAuth.getInstance().currentUser?.uid
+        val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
         super.onPause()
-       /*mDbRef.removeEventListener(seenListener!!)*/
+       mDbRef.removeEventListener(seenListener!!)
         status("offline")
 
     }

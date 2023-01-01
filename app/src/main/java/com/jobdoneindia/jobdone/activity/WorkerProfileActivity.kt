@@ -75,7 +75,7 @@ class WorkerProfileActivity : AppCompatActivity() {
         logoutBtn.setOnClickListener{
 
             reference.child("Worker-Details").removeValue()
-
+            FirebaseAuth.getInstance().signOut()
             val intent = Intent(this,LoginActivity::class.java)
             startActivity(intent)
         }
