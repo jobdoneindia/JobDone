@@ -81,8 +81,6 @@ class ProfileActivity : AppCompatActivity() {
 
         // TODO: Fetch data and display Name and Address
 
-        // TODO: Logout button function
-
         // TODO: Setup a recyclerview for sheduled jobs
         // TODO: Fetch data from database and display in scheduled jobs
 

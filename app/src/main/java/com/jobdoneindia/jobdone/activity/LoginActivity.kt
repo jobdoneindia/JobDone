@@ -80,14 +80,14 @@ class LoginActivity: AppCompatActivity() {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
-
-            } /*else {
+//                finish()
+            } else {
                 Handler(Looper.getMainLooper()).postDelayed({
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
-                    finish()
+//                    finish()
                 }, 2000)
-            }*/
+            }
         }
 
     }
@@ -111,20 +111,20 @@ class LoginActivity: AppCompatActivity() {
     }
     override fun onDestroy() {
         super.onDestroy()
-        /*val mAuth = FirebaseAuth.getInstance()
-        mAuth?.removeAuthStateListener(mListener!!)*/
+        val mAuth = FirebaseAuth.getInstance()
+        mAuth?.removeAuthStateListener(mListener!!)
 
     }
-    // APP REMEMBERS THE USER WHO LOGIN-ED PREVIOUSLY
+   /* // APP REMEMBERS THE USER WHO LOGIN-ED PREVIOUSLY
     override fun onStart() {
         super.onStart()
-        val user = FirebaseAuth.getInstance().currentUser
+        val user = firebaseAuth.currentUser
 
         if (user != null){
-            val intent = Intent(this@LoginActivity,DashboardActivity::class.java)
-             /*intent.putExtra("phoneNumber",phone)*/
+            val intent = Intent(this,DashboardActivity::class.java)
+            *//* intent.putExtra("phoneNumber",phone)*//*
             startActivity(intent)
             finish()
         }
-    }
+    }*/
 }
