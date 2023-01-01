@@ -90,7 +90,7 @@ class WorkerDashboardActivity : AppCompatActivity() {
         val sharedLocation: String? = sharedPreferences.getString("location_key", "DefaultLocation")
         val sharedName: String? = sharedPreferences.getString("name_key", "Siraj Alarm")
         val sharedTags: String? = sharedPreferences.getString("tags_key", "NotFound")
-        Toast.makeText(this, sharedTags, Toast.LENGTH_LONG).show()
+        /*Toast.makeText(this, sharedTags, Toast.LENGTH_LONG).show()*/
         mainBinding.txtAddress.text = sharedLocation.toString()
         mainBinding.name.text = sharedName.toString()
 

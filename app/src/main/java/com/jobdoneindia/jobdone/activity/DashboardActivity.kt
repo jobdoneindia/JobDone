@@ -3,6 +3,7 @@ package com.jobdoneindia.jobdone.activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Rect
 import android.os.Bundle
 import android.support.annotation.NonNull
@@ -151,6 +152,20 @@ class DashboardActivity : AppCompatActivity() {
 /*
         mAuth?.removeAuthStateListener(mListener!!)
 */
+    }
+
+    // APP REMEMBERS THE USER WHO LOGIN-ED PREVIOUSLY
+    override fun onStart() {
+        super.onStart()
+
+        val sharedPreferences: SharedPreferences = getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+        val sharedName: String? = sharedPreferences.getString("mode_key", "customer")
+
+        if (sharedName == "worker") {
+            val intent = Intent(this,WorkerDashboardActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
 }

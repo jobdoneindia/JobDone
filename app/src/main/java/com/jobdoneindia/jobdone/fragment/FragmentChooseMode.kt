@@ -1,6 +1,8 @@
 package com.jobdoneindia.jobdone.fragment
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
@@ -28,6 +30,14 @@ class FragmentChooseMode : Fragment() {
         // Customer Button
         root.findViewById<Button>(R.id.customer_mode_btn).setOnClickListener {
                 view: View ->
+
+            // store data locally
+            val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString("mode_key", "customer")
+            editor.apply()
+            editor.commit()
+
             val intent = Intent(requireContext(),DashboardActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
@@ -36,6 +46,13 @@ class FragmentChooseMode : Fragment() {
 
         root.findViewById<Button>(R.id.worker_mode_btn).setOnClickListener{
                 view: View ->
+            // store data locally
+            val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString("mode_key", "worker")
+            editor.apply()
+            editor.commit()
+
             Navigation.findNavController(view).navigate(R.id.action_fragmentChooseMode_to_fragmentSelectTags)
         }
 

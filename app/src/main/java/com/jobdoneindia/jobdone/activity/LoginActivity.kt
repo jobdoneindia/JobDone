@@ -1,8 +1,10 @@
 package com.jobdoneindia.jobdone.activity
 
 import android.Manifest
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
@@ -118,11 +120,22 @@ class LoginActivity: AppCompatActivity() {
         super.onStart()
         val user = FirebaseAuth.getInstance().currentUser
 
+        val sharedPreferences: SharedPreferences = getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+        val sharedName: String? = sharedPreferences.getString("mode_key", "customer")
+
         if (user != null){
-            val intent = Intent(this,DashboardActivity::class.java)
+            if (sharedName == "customer") {
+                val intent = Intent(this,DashboardActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                val intent = Intent(this,WorkerDashboardActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
 //           intent.putExtra("phoneNumber",phone)
-            startActivity(intent)
-            finish()
+
         }
     }
 }

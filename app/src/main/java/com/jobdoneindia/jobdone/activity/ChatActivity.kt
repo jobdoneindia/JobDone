@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,6 +49,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var scrollButton: ImageButton
     private lateinit var scrollBackButton: ImageButton
     private lateinit var mDbRef: DatabaseReference
+    private lateinit var divCustom:  ConstraintLayout
 
     var receiverPhoneNum:String? = null
     var receiverUid:String? = null
@@ -111,6 +113,12 @@ class ChatActivity : AppCompatActivity() {
         btnGetLocation = findViewById(R.id.btnAskLocation)
         btnAskPayment = findViewById(R.id.btnAskPayment)
         btnGetReview = findViewById(R.id.btnAskRating)
+
+        divCustom = findViewById(R.id.divCustomMessages)
+        val sharedName: String? = sharedPreferences.getString("mode_key", "customer")
+        if (sharedName == "customer") {
+            divCustom.visibility = View.GONE
+        }
 
         messageList = ArrayList()
         messageAdapter = MessageAdapter(this,messageList)

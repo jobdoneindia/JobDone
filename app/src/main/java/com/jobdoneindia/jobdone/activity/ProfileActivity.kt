@@ -126,9 +126,15 @@ class ProfileActivity : AppCompatActivity() {
         // Worker toggle
         workerToggle.setOnClickListener {
 
-            //Store worker details in firebase
+            // store data locally
+            val sharedPreferences: SharedPreferences = this.getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString("mode_key", "worker")
+            editor.apply()
+            editor.commit()
 
             profileLayout.startAnimation(animation)
+            finish()
             startActivity(Intent(applicationContext, WorkerProfileActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
 
 

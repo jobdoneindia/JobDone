@@ -50,6 +50,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/divCustomMessages"
                 android:paddingHorizontal="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -94,6 +95,7 @@
         </HorizontalScrollView>
 
         <ImageButton
+            android:visibility="gone"
             android:id="@+id/btnScroll"
             android:layout_width="30dp"
             android:layout_height="0dp"

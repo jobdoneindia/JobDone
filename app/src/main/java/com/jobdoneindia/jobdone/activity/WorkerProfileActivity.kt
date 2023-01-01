@@ -110,7 +110,7 @@ class WorkerProfileActivity : AppCompatActivity() {
 
                 R.id.menuChats -> {
                     startActivity(
-                        Intent(applicationContext, DashboardActivity::class.java).setFlags(
+                        Intent(applicationContext, ChatUserList::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     return@setOnItemSelectedListener true
                 }
@@ -131,7 +131,15 @@ class WorkerProfileActivity : AppCompatActivity() {
 
         // Worker toggle
         workerToggle.setOnClickListener {
+            // store data locally
+            val sharedPreferences: SharedPreferences = this.getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString("mode_key", "customer")
+            editor.apply()
+            editor.commit()
+
             workerProfileLayout.startAnimation(animation)
+            finish()
             startActivity(Intent(applicationContext, ProfileActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
         }
     }
