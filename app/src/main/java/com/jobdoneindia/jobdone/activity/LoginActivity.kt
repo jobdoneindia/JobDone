@@ -81,12 +81,12 @@ class LoginActivity: AppCompatActivity() {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
 //                finish()
-            } else {
+/*            } else {
                 Handler(Looper.getMainLooper()).postDelayed({
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
-//                    finish()
-                }, 2000)
+//                    finish()*/
+//                }, 2000)
             }
         }
 
@@ -106,25 +106,23 @@ class LoginActivity: AppCompatActivity() {
                 }
             }).create().show()*/
     }
-    fun onSuperBackPressed() {
-        super.onBackPressed()
-    }
+
     override fun onDestroy() {
         super.onDestroy()
-        val mAuth = FirebaseAuth.getInstance()
-        mAuth?.removeAuthStateListener(mListener!!)
+       /* val mAuth = FirebaseAuth.getInstance()
+        mAuth?.removeAuthStateListener(mListener!!)*/
 
     }
-   /* // APP REMEMBERS THE USER WHO LOGIN-ED PREVIOUSLY
+    // APP REMEMBERS THE USER WHO LOGIN-ED PREVIOUSLY
     override fun onStart() {
         super.onStart()
-        val user = firebaseAuth.currentUser
+        val user = FirebaseAuth.getInstance().currentUser
 
         if (user != null){
             val intent = Intent(this,DashboardActivity::class.java)
-            *//* intent.putExtra("phoneNumber",phone)*//*
+//           intent.putExtra("phoneNumber",phone)
             startActivity(intent)
             finish()
         }
-    }*/
+    }
 }

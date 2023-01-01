@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.DashboardActivity
-import com.jobdoneindia.jobdone.activity.WorkerDashboardActivity
 
 class FragmentChooseMode : Fragment() {
 
@@ -30,6 +29,7 @@ class FragmentChooseMode : Fragment() {
         root.findViewById<Button>(R.id.customer_mode_btn).setOnClickListener {
                 view: View ->
             val intent = Intent(requireContext(),DashboardActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
         }
 

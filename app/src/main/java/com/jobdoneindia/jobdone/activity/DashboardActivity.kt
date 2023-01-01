@@ -29,10 +29,6 @@ import java.util.Objects
 
 class DashboardActivity : AppCompatActivity() {
 
-
-
-
-
     private lateinit var mDbRef: DatabaseReference
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var fragment: FragmentContainerView
@@ -47,16 +43,8 @@ class DashboardActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-
-
-
         // database
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
-
-
-
-
-
 
         // Bottom Nav bar
         bottomNavigationView = findViewById(R.id.bottomNavigationDrawer)
@@ -73,11 +61,6 @@ class DashboardActivity : AppCompatActivity() {
 
         // Perform item selected listener (bottom nav bar)
         bottomNavigationView.setOnItemSelectedListener {
-
-
-
-
-
 
             when (it.itemId) {
                 R.id.menuHome -> {
@@ -156,10 +139,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-
-
-                    onSuperBackPressed()
-
+        onSuperBackPressed()
     }
     fun onSuperBackPressed() {
         super.onBackPressed()
