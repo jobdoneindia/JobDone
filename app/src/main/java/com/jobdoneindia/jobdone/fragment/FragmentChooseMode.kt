@@ -29,8 +29,9 @@ class FragmentChooseMode : Fragment() {
         root.findViewById<Button>(R.id.customer_mode_btn).setOnClickListener {
                 view: View ->
             val intent = Intent(requireContext(),DashboardActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            this@FragmentChooseMode.activity?.finish()
         }
 
         root.findViewById<Button>(R.id.worker_mode_btn).setOnClickListener{
