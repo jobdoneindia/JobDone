@@ -55,57 +55,70 @@
 
         <activity
             android:name=".activity.PaymentActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.LinkBankActivity"
             android:exported="false"
             android:label="Link Your Bank Account">
             <meta-data
                 android:name="android.app.lib_name"
-                android:value="" />
+                android:value=""
+                />
         </activity>
         <activity
             android:name=".activity.ChatActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.ChatUserList"
             android:exported="false"
-            android:label="Inbox" />
+            android:label="Inbox"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.RegistrationActivity"
             android:exported="false"
-            android:label="Registration" />
+            android:label="Registration"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.EditWorkerProfileActivity"
             android:exported="true"
             android:label="Edit Profile"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.WorkerDashboardActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.WorkerProfileActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.EditProfileActivity"
             android:exported="false"
-            android:label="Edit Profile" />
+            android:label="Edit Profile"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.ProfileActivity"
             android:exported="false"
-            android:label="@string/title_activity_accounts" />
+            android:label="@string/title_activity_accounts"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.Phone_auth_login"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.RewardsActivity"
             android:exported="false"
-            android:label="Rewards" />
+            android:label="Rewards"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.LoginActivity"
             android:exported="true"
-            android:theme="@style/JobdoneTheme">
+            android:theme="@style/JobdoneTheme"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -118,7 +131,8 @@
         <activity
             android:name=".activity.DashboardActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="preloaded_fonts"
