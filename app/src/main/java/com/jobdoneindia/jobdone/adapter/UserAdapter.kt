@@ -3,6 +3,7 @@ package com.jobdoneindia.jobdone.adapter
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
@@ -25,7 +26,7 @@ import com.jobdoneindia.jobdone.activity.inboxItem
 import de.hdodenhof.circleimageview.CircleImageView
 
 
-class UserAdapter(val context: Context, val userList: ArrayList<inboxItem>, var ischat: Boolean ):
+class UserAdapter(val context: Context, var userList: ArrayList<inboxItem>, var ischat: Boolean ):
     RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
 
 
@@ -112,10 +113,39 @@ class UserAdapter(val context: Context, val userList: ArrayList<inboxItem>, var 
             val dialogBuilder = AlertDialog.Builder(context)
 
             // set message of alert dialog
-            dialogBuilder.setMessage("Name: ${currentUser.username.toString()} \nLast msg: ${currentUser.lastMsg.toString()}").setCancelable(true)
+            dialogBuilder.setMessage("Name: ${currentUser.username.toString()} \nProfession: ${currentUser.profession}").setCancelable(true)
                 // positive button text and action
                 .setPositiveButton("OK", DialogInterface.OnClickListener {
                         dialog, id -> dialog.cancel()
+                }).setNegativeButton("Delete Chat", DialogInterface.OnClickListener { dialog, id ->
+                    val sharedPreferences: SharedPreferences = context.getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+                    val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                    var chatuserList = sharedPreferences.getString("chat_user_list", "null")
+                    var tempListString = ""
+
+                    if (chatuserList?.split(":")?.size != 1)
+                    {
+                        var tempList = chatuserList?.split(":")?.toMutableList()
+                        tempList?.remove(currentUser.uid.toString())
+
+                        tempListString = tempList!![0]
+                        for (i in 1..tempList.size-1){
+                            tempListString += ":" + tempList[i]
+                        }
+
+                        editor.putString("chat_user_list", tempListString)
+                        editor.apply()
+                        editor.commit()
+                    } else {
+                        editor.putString("chat_user_list", "")
+                        editor.apply()
+                        editor.commit()
+                    }
+                    dialog.cancel()
+
+                    userList.remove(currentUser)
+
+                    notifyDataSetChanged()
                 })
             // create dialog box
             val alert = dialogBuilder.create()

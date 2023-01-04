@@ -8,11 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.ChatActivity
 import com.jobdoneindia.jobdone.fragment.SearchItem
@@ -83,12 +86,31 @@ class SearchResultsAdapter(val context: Context, val searchItems: MutableList<Se
                 editor.putString("chat_user_list", currentUser.uid)
                 editor.apply()
                 editor.commit()
-            } else {
+            } else if (!userList!!.contains(currentUser.uid)) {
                 userList += ":" + currentUser.uid
                 editor.putString("chat_user_list", userList)
                 editor.apply()
                 editor.commit()
             }
+
+            val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+            val mAuth = FirebaseAuth.getInstance()
+            val reference : DatabaseReference = database.reference.child("Users").child(currentUser.uid)
+            var chatListWorker = ""
+
+            reference.addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    chatListWorker = snapshot.child("chat_user_list").value.toString()
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+            if (!chatListWorker.contains(mAuth.currentUser?.uid.toString())) {
+                chatListWorker += ":" + mAuth.currentUser?.uid
+                reference.child("chat_user_list").setValue(chatListWorker)
+            }
+
 
             intent.putExtra("username",currentUser.name)
             intent.putExtra("uid",currentUser.uid)

@@ -30,7 +30,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import java.util.HashMap
 
-data class inboxItem(val uid: String, val username: String, val url: String, var lastMsg: String, var timestamp: Long , var status: String)
+data class inboxItem(val uid: String, val username: String, val url: String, var lastMsg: String, var timestamp: Long , var status: String, var profession: String)
 
 
 class ChatUserList : AppCompatActivity() {
@@ -98,6 +98,8 @@ class ChatUserList : AppCompatActivity() {
 
         })*/
 
+
+
         mDbRef.child("Users").addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -105,13 +107,16 @@ class ChatUserList : AppCompatActivity() {
                 unsortedUserList.clear()
                 timestamps.clear()
                 sorted_timestamps.clear()
+
                 for (postSnapshot in snapshot.children) {
                     val currentUser = postSnapshot.getValue(User::class.java)
                     if (mAuth.currentUser?.uid != currentUser?.uid && currentUser?.uid != null) {
                         /*if (workerFoundID == currentUser?.uid.toString()) {*/
                         /*senderRoom.add(mAuth.currentUser?.uid.toString() + currentUser.uid.toString())*/
                         /*var location = currentUser.Location*/
-                        var t = snapshot.child("latest-messages").child(mAuth.uid.toString()).child(currentUser?.uid.toString()).child("msg").child("timestamp").value
+                        var t = snapshot.child("latest-messages").child(mAuth.uid.toString())
+                            .child(currentUser?.uid.toString()).child("msg")
+                            .child("timestamp").value
                         if (t == null) {
                             t = 0
                         }
@@ -121,26 +126,53 @@ class ChatUserList : AppCompatActivity() {
                             timestamps.add(0)
                         }*/
 
-                        var lastMsg = snapshot.child("latest-messages").child(mAuth.uid.toString()).child(currentUser?.uid.toString()).child("msg").child("message").value
+                        var lastMsg = snapshot.child("latest-messages").child(mAuth.uid.toString())
+                            .child(currentUser?.uid.toString()).child("msg").child("message").value
 
-                        val sharedPreferences: SharedPreferences = getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
+                        val sharedPreferences: SharedPreferences =
+                            getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
                         var userUIDs = sharedPreferences.getString("chat_user_list", "null")
+                        var mode = sharedPreferences.getString("mode_key", "customer")
 
-                        // checks if this person has been added by the user to the inbox
-                        if (currentUser?.uid.toString() in userUIDs!!.split(":") || currentUser?.uid.toString() == userUIDs) {
-                            userList.add(inboxItem(currentUser?.uid.toString(), currentUser?.username.toString(), currentUser?.url.toString(),
-                                lastMsg.toString(),
-                                t.toString().toLong() ,
-                                currentUser.status.toString()))
-                        }
+                        if (mode == "customer") {
+                            // checks if this person has been added by the user to the inbox
+                            if (currentUser?.uid.toString() in userUIDs!!.split(":") || currentUser?.uid.toString() == userUIDs) {
+                                userList.add(
+                                    inboxItem(
+                                        currentUser?.uid.toString(),
+                                        currentUser?.username.toString(),
+                                        currentUser?.url.toString(),
+                                        lastMsg.toString(),
+                                        t.toString().toLong(),
+                                        currentUser.status.toString(),
+                                        currentUser.Profession.toString()
+                                    )
+                                )
+                            }
+                        } else {
+                            // checks if this person has been added by the user to their inbox
+                            var chatList: String = snapshot.child(mAuth.currentUser?.uid.toString()).child("chat_user_list").value.toString()
+                            if (chatList.contains(currentUser?.uid.toString()) || currentUser?.uid.toString() == chatList) {
+                                userList.add(
+                                    inboxItem(
+                                        currentUser?.uid.toString(),
+                                        currentUser?.username.toString(),
+                                        currentUser?.url.toString(),
+                                        lastMsg.toString(),
+                                        t.toString().toLong(),
+                                        currentUser.status.toString(),
+                                        currentUser.Profession.toString()
+                                    )
+                                )
+                            }
 /*                        }*/
+                        }
                     }
-                }
-                userList.sortByDescending {
-                    it.timestamp
-                }
+                    userList.sortByDescending {
+                        it.timestamp
+                    }
 
-                /*for (i in 0..sorted_timestamps.lastIndex) {
+                    /*for (i in 0..sorted_timestamps.lastIndex) {
                     for (j in 0..timestamps.lastIndex) {
                         if (timestamps[j] == sorted_timestamps[i]) {
                             userList.add(unsortedUserList[j])
@@ -148,13 +180,14 @@ class ChatUserList : AppCompatActivity() {
                     }
                 }*/
 
-                /*Toast.makeText(this@ChatUserList,sorted_timestamps.toString(),Toast.LENGTH_SHORT).show()*/
+                    /*Toast.makeText(this@ChatUserList,sorted_timestamps.toString(),Toast.LENGTH_SHORT).show()*/
 
-                adapter.notifyDataSetChanged()
-                if (adapter.itemCount == 0) {
-                    divFiller.visibility = View.VISIBLE
-                } else {
-                    divFiller.visibility = View.GONE
+                    adapter.notifyDataSetChanged()
+                    if (adapter.itemCount == 0) {
+                        divFiller.visibility = View.VISIBLE
+                    } else {
+                        divFiller.visibility = View.GONE
+                    }
                 }
             }
 

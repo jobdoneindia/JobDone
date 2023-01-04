@@ -61,8 +61,12 @@ class WorkerProfileActivity : AppCompatActivity() {
 
         if (sharedTags.toString() != "ul") {
             tag1.text = sharedTags!!.split(",")[0]
-            tag2.text = sharedTags!!.split(",")[1]
-            tag3.text = sharedTags!!.split(",")[2]
+            if (sharedTags!!.split(",").size >= 2) {
+                tag2.text = sharedTags!!.split(",")[1]
+            }
+            if (sharedTags!!.split(",").size == 3) {
+                tag3.text = sharedTags!!.split(",")[2]
+            }
         }
 
         // workerToggle switch on

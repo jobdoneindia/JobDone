@@ -8,6 +8,7 @@ class User {
     var Location:ArrayList<Double>? = null
     var status : String? = null
     var Profession: String? = null
+    var chatList: String? = null
 
     constructor(
         uid:String?,
@@ -17,6 +18,7 @@ class User {
         Location:ArrayList<Double>?,
         status: String?,
         Profession: String?,
+        chatList: String?
     ){
         this.uid = uid
         this.username = username
@@ -25,6 +27,7 @@ class User {
         this.Location = Location
         this.status = status
         this.Profession = Profession
+        this.chatList = chatList
 
     }
 
