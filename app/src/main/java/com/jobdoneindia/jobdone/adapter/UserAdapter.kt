@@ -121,31 +121,61 @@ class UserAdapter(val context: Context, var userList: ArrayList<inboxItem>, var 
                     val sharedPreferences: SharedPreferences = context.getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
                     val editor: SharedPreferences.Editor = sharedPreferences.edit()
                     var chatuserList = sharedPreferences.getString("chat_user_list", "null")
+                    var mode = sharedPreferences.getString("mode_key", "customer")
                     var tempListString = ""
+                    val mDbRef = FirebaseDatabase.getInstance().reference
+                    val mAuth = FirebaseAuth.getInstance()
 
-                    if (chatuserList?.split(":")?.size != 1)
-                    {
-                        var tempList = chatuserList?.split(":")?.toMutableList()
-                        tempList?.remove(currentUser.uid.toString())
+                    if (mode == "customer") {
+                        if (chatuserList?.split(":")?.size != 1)
+                        {
+                            var tempList = chatuserList?.split(":")?.toMutableList()
+                            tempList?.remove(currentUser.uid.toString())
 
-                        tempListString = tempList!![0]
-                        for (i in 1..tempList.size-1){
-                            tempListString += ":" + tempList[i]
+                            tempListString = tempList!![0]
+                            for (i in 1..tempList.size-1){
+                                tempListString += ":" + tempList[i]
+                            }
+
+                            editor.putString("chat_user_list", tempListString)
+                            editor.apply()
+                            editor.commit()
+                        } else {
+                            editor.putString("chat_user_list", "")
+                            editor.apply()
+                            editor.commit()
                         }
+                        dialog.cancel()
 
-                        editor.putString("chat_user_list", tempListString)
-                        editor.apply()
-                        editor.commit()
+                        userList.remove(currentUser)
+
+                        notifyDataSetChanged()
                     } else {
-                        editor.putString("chat_user_list", "")
-                        editor.apply()
-                        editor.commit()
+                        mDbRef.child("Users").child(mAuth.currentUser?.uid.toString()).addValueEventListener(object: ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                tempListString = snapshot.child("chat_user_list").value.toString()
+                                var tempArray = tempListString.split(":").toMutableList()
+                                tempArray?.remove(currentUser.uid.toString())
+
+                                if (tempArray.size != 0) {
+                                    tempListString = tempArray[0]
+                                    for (i in 1..tempArray.size.minus(1)) {
+                                        tempListString += ":" + tempArray[i]
+                                    }
+                                    mDbRef.child("Users").child(mAuth.currentUser?.uid.toString()).child("chat_user_list").setValue(tempListString)
+                                } else {
+                                    mDbRef.child("Users").child(mAuth.currentUser?.uid.toString()).child("chat_user_list").setValue("")
+                                }
+
+                            }
+                            override fun onCancelled(error: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+
+                        })
+
                     }
-                    dialog.cancel()
 
-                    userList.remove(currentUser)
-
-                    notifyDataSetChanged()
                 })
             // create dialog box
             val alert = dialogBuilder.create()
