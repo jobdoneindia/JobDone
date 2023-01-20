@@ -326,6 +326,9 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
     override fun getItemCount(): Int {
         return  messageList.size
     }
+    fun getUserChats(position: Int) : String {
+        return messageList.size.toString()
+    }
 
     class  SentViewHolder(itemView: View) : ViewHolder(itemView){
         val sentMessage = itemView.findViewById<TextView>(R.id.txt_sent_message)

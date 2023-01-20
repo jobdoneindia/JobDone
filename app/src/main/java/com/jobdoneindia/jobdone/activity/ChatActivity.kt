@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -14,6 +15,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -50,7 +52,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var scrollBackButton: ImageButton
     private lateinit var mDbRef: DatabaseReference
     private lateinit var divCustom:  ConstraintLayout
-
+    val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+val myReference : DatabaseReference = database.reference.child("chats")
     var receiverPhoneNum:String? = null
     var receiverUid:String? = null
     var senderUid:String?=null
@@ -78,8 +81,6 @@ class ChatActivity : AppCompatActivity() {
         val intent = getIntent()
         val receiverUid = intent.getStringExtra("uid")
         var name = intent.getStringExtra("username").toString()
-
-
 
 
         FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)

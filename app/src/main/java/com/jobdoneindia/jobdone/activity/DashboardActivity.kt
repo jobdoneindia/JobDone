@@ -117,7 +117,7 @@ class DashboardActivity : AppCompatActivity() {
 
 
     }
-// TO SHOW STATUS
+    // TO SHOW STATUS
     fun status(status : String) {
        mDbRef = FirebaseDatabase.getInstance().getReference("Users").child(firebase.uid)
 
