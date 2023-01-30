@@ -204,7 +204,7 @@ class FragmentSetDP : Fragment() {
         imageuri?.let { uri ->
 
             imageReference.putBytes(reducedImage).addOnSuccessListener {
-                Toast.makeText(requireContext(), "Image uploaded" ,Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Your Pic Is Ready" ,Toast.LENGTH_SHORT).show()
 
                 //downloadable url
                 val myUploadImageReference = storageReference.child("profilepictures").child(imageName)

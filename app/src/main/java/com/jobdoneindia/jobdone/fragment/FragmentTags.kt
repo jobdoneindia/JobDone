@@ -137,7 +137,9 @@ class FragmentTags: Fragment() {
                     workerFoundID += key.toString() + ":"
                     workerDistances += radius.toInt().toString() + ":"
 
+/*
                     Toast.makeText(requireContext(), workerFoundID.split(":").toString(), Toast.LENGTH_SHORT).show()
+*/
 
                     /*val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)*/
                     var editor = sharedPreferences.edit()
@@ -211,8 +213,8 @@ class FragmentTags: Fragment() {
 
             chip.setOnCheckedChangeListener { button, b ->
 
-                Toast.makeText(requireContext(), "Selected: ${chip.text}", Toast.LENGTH_SHORT)
-                    .show()
+                /*Toast.makeText(requireContext(), "Selected: ${chip.text}", Toast.LENGTH_SHORT)
+                    .show()*/
             }
 
             chipGroup.addView(chip)

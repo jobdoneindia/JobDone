@@ -51,4 +51,5 @@
         <item>Vehicle Service</item>
         <item>Vehicle Washing</item>
     </string-array>
+    <string name="title_activity_wroker_reward">wrokerReward</string>
 </resources>

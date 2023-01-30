@@ -141,7 +141,7 @@ class FragmentSelectTags : Fragment() {
                 } else {
                     selectedTags.remove(chip.text.toString())
                 }
-                Toast.makeText(requireContext(), "Selected: ${selectedTags}", Toast.LENGTH_SHORT).show()
+                /*Toast.makeText(requireContext(), "Selected: ${selectedTags}", Toast.LENGTH_SHORT).show()*/
             }
 
             chipGroup.addView(chip)

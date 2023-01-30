@@ -1,10 +1,17 @@
 package com.jobdoneindia.jobdone.activity
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.content.IntentSender
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.telephony.SubscriptionManager
+import android.telephony.TelephonyManager
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -12,6 +19,10 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.credentials.Credential
+import com.google.android.gms.auth.api.credentials.HintRequest
+import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.FirebaseException
 import com.google.firebase.R
 import com.google.firebase.auth.FirebaseAuth
@@ -48,6 +59,10 @@ class Phone_auth_login : AppCompatActivity() {
     //progress dialog
     private lateinit var progressDialog: ProgressDialog
 
+    //fetch number
+    private lateinit var googleApiClient: GoogleApiClient
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPhoneAuthLoginBinding.inflate(layoutInflater)
@@ -61,7 +76,6 @@ class Phone_auth_login : AppCompatActivity() {
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please wait")
         progressDialog.setCanceledOnTouchOutside(false)
-
 
         mCallBacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
 
@@ -85,7 +99,7 @@ class Phone_auth_login : AppCompatActivity() {
                 //hide phone layout and show code layout
                 binding.phoneLl.visibility = View.GONE
                 binding.otpLl.visibility = View.VISIBLE
-                Toast.makeText(this@Phone_auth_login,"Verification code sent", Toast.LENGTH_SHORT).show()
+                /*Toast.makeText(this@Phone_auth_login,"Verification code sent", Toast.LENGTH_SHORT).show()*/
 
 
             }
@@ -172,6 +186,7 @@ class Phone_auth_login : AppCompatActivity() {
             //input phone number
             val phone = "+91" + binding.phonEt.text.toString().trim()
 
+
             //validate phone number
             if(TextUtils.isEmpty(phone)){
                 Toast.makeText(this@Phone_auth_login,"Please enter phone number", Toast.LENGTH_SHORT).show()
@@ -185,7 +200,7 @@ class Phone_auth_login : AppCompatActivity() {
         binding.resendOtpTV.setOnClickListener {
 
             //input phone number
-            val phone = binding.phonEt.text.toString().trim()
+            val phone = "+91" + binding.phonEt.text.toString().trim()
 
             //validate phone number
             if(TextUtils.isEmpty(phone)){
@@ -207,9 +222,80 @@ class Phone_auth_login : AppCompatActivity() {
             }
         }
 
+        /*//Fetch Phone Number To Login
 
+        tryGetCurrentUserPhoneNumber(this)
+        googleApiClient = GoogleApiClient.Builder(this).addApi(Auth.CREDENTIALS_API).build()
+        if (phoneNumber.isEmpty()) {
+            val hintRequest = HintRequest.Builder().setPhoneNumberIdentifierSupported(true).build()
+            val intent = Auth.CredentialsApi.getHintPickerIntent(googleApiClient, hintRequest)
+            try {
+                startIntentSenderForResult(intent.intentSender, REQUEST_PHONE_NUMBER, null, 0, 0, 0);
+            } catch (e: IntentSender.SendIntentException) {
+                Toast.makeText(this, "failed to show phone picker", Toast.LENGTH_SHORT).show()
+            }
+        } else
+            onGotPhoneNumberToSendTo()
 
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_PHONE_NUMBER) {
+            if (resultCode == Activity.RESULT_OK) {
+                val cred: Credential? = data?.getParcelableExtra(Credential.EXTRA_KEY)
+                phoneNumber = cred?.id ?: ""
+
+                if (phoneNumber.isEmpty())
+
+                    Toast.makeText(this, "failed to get phone number", Toast.LENGTH_SHORT).show()
+                else
+
+                    onGotPhoneNumberToSendTo()
+            }
+        }
+    }
+
+    private fun onGotPhoneNumberToSendTo() {
+        Toast.makeText(this, "got number:$phoneNumber", Toast.LENGTH_SHORT).show()
+    }
+
+
+    companion object {
+        private const val REQUEST_PHONE_NUMBER = 1
+        private var phoneNumber = ""
+
+        @SuppressLint("MissingPermission", "HardwareIds")
+        private fun tryGetCurrentUserPhoneNumber(context: Context): String {
+            if (phoneNumber.isNotEmpty())
+                return phoneNumber
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val subscriptionManager = context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE) as SubscriptionManager
+                try {
+                    subscriptionManager.activeSubscriptionInfoList?.forEach {
+                        val number: String? = it.number
+                        if (!number.isNullOrBlank()) {
+                            phoneNumber = number
+                            return number
+                        }
+                    }
+                } catch (ignored: Exception) {
+                }
+            }
+            try {
+                val telephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                val number = telephonyManager.line1Number ?: ""
+                if (!number.isBlank()) {
+                    phoneNumber = number
+                    return number
+                }
+            } catch (e: Exception) {
+            }
+            return ""
+        }*/
+    }
+
 
     private fun startPhoneNumberVerification(phone: String){
         progressDialog.setMessage("Verifying Phone Number....")
@@ -275,7 +361,7 @@ class Phone_auth_login : AppCompatActivity() {
                 //login success
                 progressDialog.dismiss()
                 val phone = firebaseAuth.currentUser?.phoneNumber
-                Toast.makeText(this,"Logged In as $phone", Toast.LENGTH_SHORT).show()
+                /*Toast.makeText(this,"Logged In as $phone", Toast.LENGTH_SHORT).show()*/
 
 
 

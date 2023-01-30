@@ -2,18 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jobdoneindia.jobdone">
 
-
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
-    <!-- For Location Tracking -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" /> <!-- For Location Tracking -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/> <!-- For Calling Phone -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".activity.MyApp"
@@ -23,19 +25,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JobDone">
+        <activity
+            android:name=".wrokerReward"
+            android:exported="false"
+            android:label="@string/title_activity_wroker_reward"
+            android:theme="@style/Theme.JobDone.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
-        <service android:name=".firebase.FirebaseService"
+        <service
+            android:name=".firebase.FirebaseService"
             android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
-
-        </service>
-
-      <!--activity to crop image-->
-       <!-- <activity
+        </service> <!-- activity to crop image -->
+        <!--
+ <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
@@ -50,102 +60,93 @@
                 android:resource="@xml/fileproviderpath">
 
             </meta-data>
-        </provider>-->
-
-
+        </provider>
+        -->
         <activity
             android:name=".activity.PaymentActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.LinkBankActivity"
             android:exported="false"
             android:label="Link Your Bank Account">
             <meta-data
                 android:name="android.app.lib_name"
-                android:value=""
-                />
+                android:value="" />
         </activity>
         <activity
             android:name=".activity.ChatActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ChatUserList"
             android:exported="false"
             android:label="Inbox"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.RegistrationActivity"
             android:exported="false"
             android:label="Registration"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.EditWorkerProfileActivity"
             android:exported="true"
             android:label="Edit Profile"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.WorkerDashboardActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WorkerProfileActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.EditProfileActivity"
             android:exported="false"
             android:label="Edit Profile"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ProfileActivity"
             android:exported="false"
             android:label="@string/title_activity_accounts"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.Phone_auth_login"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.RewardsActivity"
             android:exported="false"
             android:label="Rewards"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.LoginActivity"
             android:exported="true"
-            android:theme="@style/JobdoneTheme"
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait"
+            android:theme="@style/JobdoneTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".activity.DashboardActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
 
         <meta-data
             android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts"
-            />
+            android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="com.razorpay.Apikey"
-            android:value="rzp_test_ekWTktpNamHzp5"
-            />
+            android:value="rzp_test_ekWTktpNamHzp5" />
         <meta-data
             android:name="com.google.gms.wallet.api.enabled"
-            android:value="true"
-            />
+            android:value="true" />
     </application>
 
 </manifest>

@@ -96,7 +96,7 @@ class FragmentSearchResults: Fragment()  {
         var adapter = SearchResultsAdapter(requireContext(),mySearchItems)
         adapter.setOnItemClickListener(object : SearchResultsAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
-                Toast.makeText(context, "You Clicked on item no. $position", Toast.LENGTH_SHORT).show()
+                /*Toast.makeText(context, "You Clicked on item no. $position", Toast.LENGTH_SHORT).show()*/
             }
         })
 

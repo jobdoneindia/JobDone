@@ -224,7 +224,9 @@ class FragmentMainButton: Fragment() {
             Toast.makeText(requireContext(), "GPS Enabled", Toast.LENGTH_SHORT).show()
         } else {
             displayLocationSettingsRequest(requireContext())
+/*
             Toast.makeText(requireContext(), "Please enable GPS", Toast.LENGTH_SHORT).show()
+*/
         }
     }
 

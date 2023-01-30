@@ -513,7 +513,9 @@ class EditWorkerProfileActivity : AppCompatActivity() {
                 } else {
                     selectedTags.remove(chip.text.toString())
                 }
+/*
                 Toast.makeText(this, "Selected: ${selectedTags}", Toast.LENGTH_SHORT).show()
+*/
             }
 
             chipGroup.addView(chip)

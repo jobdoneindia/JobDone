@@ -130,4 +130,7 @@ dependencies {
     //RazorPay SDK
     implementation 'com.razorpay:checkout:1.6.25'
 
+    //fetch number for login
+    implementation "com.google.android.gms:play-services-auth:17.0.0"
+
 }
