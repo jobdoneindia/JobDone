@@ -1,50 +1,34 @@
 {
   "project_info": {
-    "project_number": "162887418565",
-    "firebase_url": "https://jobdone-phone-auth-default-rtdb.firebaseio.com",
-    "project_id": "jobdone-phone-auth",
-    "storage_bucket": "jobdone-phone-auth.appspot.com"
+    "project_number": "794800735880",
+    "firebase_url": "https://jobdone-india-default-rtdb.firebaseio.com",
+    "project_id": "jobdone-india",
+    "storage_bucket": "jobdone-india.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:162887418565:android:db7d2ccf89470103da66ac",
+        "mobilesdk_app_id": "1:794800735880:android:acda50f61dfda8588b013d",
         "android_client_info": {
           "package_name": "com.jobdoneindia.jobdone"
         }
       },
       "oauth_client": [
         {
-          "client_id": "162887418565-dl669q64cehnhvvg5t7holpmgsbjgl23.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.jobdoneindia.jobdone",
-            "certificate_hash": "7a43e3a85b210c2b0bb6317877c2aa721a5c2415"
-          }
-        },
-        {
-          "client_id": "162887418565-s44bm2rrtr01fatijo9q8fdkek28qv58.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.jobdoneindia.jobdone",
-            "certificate_hash": "b0c89658b169c1be31938cab4f577f0a477d0e2b"
-          }
-        },
-        {
-          "client_id": "162887418565-p3ukbkks4vlj1a3j0oeo2s343kimkp9i.apps.googleusercontent.com",
+          "client_id": "794800735880-ott8qi0h1f63ni4eka9nptebfo562eef.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDILs7EgpRhrIYiIbHxri3Kay7C4ZHZyC0"
+          "current_key": "AIzaSyBdjbvuvgfloIwuXupQOBG8z-AA71IzrkI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "162887418565-p3ukbkks4vlj1a3j0oeo2s343kimkp9i.apps.googleusercontent.com",
+              "client_id": "794800735880-ott8qi0h1f63ni4eka9nptebfo562eef.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
