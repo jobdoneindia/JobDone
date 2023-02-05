@@ -124,45 +124,81 @@ class Phone_auth_login : AppCompatActivity() {
             val dialog = AlertDialog.Builder(this)
             dialog.setTitle("Terms & Conditions of JobDoneIndia")
                 .setMessage("\n" +
-                        "Welcome to JobDone India!" +
+                        "Welcome to JobDone India!\n" +
                         "These terms and conditions outline the rules and regulations for the use of JobDoneIndia's Application\n" +
+                        "\n" +
                         "By accessing this application we assume you accept these terms and conditions. Do not continue to use JobDoneIndia if you do not agree to take all of the terms and conditions stated on this page.\n" +
+                        "\n" +
                         "The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements: \"Client\", \"You\" and \"Your\" refers to you, the person log on this application and compliant to the Company’s terms and conditions. \"The Company\", \"Ourselves\", \"We\", \"Our\" and \"Us\", refers to our Company. \"Party\", \"Parties\", or \"Us\", refers to both the Client and ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner for the express purpose of meeting the Client’s needs in respect of provision of the Company’s stated services, in accordance with and subject to, prevailing law of India. Any use of the above terminology or other words in the singular, plural, capitalization and/or he/she or they, are taken as interchangeable and therefore as referring to same.\n" +
+                        "\n" +
                         "Limitation of Liability\n" +
+                        "\n" +
                         "JobDone is not responsible for any losses incurred by the use of the app, including but not limited to damage or loss of property or injury caused by fake workers registered in the application.\n" +
+                        "\n" +
                         "Unless otherwise stated, JobDoneIndia and/or its licensors own the intellectual property rights for all material on JobDoneIndia. All intellectual property rights are reserved. You may access this from JobDoneIndia for your own personal use subjected to restrictions set in these terms and conditions.\n" +
+                        "\n" +
                         "You must not:\n" +
+                        "\n" +
                         "Republish material from JobDone India\n" +
+                        "\n" +
                         "Sell, rent or sub-license material from JobDone India\n" +
+                        "\n" +
                         "Reproduce, duplicate or copy material from JobDoneIndia\n" +
-                        "Redistribute content from JobDoneIndia" +
+                        "\n" +
+                        "Redistribute content from JobDoneIndia\n" +
+                        "\n" +
                         "Parts of this application offer an opportunity for users to post and exchange data and information in certain areas of the application. JobDoneIndia does not filter, edit, publish or review information prior to their presence on the application. Information do not reflect the views and opinions of JobDoneIndia,its agents and/or affiliates. Information reflect the characteristic of the person who post their views and opinions. To the extent permitted by applicable laws, JobDoneIndia shall not be liable for the information or for any liability, damages or expenses caused and/or suffered as a result of any use of and/or posting of and/or appearance of the information on this application.\n" +
+                        "\n" +
                         "JobDoneIndia reserves the right to monitor all data and to remove any data which can be considered inappropriate, offensive or causes breach of these Terms and Conditions.\n" +
+                        "\n" +
                         "You warrant and represent that:\n" +
+                        "\n" +
                         "You are entitled share information among users and have all necessary licenses and consents to do so;\n" +
+                        "\n" +
                         "The information do not invade any intellectual property right, including without limitation copyright, patent or trademark of any third party;\n" +
+                        "\n" +
                         "The information do not contain any defamatory, libelous, offensive, indecent or otherwise unlawful material which is an invasion of privacy\n" +
+                        "\n" +
                         "The information will not be used to solicit or promote business or custom or present commercial activities or unlawful activity.\n" +
+                        "\n" +
                         "You hereby grant JobDoneIndia a non-exclusive license to use, reproduce, edit and authorize others to use, reproduce and edit any of your information in any and all forms, formats or media.\n" +
+                        "\n" +
                         "User Verification\n" +
+                        "\n" +
                         "JobDoneIndia does not verify the identity or qualifications of workers registered in the application and does not guarantee their work. It is the user's responsibility to verify the identity and qualifications of the worker before engaging their services.\n" +
+                        "\n" +
                         "User Agreement\n" +
+                        "\n" +
                         "By using the JobDoneIndia app, the user agrees to indemnify and hold JobDone harmless from any claims, damages, or expenses arising from the use of the app or from the services provided by the workers registered in the application.\n" +
+                        "\n" +
                         "User Conduct\n" +
+                        "\n" +
                         "Users are prohibited from engaging in any illegal or unethical activities while using the JobDoneIndia app, including but not limited to, posting false or misleading information, or engaging in fraud or exploitation of workers or other users.\n" +
+                        "\n" +
                         "Dispute Resolution\n" +
+                        "\n" +
                         "Any disputes arising from the use of the JobDoneIndia app or from the services provided by the workers registered in the application will be resolved through binding arbitration in accordance with the laws of the jurisdiction where the dispute arose." +
+                        "\n" +
                         "Governing Law\n" +
+                        "\n" +
                         "This agreement shall be governed by and construed in accordance with the laws of the jurisdiction where the dispute arose.\n" +
+                        "\n" +
                         "Modification of Terms\n" +
+                        "\n" +
                         "JobDone reserves the right to modify these terms and conditions at any time without prior notice.\n" +
+                        "\n" +
                         "Disclaimer\n" +
+                        "\n" +
                         "To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to our JobDoneIndia and the use of this application. Nothing in this disclaimer will:\n" +
                         "\n" +
                         "limit or exclude our or your liability for death or personal injury;\n" +
+                        "\n" +
                         "limit or exclude our or your liability for fraud or fraudulent misrepresentation;\n" +
+                        "\n" +
                         "limit any of our or your liabilities in any way that is not permitted under applicable law; \n" +
+                        "\n" +
                         "exclude any of our or your liabilities that may not be excluded under applicable law.\n" +
+                        "\n" +
                         "The limitations and prohibitions of liability set in this Section and elsewhere in this disclaimer: (a) are subject to the preceding paragraph; and (b) govern all liabilities arising under the disclaimer, including liabilities arising in contract, in tort and for breach of statutory duty.\n" +
                         "\n" +
                         "As long as the applications and the information and services on the application are provided free of charge, we will not be liable for any loss or damage of any nature."
