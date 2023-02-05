@@ -25,30 +25,34 @@
     </string-array>
 
     <string-array name="distanceOptions">
-        <item>500km</item>
         <item>20km</item>
+        <item>10km</item>
         <item>5km</item>
+        <item>1km</item>
     </string-array>
 
     <string-array name="categoryOptions">
         <item>All</item>
         <item>Electrician</item>
-        <item>Appliances</item>
-        <item>Plumber</item>
         <item>Carpenter</item>
+        <item>Plumber</item>
+        <item>Photographer</item>
+        <item>Videographer</item>
+        <item>Home Tutor</item>
+        <item>Graphic Designer</item>
+        <item>Pet Care</item>
+        <item>AC Repairer</item>
+        <item>Computer Repair</item>
+        <item>Pandal Maker</item>
         <item>Painter</item>
         <item>Driver</item>
-        <item>Home Tutor</item>
-        <item>Freelancer</item>
+        <item>Catering Service</item>
         <item>Pest Control</item>
         <item>Pandit</item>
         <item>Laundry</item>
         <item>RO Service</item>
         <item>House Maid</item>
         <item>Water Supplier</item>
-        <item>Photographer</item>
-        <item>Videographer</item>
-        <item>Vehicle Service</item>
         <item>Vehicle Washing</item>
     </string-array>
     <string name="title_activity_wroker_reward">wrokerReward</string>

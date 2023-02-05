@@ -158,7 +158,7 @@ class FragmentTags: Fragment() {
             }
 
             override fun onGeoQueryReady() {
-                if (!workerFound && radius<500) {
+                if (!workerFound && radius<20) {
                     radius++
                     getClosestWorkers()
                 } else {

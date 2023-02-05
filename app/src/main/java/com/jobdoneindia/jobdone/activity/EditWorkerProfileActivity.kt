@@ -60,19 +60,24 @@ class EditWorkerProfileActivity : AppCompatActivity() {
         "Electrician",
         "Appliances",
         "Plumber",
+        "Photographer",
+        "Videographer",
+        "Home Tutor",
+        "Graphic Designer",
+        "Pet Care",
+        "AC Repairer",
+        "Computer Repair",
+        "Pandal Maker",
         "Carpenter",
         "Painter",
         "Driver",
-        "Home Tutor",
-        "Freelancer",
+        "Catering Service",
         "Pest Control",
         "Pandit",
         "Laundry",
         "RO Service",
         "House Maid",
         "Water Supplier",
-        "Photographer",
-        "Videographer",
         "Vehicle Service",
         "Vehicle Washing",
     )
@@ -217,7 +222,7 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             selectProfessionSpinner.setText(currentProfession.toString())
         }
         selectProfessionSpinner.setAdapter(adapterItems)
-        selectProfessionSpinner.setOnItemClickListener { adapterView, view, position, id ->
+        /*selectProfessionSpinner.setOnItemClickListener { adapterView, view, position, id ->
             tagList.clear()
             selectedTags.clear()
             val item: String = adapterView.getItemAtPosition(position).toString()
@@ -239,7 +244,7 @@ class EditWorkerProfileActivity : AppCompatActivity() {
                 val chip = chipGroup.getChildAt(i) as Chip
                 chip.isChecked = true
             }
-        }
+        }*/
 
         // Set DP using Glide
         Glide.with(this)
@@ -257,7 +262,7 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             val editor: SharedPreferences.Editor = sharedPreferences.edit()
             editor.putString("name_key", workerName)
             editor.putString("profession_key", selectProfessionSpinner.text.toString())
-            editor.putString("tags_key", selectedTags.toString())
+            /*editor.putString("tags_key", selectedTags.toString())*/
             editor.apply()
             editor.commit()
 
@@ -277,7 +282,7 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             // store profession and tags in realtime database
             val uid = FirebaseAuth.getInstance().currentUser?.uid
             reference.child(uid.toString()).child("Profession").setValue(selectProfessionSpinner.text.toString())
-            reference.child(uid.toString()).child("Tags").setValue(selectedTags)
+            /*reference.child(uid.toString()).child("Tags").setValue(selectedTags)*/
         }
 
         // Tags Selectors
