@@ -122,58 +122,51 @@ class Phone_auth_login : AppCompatActivity() {
 
         binding.tcinfo.setOnClickListener{
             val dialog = AlertDialog.Builder(this)
-            dialog.setTitle("Terms & Conditions")
-                .setMessage("A Terms and Conditions agreement acts as a legal contract between you (the company) and the user. It's where you maintain your rights to exclude users from your app in the event that they abuse your website/app, set out the rules for using your service and note other important details and disclaimers.\n" +
+            dialog.setTitle("Terms & Conditions of JobDoneIndia")
+                .setMessage("\n" +
+                        "Welcome to JobDone India!" +
+                        "These terms and conditions outline the rules and regulations for the use of JobDoneIndia's Application\n" +
+                        "By accessing this application we assume you accept these terms and conditions. Do not continue to use JobDoneIndia if you do not agree to take all of the terms and conditions stated on this page.\n" +
+                        "The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements: \"Client\", \"You\" and \"Your\" refers to you, the person log on this application and compliant to the Company’s terms and conditions. \"The Company\", \"Ourselves\", \"We\", \"Our\" and \"Us\", refers to our Company. \"Party\", \"Parties\", or \"Us\", refers to both the Client and ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner for the express purpose of meeting the Client’s needs in respect of provision of the Company’s stated services, in accordance with and subject to, prevailing law of India. Any use of the above terminology or other words in the singular, plural, capitalization and/or he/she or they, are taken as interchangeable and therefore as referring to same.\n" +
+                        "Limitation of Liability\n" +
+                        "JobDone is not responsible for any losses incurred by the use of the app, including but not limited to damage or loss of property or injury caused by fake workers registered in the application.\n" +
+                        "Unless otherwise stated, JobDoneIndia and/or its licensors own the intellectual property rights for all material on JobDoneIndia. All intellectual property rights are reserved. You may access this from JobDoneIndia for your own personal use subjected to restrictions set in these terms and conditions.\n" +
+                        "You must not:\n" +
+                        "Republish material from JobDone India\n" +
+                        "Sell, rent or sub-license material from JobDone India\n" +
+                        "Reproduce, duplicate or copy material from JobDoneIndia\n" +
+                        "Redistribute content from JobDoneIndia" +
+                        "Parts of this application offer an opportunity for users to post and exchange data and information in certain areas of the application. JobDoneIndia does not filter, edit, publish or review information prior to their presence on the application. Information do not reflect the views and opinions of JobDoneIndia,its agents and/or affiliates. Information reflect the characteristic of the person who post their views and opinions. To the extent permitted by applicable laws, JobDoneIndia shall not be liable for the information or for any liability, damages or expenses caused and/or suffered as a result of any use of and/or posting of and/or appearance of the information on this application.\n" +
+                        "JobDoneIndia reserves the right to monitor all data and to remove any data which can be considered inappropriate, offensive or causes breach of these Terms and Conditions.\n" +
+                        "You warrant and represent that:\n" +
+                        "You are entitled share information among users and have all necessary licenses and consents to do so;\n" +
+                        "The information do not invade any intellectual property right, including without limitation copyright, patent or trademark of any third party;\n" +
+                        "The information do not contain any defamatory, libelous, offensive, indecent or otherwise unlawful material which is an invasion of privacy\n" +
+                        "The information will not be used to solicit or promote business or custom or present commercial activities or unlawful activity.\n" +
+                        "You hereby grant JobDoneIndia a non-exclusive license to use, reproduce, edit and authorize others to use, reproduce and edit any of your information in any and all forms, formats or media.\n" +
+                        "User Verification\n" +
+                        "JobDoneIndia does not verify the identity or qualifications of workers registered in the application and does not guarantee their work. It is the user's responsibility to verify the identity and qualifications of the worker before engaging their services.\n" +
+                        "User Agreement\n" +
+                        "By using the JobDoneIndia app, the user agrees to indemnify and hold JobDone harmless from any claims, damages, or expenses arising from the use of the app or from the services provided by the workers registered in the application.\n" +
+                        "User Conduct\n" +
+                        "Users are prohibited from engaging in any illegal or unethical activities while using the JobDoneIndia app, including but not limited to, posting false or misleading information, or engaging in fraud or exploitation of workers or other users.\n" +
+                        "Dispute Resolution\n" +
+                        "Any disputes arising from the use of the JobDoneIndia app or from the services provided by the workers registered in the application will be resolved through binding arbitration in accordance with the laws of the jurisdiction where the dispute arose." +
+                        "Governing Law\n" +
+                        "This agreement shall be governed by and construed in accordance with the laws of the jurisdiction where the dispute arose.\n" +
+                        "Modification of Terms\n" +
+                        "JobDone reserves the right to modify these terms and conditions at any time without prior notice.\n" +
+                        "Disclaimer\n" +
+                        "To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to our JobDoneIndia and the use of this application. Nothing in this disclaimer will:\n" +
                         "\n" +
-                        "Having a Terms and Conditions agreement is completely optional. No laws require you to have one. Not even the super-strict and wide-reaching General Data Protection Regulation (GDPR).\n" +
+                        "limit or exclude our or your liability for death or personal injury;\n" +
+                        "limit or exclude our or your liability for fraud or fraudulent misrepresentation;\n" +
+                        "limit any of our or your liabilities in any way that is not permitted under applicable law; \n" +
+                        "exclude any of our or your liabilities that may not be excluded under applicable law.\n" +
+                        "The limitations and prohibitions of liability set in this Section and elsewhere in this disclaimer: (a) are subject to the preceding paragraph; and (b) govern all liabilities arising under the disclaimer, including liabilities arising in contract, in tort and for breach of statutory duty.\n" +
                         "\n" +
-                        "Your Terms and Conditions agreement will be uniquely yours. While some clauses are standard and commonly seen in pretty much every Terms and Conditions agreement, it's up to you to set the rules and guidelines that the user must agree to.\n" +
-                        "\n" +
-                        "Terms and Conditions agreements are also known as Terms of Service or Terms of Use agreements. These terms are interchangeable, practically speaking." +
-                        "A Terms and Conditions is not required and it's not mandatory by law.\n" +
-                        "\n" +
-                        "Unlike Privacy Policies, which are required by laws such as the GDPR, CalOPPA and many others, there's no law or regulation on Terms and Conditions.\n" +
-                        "\n" +
-                        "However, having a Terms and Conditions gives you the right to terminate the access of abusive users or to terminate the access to users who do not follow your rules and guidelines, as well as other desirable business benefits.\n" +
-                        "\n" +
-                        "It's extremely important to have this agreement if you operate a SaaS app.\n" +
-                        "\n" +
-                        "Here are a few examples of how this agreement can help you:\n" +
-                        "\n" +
-                        "If users abuse your website or mobile app in any way, you can terminate their account. Your \"Termination\" clause can inform users that their accounts would be terminated if they abuse your service.\n" +
-                        "If users can post content on your website or mobile app (create content and share it on your platform), you can remove any content they created if it infringes copyright. Your Terms and Conditions will inform users that they can only create and/or share content they own rights to. Similarly, if users can register for an account and choose a username, you can inform users that they are not allowed to choose usernames that may infringe trademarks, i.e. usernames like Google, Facebook, and so on.\n" +
-                        "If you sell products or services, you could cancel specific orders if a product price is incorrect. Your Terms and Conditions can include a clause to inform users that certain orders, at your sole discretion, can be canceled if the products ordered have incorrect prices due to various errors.\n" +
-                        "And many more examples.\n" +
-                        "In summary, while you do not legally need a Terms and Conditions agreement, there are many many reasons for you to have one. Not only will it make your business look more professional and trustworthy, but you'll also be maintaining more control over how your users are able to interact with your platforms and content." +
-                        "If you sell products (physical or digital), you'll want Terms and Conditions for your store. Having this agreement in place will help you:\n" +
-                        "\n" +
-                        "Dictate how different aspects of transactions will be handled\n" +
-                        "Inform users about acceptable payment terms\n" +
-                        "Inform users about your shipping policies\n" +
-                        "Inform users about your returns and refunds policies. You can also do this through a separate agreement, called a Return and Refund Policy, that you can reference in the Terms & Conditions agreement.\n" +
-                        "Let's look at an example: the Limitation of Liability of Your Products clause.\n" +
-                        "\n" +
-                        "No matter what kind of goods you sell, best practices direct you to present any warranties you are disclaiming and liabilities you are limiting in a way that your customers will notice.\n" +
-                        "\n" +
-                        "You've probably noticed that these clauses in contracts are always in blocks of all-caps text and really do stand out from the rest of the document.\n" +
-                        "\n" +
-                        "Apple Logo Icon\n" +
-                        "\n" +
-                        "Apple iTunes, which probably isn't dealing with high-liability goods, includes the following boilerplate language in its Terms agreement to deal with limiting liability and disclaiming warranties.\n" +
-                        "\n" +
-                        "This exact language is used across multiple industries, businesses, and apps in order to legally disclaim warranties and limit liability.\n" +
-                        "\n" +
-                        "Include the words \"AS IS\" for items and \"AS AVAILABLE\" if you provide any sort of service that may not be available 100% of the time.\n" +
-                        "\n" +
-                        "Apple Media Services Terms and Conditions: No Warranty clause\n" +
-                        "\n" +
-                        "Here's a list of questions that can help you determine what to add in your own Terms and Conditions agreement:\n" +
-                        "\n" +
-                        "Can users create an account on your website or app?\n" +
-                        "Can users create or publish content on your website or app?\n" +
-                        "Is the content published by users available publicly?\n" +
-                        "Can users send you copyright infringement notices?\n" +
-                        "Is your website or app an ecommerce store?")
+                        "As long as the applications and the information and services on the application are provided free of charge, we will not be liable for any loss or damage of any nature."
+                )
             val alert = dialog.create()
             alert.show()
         }
