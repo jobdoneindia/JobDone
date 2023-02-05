@@ -24,9 +24,29 @@ import com.jobdoneindia.jobdone.activity.WorkerDashboardActivity
 
 class FragmentSelectTags : Fragment() {
 
-    private val items = mutableListOf("Electrician", "Appliances" , "Plumber", "Carpenter", "Painter", "Driver",
-        "Home Tutor","Freelancer", "Pest Control", "Pandit", "Laundry", "RO Service", "House Maid", "Water Supplier",
-        "Photographer", "Videographer", "Vehicle Service", "Vehicle Washing", )
+    private val items = mutableListOf(
+        "Electrician",
+        "Carpenter",
+        "Plumber",
+        "Photographer",
+        "Videographer",
+        "Home Tutor",
+        "Graphic Designer",
+        "Pet Care",
+        "AC Repairer",
+        "Computer Repair",
+        "Pandal Maker",
+        "Painter",
+        "Driver",
+        "Catering Service",
+        "Pest Control",
+        "Pandit",
+        "Laundry",
+        "RO Service",
+        "House Maid",
+        "Water Supplier",
+        "Vehicle Washing",
+    )
     private val tags = mapOf(
         "Electrician" to arrayListOf("AC Repair", "Plug", "Socket", "Wires"),
         "Appliances" to arrayListOf("TV Repair", "AC Repair", "Washing machine repair", "Gizzer Repair", "Air Cooler Repair", "Fridge Repair", "Mixer Grinder Repair", "Speaker Repair"),
@@ -71,7 +91,7 @@ class FragmentSelectTags : Fragment() {
         // Spinner Logic
         selectProfessionSpinner = root.findViewById(R.id.select_profession_spinner)
         selectProfessionSpinner.setAdapter(adapterItems)
-        selectProfessionSpinner.setOnItemClickListener { adapterView, view, position, id ->
+        /*selectProfessionSpinner.setOnItemClickListener { adapterView, view, position, id ->
             tagList.clear()
             selectedTags.clear()
             val item: String = adapterView.getItemAtPosition(position).toString()
@@ -79,7 +99,7 @@ class FragmentSelectTags : Fragment() {
                 tagList.add(x)
             }
             updateTags(tagList)
-        }
+        }*/
 
         // Next Button
         root.findViewById<Button>(R.id.btnNext).setOnClickListener {

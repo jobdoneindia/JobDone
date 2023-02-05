@@ -119,7 +119,7 @@ class FragmentSearchResults: Fragment()  {
                 for (postSnapshot in snapshot.children) {
                     val currentUser = postSnapshot.getValue(User::class.java)
                     /*if (mAuth.currentUser?.uid != currentUser?.uid) {*/
-                    if (currentUser?.uid.toString() in sharedPreferences.getString("closestworker", "null").toString().split(":") && currentUser?.Profession != null) {
+                    if (currentUser?.uid.toString() in sharedPreferences.getString("closestworker", "null").toString().split(":") && currentUser?.Profession != null && currentUser?.Profession != "") {
                         /*userList.add(currentUser!!)*/
                         /*distance = (distance(currentUser?.Location!![0], currentUser?.Location!![1], userLocation[0], userLocation[1])/0.621371).toInt()*/
                         unsortedSearchItems.add(SearchItem(
@@ -152,6 +152,21 @@ class FragmentSearchResults: Fragment()  {
         distanceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when(distanceOptions[position]) {
+                    "1km" -> {
+                        mySearchItems.clear()
+                        for (i in 0..sharedPreferences.getString("closestworker", "null").toString().split(":").lastIndex) {
+                            for (j in 0..unsortedSearchItems.lastIndex) {
+                                if (sharedPreferences.getString("closestworker", "null").toString().split(":")[i] == unsortedSearchItems[j].uid) {
+                                    unsortedSearchItems[j].distance = sharedPreferences.getString("closeness", "null").toString().split(":")[i] + " km"
+                                    if (unsortedSearchItems[j].distance.split(" ")[0].toInt() <= 1){
+                                        mySearchItems.add(unsortedSearchItems[j])
+                                    }
+                                }
+                            }
+                        }
+                        adapter.notifyDataSetChanged()
+                    }
+
                     "5km" -> {
                         mySearchItems.clear()
                         for (i in 0..sharedPreferences.getString("closestworker", "null").toString().split(":").lastIndex) {
@@ -167,13 +182,13 @@ class FragmentSearchResults: Fragment()  {
                         adapter.notifyDataSetChanged()
                     }
 
-                    "20km" -> {
+                    "10km" -> {
                         mySearchItems.clear()
                         for (i in 0..sharedPreferences.getString("closestworker", "null").toString().split(":").lastIndex) {
                             for (j in 0..unsortedSearchItems.lastIndex) {
                                 if (sharedPreferences.getString("closestworker", "null").toString().split(":")[i] == unsortedSearchItems[j].uid) {
                                     unsortedSearchItems[j].distance = sharedPreferences.getString("closeness", "null").toString().split(":")[i] + " km"
-                                    if (unsortedSearchItems[j].distance.split(" ")[0].toInt() <= 20){
+                                    if (unsortedSearchItems[j].distance.split(" ")[0].toInt() <= 10){
                                         mySearchItems.add(unsortedSearchItems[j])
                                     }
                                 }
@@ -182,7 +197,7 @@ class FragmentSearchResults: Fragment()  {
                         adapter.notifyDataSetChanged()
                     }
 
-                    "500km" -> {
+                    "20km" -> {
                         mySearchItems.clear()
                         for (i in 0..sharedPreferences.getString("closestworker", "null").toString().split(":").lastIndex) {
                             for (j in 0..unsortedSearchItems.lastIndex) {
