@@ -54,7 +54,7 @@ class SearchResultsAdapter(val context: Context, val searchItems: MutableList<Se
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .into(holder.userDP)
 
-        holder.itemView.setOnClickListener {
+        /*holder.itemView.setOnClickListener {
             if (holder.expandableView.visibility == View.VISIBLE) {
                 holder.expandableView.visibility = View.GONE
                 holder.expandButton.rotation = -90F
@@ -73,7 +73,7 @@ class SearchResultsAdapter(val context: Context, val searchItems: MutableList<Se
                 holder.expandButton.rotation = 0F
             }
         }
-
+*/
         holder.btnMsg.setOnClickListener {
             val intent = Intent(context, ChatActivity::class.java)
 
