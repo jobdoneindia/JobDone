@@ -83,7 +83,7 @@ class LoginActivity: AppCompatActivity() {
                     startActivity(intent)
 //                    finish()*/
 //                }, 2000)
-                startActivity(intent)
+
 
             }
         }
