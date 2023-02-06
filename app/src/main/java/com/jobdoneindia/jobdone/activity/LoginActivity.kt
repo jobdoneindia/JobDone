@@ -39,12 +39,6 @@ class LoginActivity: AppCompatActivity() {
         }
 
 
-
-//        if(firebaseUser != null){
-//            val intent = Intent(this,DashboardActivity::class.java)
-//            startActivity(intent)
-//        }
-
         skipButton = findViewById<View>(R.id.skip_button) as Button
         skipButton!!.setOnClickListener{
             startActivity(Intent(this,DashboardActivity::class.java))
@@ -82,13 +76,7 @@ class LoginActivity: AppCompatActivity() {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
-//                finish()
-/*            } else {
-                Handler(Looper.getMainLooper()).postDelayed({
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-//                    finish()*/
-//                }, 2000)
+
             }
         }
 
