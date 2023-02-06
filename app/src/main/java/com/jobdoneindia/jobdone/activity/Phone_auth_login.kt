@@ -7,9 +7,11 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
+import android.content.res.Resources
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
 import android.text.TextUtils
@@ -59,8 +61,8 @@ class Phone_auth_login : AppCompatActivity() {
     //progress dialog
     private lateinit var progressDialog: ProgressDialog
 
-    //fetch number
-    private lateinit var googleApiClient: GoogleApiClient
+    //countdown timer
+    private lateinit var timer: CountDownTimer
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +78,21 @@ class Phone_auth_login : AppCompatActivity() {
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please wait")
         progressDialog.setCanceledOnTouchOutside(false)
+
+        // Otp resend CountDown Timer
+        timer = object: CountDownTimer(33000,1000){
+            override fun onTick(remaining: Long) {
+                var time = remaining / 1000
+                binding.resendOtpTV.text = "Wait for $time"
+                binding.resendOtpTV.isClickable = false
+            }
+
+            override fun onFinish() {
+                binding.resendOtpTV.text = "Resend OTP"
+                binding.resendOtpTV.isClickable = true
+            }
+
+        }
 
         mCallBacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
 
@@ -119,7 +136,6 @@ class Phone_auth_login : AppCompatActivity() {
 
 
         //Terms&Conditions DialogBox Button
-
         binding.tcinfo.setOnClickListener{
             val dialog = AlertDialog.Builder(this)
             dialog.setTitle("Terms & Conditions of JobDoneIndia")
@@ -211,10 +227,10 @@ class Phone_auth_login : AppCompatActivity() {
 
         //phone Continue button listener
         binding.otpSendBtn.setOnClickListener {
+            timer.start()
 
             //input phone number
             val phone = "+91" + binding.phonEt.text.toString().trim()
-
 
             //validate phone number
             if(TextUtils.isEmpty(phone)){
@@ -222,11 +238,11 @@ class Phone_auth_login : AppCompatActivity() {
             }else{
                 startPhoneNumberVerification(phone)
             }
-
         }
 
         //resend code listener
         binding.resendOtpTV.setOnClickListener {
+
 
             //input phone number
             val phone = "+91" + binding.phonEt.text.toString().trim()
@@ -239,7 +255,7 @@ class Phone_auth_login : AppCompatActivity() {
             }
         }
 
-        //code submit button002sa2\
+        //code submit button
         binding.otpContinueBtn.setOnClickListener {
 
             //input verification code
@@ -251,78 +267,6 @@ class Phone_auth_login : AppCompatActivity() {
             }
         }
 
-        /*//Fetch Phone Number To Login
-
-        tryGetCurrentUserPhoneNumber(this)
-        googleApiClient = GoogleApiClient.Builder(this).addApi(Auth.CREDENTIALS_API).build()
-        if (phoneNumber.isEmpty()) {
-            val hintRequest = HintRequest.Builder().setPhoneNumberIdentifierSupported(true).build()
-            val intent = Auth.CredentialsApi.getHintPickerIntent(googleApiClient, hintRequest)
-            try {
-                startIntentSenderForResult(intent.intentSender, REQUEST_PHONE_NUMBER, null, 0, 0, 0);
-            } catch (e: IntentSender.SendIntentException) {
-                Toast.makeText(this, "failed to show phone picker", Toast.LENGTH_SHORT).show()
-            }
-        } else
-            onGotPhoneNumberToSendTo()
-
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_PHONE_NUMBER) {
-            if (resultCode == Activity.RESULT_OK) {
-                val cred: Credential? = data?.getParcelableExtra(Credential.EXTRA_KEY)
-                phoneNumber = cred?.id ?: ""
-
-                if (phoneNumber.isEmpty())
-
-                    Toast.makeText(this, "failed to get phone number", Toast.LENGTH_SHORT).show()
-                else
-
-                    onGotPhoneNumberToSendTo()
-            }
-        }
-    }
-
-    private fun onGotPhoneNumberToSendTo() {
-        Toast.makeText(this, "got number:$phoneNumber", Toast.LENGTH_SHORT).show()
-    }
-
-
-    companion object {
-        private const val REQUEST_PHONE_NUMBER = 1
-        private var phoneNumber = ""
-
-        @SuppressLint("MissingPermission", "HardwareIds")
-        private fun tryGetCurrentUserPhoneNumber(context: Context): String {
-            if (phoneNumber.isNotEmpty())
-                return phoneNumber
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                val subscriptionManager = context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE) as SubscriptionManager
-                try {
-                    subscriptionManager.activeSubscriptionInfoList?.forEach {
-                        val number: String? = it.number
-                        if (!number.isNullOrBlank()) {
-                            phoneNumber = number
-                            return number
-                        }
-                    }
-                } catch (ignored: Exception) {
-                }
-            }
-            try {
-                val telephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-                val number = telephonyManager.line1Number ?: ""
-                if (!number.isBlank()) {
-                    phoneNumber = number
-                    return number
-                }
-            } catch (e: Exception) {
-            }
-            return ""
-        }*/
     }
 
 
