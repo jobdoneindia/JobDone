@@ -3,6 +3,8 @@ package com.jobdoneindia.jobdone.adapter
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -54,26 +57,7 @@ class SearchResultsAdapter(val context: Context, val searchItems: MutableList<Se
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .into(holder.userDP)
 
-        /*holder.itemView.setOnClickListener {
-            if (holder.expandableView.visibility == View.VISIBLE) {
-                holder.expandableView.visibility = View.GONE
-                holder.expandButton.rotation = -90F
-            } else {
-                holder.expandableView.visibility = View.VISIBLE
-                holder.expandButton.rotation = 0F
-            }
-        }
 
-        holder.expandButton.setOnClickListener {
-            if (holder.expandableView.visibility == View.VISIBLE) {
-                holder.expandableView.visibility = View.GONE
-                holder.expandButton.rotation = -90F
-            } else {
-                holder.expandableView.visibility = View.VISIBLE
-                holder.expandButton.rotation = 0F
-            }
-        }
-*/
         holder.btnMsg.setOnClickListener {
             val intent = Intent(context, ChatActivity::class.java)
 
@@ -117,13 +101,12 @@ class SearchResultsAdapter(val context: Context, val searchItems: MutableList<Se
 
             context.startActivity(intent)
         }
+
     }
 
     override fun getItemCount(): Int {
         return searchItems.size
     }
-
-
 
     inner class MyViewHolder(itemView: View, listener: onItemClickListener): RecyclerView.ViewHolder(itemView){
         var name = itemView.findViewById<TextView>(R.id.worker_name)
@@ -137,14 +120,15 @@ class SearchResultsAdapter(val context: Context, val searchItems: MutableList<Se
         var btnMsg = itemView.findViewById<ImageButton>(R.id.btnMessage)
         var userDP = itemView.findViewById<CircleImageView>(R.id.circleImage)
 
+        var btnCall = itemView.findViewById<ImageButton>(R.id.btnCall)
+
         init {
             itemView.setOnClickListener {
                 listener.onItemClick(absoluteAdapterPosition)
             }
 
-            // TODO: Onclick listener for message-button will Add worker to inbox and redirect to ChatActivity
-
             // TODO: Call-button will make a call
+
         }
     }
 

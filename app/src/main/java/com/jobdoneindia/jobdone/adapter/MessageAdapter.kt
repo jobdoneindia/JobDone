@@ -214,21 +214,6 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
         }
 
 
-       /* if (holder.javaClass == SentViewHolder::class.java){
-            val ViewHolder = holder as SentViewHolder
-
-            if (position==messageList.size-1){
-                if (currentMessage.isseen == true){
-                    holder.is_seen.text = "Seen"
-                }else if (currentMessage.isseen==false){
-                    holder.is_seen.text = "Delivered"
-                }
-                holder.is_seen.visibility = View.VISIBLE
-            }else{
-                holder.is_seen.visibility = View.GONE
-            }
-        }*/
-
         else if (holder.javaClass == SentPaymentViewHolder::class.java){
             val viewHolder = holder as SentPaymentViewHolder
 
