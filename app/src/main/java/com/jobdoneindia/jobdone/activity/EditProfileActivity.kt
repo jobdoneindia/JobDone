@@ -102,26 +102,11 @@ class EditProfileActivity : AppCompatActivity() {
             .into(this.findViewById<CircleImageView>(R.id.profile_pic))
 
 
-        doneButton.setOnClickListener {
-            // get image url from local database
-            val imageUrl: String? = sharedPreferences.getString("dp_url_key", "not found")
-
-            // Set DP using Glide
-            Glide.with(this)
-                .load(imageUrl)
-                .diskCacheStrategy(DiskCacheStrategy.DATA)
-                .into(this.findViewById<CircleImageView>(R.id.profile_pic))
 
 
             doneButton.setOnClickListener {
                 // get image url from local database
-                val imageUrl: String? = sharedPreferences.getString("dp_url_key", "not found")
-
-                // Set DP using Glide
-                Glide.with(this)
-                    .load(imageUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.DATA)
-                    .into(this.findViewById<CircleImageView>(R.id.profile_pic))
+               
 
                         val name: String = editTextName.text.toString().trim()
 
@@ -146,7 +131,7 @@ class EditProfileActivity : AppCompatActivity() {
                     }
 
 
-                }
+
             }
 
 
@@ -237,7 +222,7 @@ class EditProfileActivity : AppCompatActivity() {
                     editor.apply()
                     editor.commit()
 
-                    Toast.makeText(this, "Uploading profile pic...", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "Uploading image", Toast.LENGTH_SHORT)
                     finish()
                 }
 
