@@ -159,7 +159,9 @@ class FragmentSearchResults: Fragment()  {
                                 if (sharedPreferences.getString("closestworker", "null").toString().split(":")[i] == unsortedSearchItems[j].uid) {
                                     unsortedSearchItems[j].distance = sharedPreferences.getString("closeness", "null").toString().split(":")[i] + " km"
                                     if (unsortedSearchItems[j].distance.split(" ")[0].toInt() <= 1){
-                                        mySearchItems.add(unsortedSearchItems[j])
+                                        if(unsortedSearchItems[j].profession.toString() == categorySpinner.selectedItem.toString() || categorySpinner.selectedItem.toString() == "All") {
+                                            mySearchItems.add(unsortedSearchItems[j])
+                                        }
                                     }
                                 }
                             }
@@ -174,7 +176,9 @@ class FragmentSearchResults: Fragment()  {
                                 if (sharedPreferences.getString("closestworker", "null").toString().split(":")[i] == unsortedSearchItems[j].uid) {
                                     unsortedSearchItems[j].distance = sharedPreferences.getString("closeness", "null").toString().split(":")[i] + " km"
                                     if (unsortedSearchItems[j].distance.split(" ")[0].toInt() <= 5){
-                                        mySearchItems.add(unsortedSearchItems[j])
+                                        if(unsortedSearchItems[j].profession.toString() == categorySpinner.selectedItem.toString() || categorySpinner.selectedItem.toString() == "All") {
+                                            mySearchItems.add(unsortedSearchItems[j])
+                                        }
                                     }
                                 }
                             }
@@ -189,7 +193,9 @@ class FragmentSearchResults: Fragment()  {
                                 if (sharedPreferences.getString("closestworker", "null").toString().split(":")[i] == unsortedSearchItems[j].uid) {
                                     unsortedSearchItems[j].distance = sharedPreferences.getString("closeness", "null").toString().split(":")[i] + " km"
                                     if (unsortedSearchItems[j].distance.split(" ")[0].toInt() <= 10){
-                                        mySearchItems.add(unsortedSearchItems[j])
+                                        if(unsortedSearchItems[j].profession.toString() == categorySpinner.selectedItem.toString() || categorySpinner.selectedItem.toString() == "All") {
+                                            mySearchItems.add(unsortedSearchItems[j])
+                                        }
                                     }
                                 }
                             }
@@ -203,7 +209,9 @@ class FragmentSearchResults: Fragment()  {
                             for (j in 0..unsortedSearchItems.lastIndex) {
                                 if (sharedPreferences.getString("closestworker", "null").toString().split(":")[i] == unsortedSearchItems[j].uid) {
                                     unsortedSearchItems[j].distance = sharedPreferences.getString("closeness", "null").toString().split(":")[i] + " km"
-                                    mySearchItems.add(unsortedSearchItems[j])
+                                    if(unsortedSearchItems[j].profession.toString() == categorySpinner.selectedItem.toString() || categorySpinner.selectedItem.toString() == "All") {
+                                        mySearchItems.add(unsortedSearchItems[j])
+                                    }
                                 }
                             }
                         }
@@ -232,8 +240,40 @@ class FragmentSearchResults: Fragment()  {
                     for (j in 0..unsortedSearchItems.lastIndex) {
                         if (sharedPreferences.getString("closestworker", "null").toString().split(":")[i] == unsortedSearchItems[j].uid) {
                             unsortedSearchItems[j].distance = sharedPreferences.getString("closeness", "null").toString().split(":")[i] + " km"
-                            if (unsortedSearchItems[j].profession.toString() == categoryOptions[position] || categoryOptions[position] == "All") {
-                                mySearchItems.add(unsortedSearchItems[j])
+                            val intDistance = sharedPreferences.getString("closeness", "null").toString().split(":")[i].toString().toInt()
+
+                            // distance selected 20km
+                            if (distanceSpinner.selectedItem.toString() == "20km") {
+                                if (unsortedSearchItems[j].profession.toString() == categoryOptions[position] || categoryOptions[position] == "All") {
+                                    mySearchItems.add(unsortedSearchItems[j])
+                                }
+                            }
+
+                            // distance selected 10km
+                            if(distanceSpinner.selectedItem.toString() == "10km") {
+                                if (intDistance <= 10) {
+                                    if (unsortedSearchItems[j].profession.toString() == categoryOptions[position] || categoryOptions[position] == "All") {
+                                        mySearchItems.add(unsortedSearchItems[j])
+                                    }
+                                }
+                            }
+
+                            // distance selected 5km
+                            if(distanceSpinner.selectedItem.toString() == "5km") {
+                                if (intDistance <= 5) {
+                                    if (unsortedSearchItems[j].profession.toString() == categoryOptions[position] || categoryOptions[position] == "All") {
+                                        mySearchItems.add(unsortedSearchItems[j])
+                                    }
+                                }
+                            }
+
+                            // distance selected 1km
+                            if(distanceSpinner.selectedItem.toString() == "1km") {
+                                if (intDistance <= 1) {
+                                    if (unsortedSearchItems[j].profession.toString() == categoryOptions[position] || categoryOptions[position] == "All") {
+                                        mySearchItems.add(unsortedSearchItems[j])
+                                    }
+                                }
                             }
                         }
                     }
