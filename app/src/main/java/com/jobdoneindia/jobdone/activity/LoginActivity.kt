@@ -75,6 +75,14 @@ class LoginActivity: AppCompatActivity() {
         if (requestCode == permissionId) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 val intent = Intent(this, LoginActivity::class.java)
+
+//                finish()
+/*            } else {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+//                    finish()*/
+//                }, 2000)
                 startActivity(intent)
 
             }
