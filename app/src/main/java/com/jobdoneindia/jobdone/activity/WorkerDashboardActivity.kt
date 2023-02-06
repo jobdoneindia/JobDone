@@ -187,9 +187,9 @@ class WorkerDashboardActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
-                R.id.menuRewards -> {
+                R.id.menuWorkerRewards -> {
                     startActivity(
-                        Intent(applicationContext, RewardsActivity::class.java).setFlags(
+                        Intent(applicationContext,WorkerReward::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     return@setOnItemSelectedListener true
                 }

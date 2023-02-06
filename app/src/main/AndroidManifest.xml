@@ -25,15 +25,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JobDone">
-        <activity
-            android:name=".wrokerReward"
-            android:exported="false"
-            android:label="@string/title_activity_wroker_reward"
-            android:theme="@style/Theme.JobDone.NoActionBar">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
 
         <service
             android:name=".firebase.FirebaseService"
@@ -120,6 +111,11 @@
             android:name=".activity.RewardsActivity"
             android:exported="false"
             android:label="Rewards"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WorkerReward"
+            android:exported="false"
+            android:label="WorkerRewards"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.LoginActivity"

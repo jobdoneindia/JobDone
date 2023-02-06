@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"  xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/menuHome"
@@ -7,8 +7,8 @@
         android:title="Dashboard"/>
 
     <item
-        android:id="@+id/menuRewards"
-        android:icon="@drawable/ic_gift"
+        android:id="@+id/menuWorkerRewards"
+        android:icon="@drawable/ic_gifts"
         android:title="Rewards"/>
 
     <item

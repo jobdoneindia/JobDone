@@ -252,9 +252,9 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .into(this.findViewById<CircleImageView>(R.id.profile_pic))
 
-        // Done fab button
-        doneButton = findViewById(R.id.done_button)
-        doneButton.setOnClickListener {
+                // Done fab button
+                doneButton = findViewById(R.id.done_button)
+                doneButton.setOnClickListener {
 
             val workerName = findViewById<EditText>(R.id.workerName).text.toString().trim()
 
