@@ -56,7 +56,6 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:text="Siraj Alam"
-                            android:textStyle="bold"
                             />
 
                         <TextView
