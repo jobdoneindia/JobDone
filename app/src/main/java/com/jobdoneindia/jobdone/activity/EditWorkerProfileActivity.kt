@@ -56,31 +56,6 @@ class EditWorkerProfileActivity : AppCompatActivity() {
 
     lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
 
-    private val items = mutableListOf(
-        "Electrician",
-        "Appliances",
-        "Plumber",
-        "Photographer",
-        "Videographer",
-        "Home Tutor",
-        "Graphic Designer",
-        "Pet Care",
-        "AC Repairer",
-        "Computer Repair",
-        "Pandal Maker",
-        "Carpenter",
-        "Painter",
-        "Driver",
-        "Catering Service",
-        "Pest Control",
-        "Pandit",
-        "Laundry",
-        "RO Service",
-        "House Maid",
-        "Water Supplier",
-        "Vehicle Service",
-        "Vehicle Washing",
-    )
     private val tags = mapOf(
         "Electrician" to arrayListOf("AC Repair", "Plug", "Socket", "Wires"),
         "Appliances" to arrayListOf(
@@ -211,6 +186,7 @@ class EditWorkerProfileActivity : AppCompatActivity() {
 
         // autocompleteTextView
         var tagList = mutableListOf<String>()
+        val items = listOf<String>("None").plus(resources.getStringArray(R.array.categoryOptions).drop(1))
         adapterItems = ArrayAdapter(this, R.layout.dropdown_item,items)
 
 

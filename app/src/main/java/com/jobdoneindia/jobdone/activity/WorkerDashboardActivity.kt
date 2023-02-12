@@ -87,14 +87,14 @@ class WorkerDashboardActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences(userSharedPreferences, Context.MODE_PRIVATE)
 
         // Fetch location from local database and display
-        val sharedLocation: String? = sharedPreferences.getString("location_key", "DefaultLocation")
+        val sharedLocation: String? = sharedPreferences.getString("location_key", "Please Update Location")
         val sharedName: String? = sharedPreferences.getString("name_key", "Siraj Alarm")
         val sharedTags: String? = sharedPreferences.getString("tags_key", "NotFound")
         /*Toast.makeText(this, sharedTags, Toast.LENGTH_LONG).show()*/
         mainBinding.txtAddress.text = sharedLocation.toString()
         mainBinding.name.text = sharedName.toString()
 
-        if (sharedLocation == "DefaultLoaction" || !checkPermissions()) {
+        if (sharedLocation == "Please Update Location" || !checkPermissions()) {
             checkGpsStatus()
             getLocation(sharedPreferences)
             saveLocationLocally(sharedPreferences)

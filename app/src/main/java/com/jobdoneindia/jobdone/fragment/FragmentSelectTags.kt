@@ -24,29 +24,6 @@ import com.jobdoneindia.jobdone.activity.WorkerDashboardActivity
 
 class FragmentSelectTags : Fragment() {
 
-    private val items = mutableListOf(
-        "Electrician",
-        "Carpenter",
-        "Plumber",
-        "Photographer",
-        "Videographer",
-        "Home Tutor",
-        "Graphic Designer",
-        "Pet Care",
-        "AC Repairer",
-        "Computer Repair",
-        "Pandal Maker",
-        "Painter",
-        "Driver",
-        "Catering Service",
-        "Pest Control",
-        "Pandit",
-        "Laundry",
-        "RO Service",
-        "House Maid",
-        "Water Supplier",
-        "Vehicle Washing",
-    )
     private val tags = mapOf(
         "Electrician" to arrayListOf("AC Repair", "Plug", "Socket", "Wires"),
         "Appliances" to arrayListOf("TV Repair", "AC Repair", "Washing machine repair", "Gizzer Repair", "Air Cooler Repair", "Fridge Repair", "Mixer Grinder Repair", "Speaker Repair"),
@@ -86,6 +63,7 @@ class FragmentSelectTags : Fragment() {
 
         // autocompleteTextView
         var tagList = mutableListOf<String>()
+        val items = resources.getStringArray(R.array.categoryOptions).drop(1)
         adapterItems = ArrayAdapter(requireContext(), R.layout.dropdown_item,items)
 
         // Spinner Logic

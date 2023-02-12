@@ -119,7 +119,7 @@ class FragmentSearchResults: Fragment()  {
                 for (postSnapshot in snapshot.children) {
                     val currentUser = postSnapshot.getValue(User::class.java)
                     /*if (mAuth.currentUser?.uid != currentUser?.uid) {*/
-                    if (currentUser?.uid.toString() in sharedPreferences.getString("closestworker", "null").toString().split(":") && currentUser?.Profession != null && currentUser?.Profession != "") {
+                    if (currentUser?.uid.toString() in sharedPreferences.getString("closestworker", "null").toString().split(":") && currentUser?.Profession != null && currentUser?.Profession != "" && currentUser?.Profession != "None") {
                         /*userList.add(currentUser!!)*/
                         /*distance = (distance(currentUser?.Location!![0], currentUser?.Location!![1], userLocation[0], userLocation[1])/0.621371).toInt()*/
                         unsortedSearchItems.add(SearchItem(
