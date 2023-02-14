@@ -70,6 +70,8 @@ class Phone_auth_login : AppCompatActivity() {
         binding = ActivityPhoneAuthLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         binding.phoneLl.visibility= View.VISIBLE
         binding.otpLl.visibility=View.GONE
         firebaseAuth = FirebaseAuth.getInstance()

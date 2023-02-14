@@ -411,7 +411,16 @@ val myReference : DatabaseReference = database.reference.child("chats")
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.chat_actionbar_menu, menu)
+
+        val sharedPreferences = this.getSharedPreferences("usersharedpreference", MODE_PRIVATE)
+        val sharedName: String? = sharedPreferences.getString("mode_key", "customer")
+
+        // no call button in worker mode
+        if (sharedName == "worker") {
+
+        } else {
+            menuInflater.inflate(R.menu.chat_actionbar_menu, menu)
+        }
         return true
     }
 
