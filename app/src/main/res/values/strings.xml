@@ -32,29 +32,35 @@
     </string-array>
 
     <string-array name="categoryOptions">
+        <item>AC Repairer</item>
         <item>All</item>
-        <item>Electrician</item>
+        <item>Beautician</item>
         <item>Carpenter</item>
-        <item>Plumber</item>
-        <item>Photographer</item>
-        <item>Videographer</item>
-        <item>Home Tutor</item>
+        <item>Catering Service</item>
+        <item>Computer Repair</item>
+        <item>Dance Choreographer</item>
+        <item>Digital Marketer</item>
+        <item>Driver</item>
+        <item>Electrician</item>
         <item>Event Management</item>
         <item>Graphic Designer</item>
-        <item>Pet Care</item>
-        <item>AC Repairer</item>
-        <item>Computer Repair</item>
-        <item>Pandal Maker</item>
-        <item>Painter</item>
-        <item>Driver</item>
-        <item>Catering Service</item>
-        <item>Pest Control</item>
-        <item>Pandit</item>
-        <item>Laundry</item>
-        <item>RO Service</item>
+        <item>Home Tutor</item>
         <item>House Maid</item>
-        <item>Water Supplier</item>
+        <item>Laundry</item>
+        <item>Painter</item>
+        <item>Pandal Maker</item>
+        <item>Pandit</item>
+        <item>Pest Control</item>
+        <item>Pet Care</item>
+        <item>Photographer</item>
+        <item>Plumber</item>
+        <item>RO Service</item>
+        <item>Social Media Manager</item>
+        <item>Tailor</item>
         <item>Vehicle Washing</item>
+        <item>Videographer</item>
+        <item>Water Supplier</item>
+        <item>Web Developer</item>
     </string-array>
     <string name="title_activity_wroker_reward">wrokerReward</string>
 </resources>
