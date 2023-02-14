@@ -69,15 +69,6 @@ class FragmentSelectTags : Fragment() {
         // Spinner Logic
         selectProfessionSpinner = root.findViewById(R.id.select_profession_spinner)
         selectProfessionSpinner.setAdapter(adapterItems)
-        /*selectProfessionSpinner.setOnItemClickListener { adapterView, view, position, id ->
-            tagList.clear()
-            selectedTags.clear()
-            val item: String = adapterView.getItemAtPosition(position).toString()
-            for (x in tags[item]!!) {
-                tagList.add(x)
-            }
-            updateTags(tagList)
-        }*/
 
         // Next Button
         root.findViewById<Button>(R.id.btnNext).setOnClickListener {
@@ -99,6 +90,7 @@ class FragmentSelectTags : Fragment() {
             reference.child("Tags").setValue(selectedTags)
 
             val intent = Intent(requireContext(), WorkerDashboardActivity::class.java)
+            this.activity?.finishAffinity()
             startActivity(intent)
             // Navigation.findNavController(view).navigate(R.id.action_fragmentSelectTags_to_fragmentSetDP)
         }
