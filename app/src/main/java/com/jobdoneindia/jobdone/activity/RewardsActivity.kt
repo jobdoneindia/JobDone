@@ -24,6 +24,7 @@ class RewardsActivity : AppCompatActivity() {
                     startActivity(
                         Intent(applicationContext, DashboardActivity::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    finishAffinity()
                 }
 
                 R.id.menuWorkerRewards -> {
@@ -34,6 +35,7 @@ class RewardsActivity : AppCompatActivity() {
                     startActivity(
                         Intent(applicationContext, ChatUserList::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    finishAffinity()
                     return@setOnItemSelectedListener true
                 }
 
@@ -41,6 +43,7 @@ class RewardsActivity : AppCompatActivity() {
                     startActivity(
                         Intent(applicationContext, ProfileActivity::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    finishAffinity()
                     return@setOnItemSelectedListener true
                 }
 

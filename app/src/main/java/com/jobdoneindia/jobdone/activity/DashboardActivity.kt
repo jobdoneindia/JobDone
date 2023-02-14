@@ -77,6 +77,7 @@ class DashboardActivity : AppCompatActivity() {
 
                 R.id.menuRewards -> {
                     startActivity(Intent(applicationContext, RewardsActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    finishAffinity()
                     return@setOnItemSelectedListener true
                 }
 
@@ -87,11 +88,13 @@ class DashboardActivity : AppCompatActivity() {
                     editor.apply()
 
                     startActivity(Intent(applicationContext, ChatUserList::class.java))
+                    finishAffinity()
                     return@setOnItemSelectedListener true
                 }
 
                 R.id.menuAccount -> {
                     startActivity(Intent(applicationContext, ProfileActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    finishAffinity()
                     return@setOnItemSelectedListener true
                 }
 

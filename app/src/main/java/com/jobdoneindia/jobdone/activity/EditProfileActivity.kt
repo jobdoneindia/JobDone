@@ -69,7 +69,7 @@ class EditProfileActivity : AppCompatActivity() {
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // TODO: Feature to select DP and update in database
+        // Feature to select DP and update in database
         btnSetDP = findViewById(R.id.btnSetDP)
         profilePic = findViewById(R.id.profile_pic)
 
@@ -77,7 +77,7 @@ class EditProfileActivity : AppCompatActivity() {
             pickfromGallery()
         }
 
-        // TODO: Feature to set current location
+        //Feature to set current location
 
         // Done fab button
         doneButton = findViewById(R.id.done_button)
@@ -101,12 +101,8 @@ class EditProfileActivity : AppCompatActivity() {
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .into(this.findViewById<CircleImageView>(R.id.profile_pic))
 
-
-
-
             doneButton.setOnClickListener {
                 // get image url from local database
-               
 
                         val name: String = editTextName.text.toString().trim()
 

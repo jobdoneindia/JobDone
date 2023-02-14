@@ -71,7 +71,7 @@ class ProfileActivity : AppCompatActivity() {
 
             reference.child(uid.toString()).removeValue()
             FirebaseAuth.getInstance().signOut()
-            val intent = Intent(this@ProfileActivity,Phone_auth_login::class.java)
+            val intent = Intent(this@ProfileActivity,LoginActivity::class.java)
             startActivity(intent)
         }
 
@@ -94,12 +94,14 @@ class ProfileActivity : AppCompatActivity() {
                     startActivity(
                         Intent(applicationContext, DashboardActivity::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    finishAffinity()
                 }
 
                 R.id.menuRewards -> {
                     startActivity(
                         Intent(applicationContext, RewardsActivity::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    finishAffinity()
                     return@setOnItemSelectedListener true
                 }
 
@@ -107,6 +109,7 @@ class ProfileActivity : AppCompatActivity() {
                     startActivity(
                         Intent(applicationContext, ChatUserList::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    finishAffinity()
                     return@setOnItemSelectedListener true
                 }
 
