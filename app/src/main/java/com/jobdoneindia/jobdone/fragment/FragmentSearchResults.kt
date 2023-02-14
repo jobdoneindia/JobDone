@@ -319,7 +319,7 @@ class FragmentSearchResults: Fragment()  {
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                Navigation.findNavController(view!!).navigate(R.id.action_fragmentSearchResults_to_fragmentTags)
+                Navigation.findNavController(view!!).navigate(R.id.action_fragmentSearchResults_to_fragmentMainButton)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
