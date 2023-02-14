@@ -109,7 +109,6 @@ class ProfileActivity : AppCompatActivity() {
                     startActivity(
                         Intent(applicationContext, ChatUserList::class.java).setFlags(
                             Intent.FLAG_ACTIVITY_NO_ANIMATION))
-                    finishAffinity()
                     return@setOnItemSelectedListener true
                 }
 
@@ -144,15 +143,4 @@ class ProfileActivity : AppCompatActivity() {
         }
 
     }
-    //FOR USER REMEMBERING
-   /* override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.logout_button){
-
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(this@ProfileActivity , LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        return super.onOptionsItemSelected(item)
-    }*/
 }

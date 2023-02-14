@@ -88,7 +88,6 @@ class DashboardActivity : AppCompatActivity() {
                     editor.apply()
 
                     startActivity(Intent(applicationContext, ChatUserList::class.java))
-                    finishAffinity()
                     return@setOnItemSelectedListener true
                 }
 
