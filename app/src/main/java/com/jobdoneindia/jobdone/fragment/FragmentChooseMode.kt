@@ -40,8 +40,9 @@ class FragmentChooseMode : Fragment() {
 
             val intent = Intent(requireContext(),DashboardActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            this.activity?.finishAffinity()
             startActivity(intent)
-            this@FragmentChooseMode.activity?.finish()
+
         }
 
         root.findViewById<Button>(R.id.worker_mode_btn).setOnClickListener{
