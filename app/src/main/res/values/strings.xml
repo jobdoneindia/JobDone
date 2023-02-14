@@ -32,8 +32,8 @@
     </string-array>
 
     <string-array name="categoryOptions">
-        <item>AC Repairer</item>
         <item>All</item>
+        <item>AC Repairer</item>
         <item>Beautician</item>
         <item>Carpenter</item>
         <item>Catering Service</item>
