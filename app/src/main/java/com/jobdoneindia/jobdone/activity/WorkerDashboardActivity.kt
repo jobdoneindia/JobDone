@@ -8,6 +8,7 @@ import android.content.IntentSender
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.*
+import android.os.Build
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -262,10 +263,22 @@ class WorkerDashboardActivity : AppCompatActivity() {
                 mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
                     val location: Location? = task.result
                     if (location != null) {
+
                         val geocoder = Geocoder(this, Locale.getDefault())
-                        val list: List<Address> =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
-                        mainBinding.txtAddress.text = list[0].getAddressLine(0)
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            geocoder.getFromLocation(location.latitude, location.longitude, 1, object : Geocoder.GeocodeListener {
+                                override fun onGeocode(list: MutableList<Address>) {
+                                    mainBinding.txtAddress.text = list[0].getAddressLine(0)
+                                }
+
+                            })
+                        } else {
+                            val list: List<Address> =
+                                geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
+
+                            mainBinding.txtAddress.text = list[0].getAddressLine(0)
+                        }
 
                         // save latitude and longitude locally
                         editor = sharedPreferences.edit()

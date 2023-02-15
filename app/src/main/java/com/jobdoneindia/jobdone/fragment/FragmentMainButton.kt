@@ -11,6 +11,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import androidx.preference.PreferenceManager
@@ -183,13 +184,57 @@ class FragmentMainButton: Fragment() {
     private fun getLocation(sharedPreferences: SharedPreferences) {
         if (checkPermissions()) {
             if(isLocationEnabled()) {
-                mFusedLocationClient.lastLocation.addOnCompleteListener(requireActivity()) { task ->
+
+                mFusedLocationClient.lastLocation.addOnSuccessListener(object : OnSuccessListener<Location> {
+                    override fun onSuccess(location: Location?) {
+                        if (location != null) {
+
+                            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                geocoder.getFromLocation(location.latitude, location.longitude, 1, object : Geocoder.GeocodeListener {
+                                    override fun onGeocode(list: MutableList<Address>) {
+                                        txtAddress.text = list[0].getAddressLine(0)
+                                    }
+
+                                })
+                            } else {
+                                val list: List<Address> =
+                                    geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
+
+                                txtAddress.text = list[0].getAddressLine(0)
+                            }
+
+                            // save latitude and longitude locally
+                            editor = sharedPreferences.edit()
+                            editor.putFloat("latitude", location.latitude.toFloat())
+                            editor.putFloat("longitude", location.longitude.toFloat())
+                            editor.apply()
+
+                            // saving location in firebase db
+                            val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+                            val uid = FirebaseAuth.getInstance().currentUser?.uid
+                            val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
+                            reference.child("Location").setValue(arrayListOf(location.latitude, location.longitude))
+
+                            val geoFire = GeoFire(database.reference.child("geofire"))
+                            geoFire.setLocation(uid, GeoLocation(location.latitude, location.longitude))
+
+                            saveLocationLocally(sharedPreferences)
+                        }
+                    }
+
+                })
+
+                //OLD CODE ON LOCATION WHICH DOES NOT WORK IN ANDROID 11 and up
+                /*mFusedLocationClient.lastLocation.addOnCompleteListener(requireActivity()) { task ->
                     val location: Location? = task.result
                     if (location != null) {
                         val geocoder = Geocoder(requireContext(), Locale.getDefault())
 
                         val list: List<Address> =
                             geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
+
                         txtAddress.text = list[0].getAddressLine(0)
 
                         // save latitude and longitude locally
@@ -210,7 +255,7 @@ class FragmentMainButton: Fragment() {
                         saveLocationLocally(sharedPreferences)
 
                     }
-                }
+                }*/
             }
         } else {
             requestPermissions()
