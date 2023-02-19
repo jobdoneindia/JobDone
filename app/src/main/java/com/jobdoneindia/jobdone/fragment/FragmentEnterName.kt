@@ -1,7 +1,6 @@
 package com.jobdoneindia.jobdone.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.transition.TransitionInflater
@@ -61,7 +60,8 @@ class FragmentEnterName : Fragment() {
             editor.apply()
             editor.commit()
 
-            reference.setValue(User(uid.toString(),inputName,null,phone,null, status = null , Profession = null,chatList = null))
+            reference.setValue(User(uid.toString(),inputName,null,phone,null, status = null , Profession = null,
+                chatList = null, tag1 = null, tag2 = null, tag3 = null))
             Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentSetDP)
         }
 

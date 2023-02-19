@@ -149,6 +149,7 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             "Eight Wheeler",
             "Ten Wheeler"
         ),
+        "Graphic Designer" to arrayListOf("Logo","Flyer", ),
     )
 
     private var selectedTags = mutableListOf<String>()
@@ -198,12 +199,14 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             selectProfessionSpinner.setText(currentProfession.toString())
         }
         selectProfessionSpinner.setAdapter(adapterItems)
-        /*selectProfessionSpinner.setOnItemClickListener { adapterView, view, position, id ->
+        selectProfessionSpinner.setOnItemClickListener { adapterView, view, position, id ->
             tagList.clear()
             selectedTags.clear()
             val item: String = adapterView.getItemAtPosition(position).toString()
-            for (x in tags[item]!!) {
-                tagList.add(x)
+            if (item in tags) {
+                for (x in tags[item]!!) {
+                    tagList.add(x)
+                }
             }
             updateTags(tagList)
         }
@@ -220,7 +223,7 @@ class EditWorkerProfileActivity : AppCompatActivity() {
                 val chip = chipGroup.getChildAt(i) as Chip
                 chip.isChecked = true
             }
-        }*/
+        }
 
         // Set DP using Glide
         Glide.with(this)
@@ -228,9 +231,9 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .into(this.findViewById<CircleImageView>(R.id.profile_pic))
 
-                // Done fab button
-                doneButton = findViewById(R.id.done_button)
-                doneButton.setOnClickListener {
+        // Done fab button
+        doneButton = findViewById(R.id.done_button)
+        doneButton.setOnClickListener {
 
             val workerName = findViewById<EditText>(R.id.workerName).text.toString().trim()
 
@@ -238,7 +241,7 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             val editor: SharedPreferences.Editor = sharedPreferences.edit()
             editor.putString("name_key", workerName)
             editor.putString("profession_key", selectProfessionSpinner.text.toString())
-            /*editor.putString("tags_key", selectedTags.toString())*/
+            editor.putString("tags_key", selectedTags.toString())
             editor.apply()
             editor.commit()
 
@@ -258,7 +261,9 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             // store profession and tags in realtime database
             val uid = FirebaseAuth.getInstance().currentUser?.uid
             reference.child(uid.toString()).child("Profession").setValue(selectProfessionSpinner.text.toString())
-            /*reference.child(uid.toString()).child("Tags").setValue(selectedTags)*/
+            reference.child(uid.toString()).child("tag1").setValue(if (selectedTags.size >= 1) selectedTags[0] else "Empty")
+            reference.child(uid.toString()).child("tag2").setValue(if(selectedTags.size >= 2) selectedTags[1] else "Empty")
+            reference.child(uid.toString()).child("tag3").setValue(if(selectedTags.size >=3) selectedTags[2] else "Empty")
         }
 
         // Tags Selectors

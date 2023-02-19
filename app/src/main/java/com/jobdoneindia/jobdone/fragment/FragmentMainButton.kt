@@ -14,6 +14,7 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import androidx.preference.PreferenceManager
 import android.renderscript.ScriptGroup
 import android.transition.TransitionInflater
@@ -22,6 +23,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
@@ -53,6 +55,8 @@ class FragmentMainButton: Fragment() {
     private lateinit var mainButton: ImageButton
     private lateinit var userName : TextView
     private lateinit var txtAddress: TextView
+
+    private var doubleBackToExitPressedOnce = false
 
     private var mDbRef = FirebaseDatabase.getInstance().reference.child("Users")
 
@@ -310,6 +314,27 @@ class FragmentMainButton: Fragment() {
 
         })
 
+    }
+
+    // overriding the back button
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (doubleBackToExitPressedOnce) {
+                    requireActivity().finish()
+                    System.exit(0)
+                }
+
+                doubleBackToExitPressedOnce = true
+                Toast.makeText(requireContext(), "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+
+                Handler(Looper.getMainLooper()).postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
 }

@@ -26,7 +26,7 @@ import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.User
 import com.jobdoneindia.jobdone.adapter.SearchResultsAdapter
 
-data class SearchItem(val name: String, val bio: String, val overall_rating: String, var distance: String, val profession: String, val uid: String, val url: String)
+data class SearchItem(val name: String, val bio: String, val overall_rating: String, var distance: String, val profession: String, val uid: String, val url: String, val tag1: String, val tag2: String, val tag3: String)
 
 class FragmentSearchResults: Fragment()  {
 
@@ -117,14 +117,15 @@ class FragmentSearchResults: Fragment()  {
                 unsortedSearchItems.clear()
                 /*getClosestWorkers()*/
                 for (postSnapshot in snapshot.children) {
-                    val currentUser = postSnapshot.getValue(User::class.java)
+                    val currentUser = postSnapshot.getValue(User::class.java) as User
                     /*if (mAuth.currentUser?.uid != currentUser?.uid) {*/
                     if (currentUser?.uid.toString() in sharedPreferences.getString("closestworker", "null").toString().split(":") && currentUser?.Profession != null && currentUser?.Profession != "" && currentUser?.Profession != "None") {
                         /*userList.add(currentUser!!)*/
                         /*distance = (distance(currentUser?.Location!![0], currentUser?.Location!![1], userLocation[0], userLocation[1])/0.621371).toInt()*/
                         unsortedSearchItems.add(SearchItem(
                             currentUser!!.username.toString(),
-                            null.toString(), "null", "${distance}km", currentUser.Profession.toString(), currentUser.uid.toString(), currentUser.url.toString()
+                            null.toString(), "null", "${distance}km", currentUser.Profession.toString(), currentUser.uid.toString(), currentUser.url.toString(),
+                            currentUser.tag1.toString(), currentUser.tag2.toString(), currentUser.tag3.toString()
                         ))
                     }
                     /*}*/
