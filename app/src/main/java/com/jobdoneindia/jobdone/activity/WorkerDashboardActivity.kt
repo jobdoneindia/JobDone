@@ -83,6 +83,7 @@ class WorkerDashboardActivity : AppCompatActivity() {
             
 //            val intent = Intent(this, LinkBankActivity::class.java)
 //            startActivity(intent)
+            Toast.makeText(this, "We are working on this", Toast.LENGTH_SHORT).show()
         }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -377,10 +378,8 @@ class WorkerDashboardActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-
-
         onSuperBackPressed()
-
+        finishAffinity()
     }
     fun onSuperBackPressed() {
         super.onBackPressed()
