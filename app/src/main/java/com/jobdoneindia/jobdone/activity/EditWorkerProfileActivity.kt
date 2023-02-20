@@ -57,98 +57,36 @@ class EditWorkerProfileActivity : AppCompatActivity() {
     lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
 
     private val tags = mapOf(
-        "Electrician" to arrayListOf("AC Repair", "Plug", "Socket", "Wires"),
-        "Appliances" to arrayListOf(
-            "TV Repair",
-            "AC Repair",
-            "Washing machine repair",
-            "Gizzer Repair",
-            "Air Cooler Repair",
-            "Fridge Repair",
-            "Mixer Grinder Repair",
-            "Speaker Repair"
-        ),
-        "Plumber" to arrayListOf(
-            "Install Water Supply System",
-            "Install Waste Disposal System",
-            "Repair Pipeline Issues"
-        ),
-        "Carpenter" to arrayListOf(
-            "New Furniture Making",
-            "Old Furniture Repair",
-            "Install Modular Kichen"
-        ),
-        "Painter" to arrayListOf(
-            "Furniture Painting",
-            "Contract Works(Office, Home, Cafe)",
-            "Wall Painting"
-        ),
+        "AC Repairer" to arrayListOf("Installing","Maintaining","Repairing"),
+        "Beautician" to arrayListOf("Bridal Makeup","Eyebrow Waxing","Makeup"),
+        "Carpenter" to arrayListOf("New Furniture Making","Old Furniture Repair","Install Modular Kichen"),
+        "Catering Service" to arrayListOf("Marriage Caremony","Birthday Party","Office Party"),
+        "Computer Repair" to arrayListOf("CPU Repair", "Computer Assembling", "Parts Change", "Monitor Repair"),
+        "Dance Choreographer" to arrayListOf("Hiphop","Classical"),
+        "Digital Marketer" to arrayListOf("Social Media Marketing", "Content Research", "Marketing", "Content Creation", "Analysing Data"),
         "Driver" to arrayListOf("Personal Car", "Loading Van", "JCB", "Dumper", "Truck"),
-        "Home Tutor" to arrayListOf(
-            "Class 1-5",
-            "Class 6-10",
-            "Class 11-12",
-            "Graduates",
-            "Science Teacher",
-            "Maths Teacher",
-            "Commerce Teacher",
-            "Arts Teacher"
-        ),
-        "Freelancer" to arrayListOf(
-            "Graphic Designer",
-            "Content Writer",
-            "Web Designer",
-            "Virtual Assistant",
-            "App Developer",
-            "Video Editor",
-            "Social Media Manager",
-            "Transcriber"
-        ),
-        "Pest Control" to arrayListOf("Complete Pest Control", "Sanitisation"),
-        "Pandit" to arrayListOf(
-            "Bhagwat Katha",
-            "Bhoomi Pooja",
-            "Antim Sanskar",
-            "Satya Narayan Katha",
-            "Shaadi",
-            "Ganesh Utsav",
-            "Hawan",
-            "Vaastu Pooja"
-        ),
+        "Electrician" to arrayListOf( "Installing", "Maintaining", "Repairing"),
+        "Event Management" to arrayListOf("Marriage Caremony","Birthday Party","Office Party","Rice Caremony","Anniversary"),
+        "Graphic Designer" to arrayListOf("Logos", "Posters","Billboards","UI Design","Web Design","Illustration"),
+        "Home Tutor" to arrayListOf("Class 1-5","Class 6-10","Class 11-12","Graduates","Science Teacher","Maths Teacher","Commerce Teacher","Arts Teacher"),
+        "House Maid" to arrayListOf("House Cleaning","Cooking","Washing Clothes","Baby Care","Utensil Cleaning"),
         "Laundry" to arrayListOf("Washing CLothes", "Dry Clean", "Ironing Clothes"),
+        "Mechanic" to arrayListOf("Chimney Repairer", "Gizzer Repairer", "Washing Machine Repairer", "Mixer Grinder Repairer", "Gas Repairer"),
+        "Painter" to arrayListOf("Furniture Painting","Contract Works(Office, Home, Cafe)","Wall Painting"),
+        "Pandal Maker" to arrayListOf("Marriage Caremony", "Festival Pandal", "Rice Caremony", "Anniversary Party"),
+        "Pandit" to arrayListOf("Bhagwat Katha","Bhoomi Pooja","Antim Sanskar","Satya Narayan Katha","Shaadi","Ganesh Utsav","Hawan","Vaastu Pooja"),
+        "Pest Control" to arrayListOf("Complete Pest Control", "Sanitisation"),
+        "Pet Care" to arrayListOf( "Feeding", "Watering", "Cleaning", "Walking", "Bathing", "Medicating", "Monitoring"),
+        "Photographer" to arrayListOf("Model","Pre Wedding","Wedding","Album","Birthday","Freelance"),
+        "Plumber" to arrayListOf("Install Water Supply System","Install Waste Disposal System","Repair Pipeline Issues"),
         "RO Service" to arrayListOf("RO Repair", "RO Install", "RO Service", "RO Parts Change"),
-        "House Maid" to arrayListOf(
-            "House Cleaning",
-            "Cooking",
-            "Washing Clothes",
-            "Baby Care",
-            "Utensil Cleaning"
-        ),
-        "Water Supplier" to arrayListOf("Drinking Water", "Tanker"),
-        "Photographer" to arrayListOf(
-            "Model",
-            "Pre Wedding",
-            "Wedding",
-            "Album",
-            "Birthday",
-            "Freelance"
-        ),
-        "Videographer" to arrayListOf("Wedding", "Birthday", "Freelance"),
-        "Vehicle Service" to arrayListOf(
-            "Bike Repair",
-            "Car Repair",
-            "Loading Van Repair",
-            "Truck Repair",
-            "Servicing"
-        ),
+        "Social Media Manager" to arrayListOf("Developing strategies to increase followers", "Creating and overseeing social campaigns", "Producing content", "Reviewing analytics", "Communicating with key stakeholders in a company"),
+        "Tailor" to arrayListOf("Gents", "Ladies","Cloth Alteration", "Garment Design","Fitting"),
+        "Vehicle Service" to arrayListOf("Bike Repair","Car Repair","Loading Van Repair","Truck Repair","Servicing"),
         "Vehicle Washing" to arrayListOf("Bike Wash", "Car Wash", "Loading Van Wash", "Truck Wash"),
-        "Goods Transport Vehicle" to arrayListOf(
-            "Three Wheeler",
-            " Four Wheeler",
-            "Six Wheeler",
-            "Eight Wheeler",
-            "Ten Wheeler"
-        ),
+        "Videographer" to arrayListOf("Wedding", "Birthday", "Freelance"),
+        "Water Supplier" to arrayListOf("Drinking Water", "Tanker","Home Services","Marrige Caremony"),
+        "Web Developer" to arrayListOf("Frontend","Backend", "Fullstack"),
     )
 
     private var selectedTags = mutableListOf<String>()
@@ -198,12 +136,14 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             selectProfessionSpinner.setText(currentProfession.toString())
         }
         selectProfessionSpinner.setAdapter(adapterItems)
-        /*selectProfessionSpinner.setOnItemClickListener { adapterView, view, position, id ->
+        selectProfessionSpinner.setOnItemClickListener { adapterView, view, position, id ->
             tagList.clear()
             selectedTags.clear()
             val item: String = adapterView.getItemAtPosition(position).toString()
-            for (x in tags[item]!!) {
-                tagList.add(x)
+            if (item in tags) {
+                for (x in tags[item]!!) {
+                    tagList.add(x)
+                }
             }
             updateTags(tagList)
         }
@@ -220,7 +160,7 @@ class EditWorkerProfileActivity : AppCompatActivity() {
                 val chip = chipGroup.getChildAt(i) as Chip
                 chip.isChecked = true
             }
-        }*/
+        }
 
         // Set DP using Glide
         Glide.with(this)
@@ -228,9 +168,9 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .into(this.findViewById<CircleImageView>(R.id.profile_pic))
 
-                // Done fab button
-                doneButton = findViewById(R.id.done_button)
-                doneButton.setOnClickListener {
+        // Done fab button
+        doneButton = findViewById(R.id.done_button)
+        doneButton.setOnClickListener {
 
             val workerName = findViewById<EditText>(R.id.workerName).text.toString().trim()
 
@@ -238,7 +178,7 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             val editor: SharedPreferences.Editor = sharedPreferences.edit()
             editor.putString("name_key", workerName)
             editor.putString("profession_key", selectProfessionSpinner.text.toString())
-            /*editor.putString("tags_key", selectedTags.toString())*/
+            editor.putString("tags_key", selectedTags.toString())
             editor.apply()
             editor.commit()
 
@@ -258,7 +198,9 @@ class EditWorkerProfileActivity : AppCompatActivity() {
             // store profession and tags in realtime database
             val uid = FirebaseAuth.getInstance().currentUser?.uid
             reference.child(uid.toString()).child("Profession").setValue(selectProfessionSpinner.text.toString())
-            /*reference.child(uid.toString()).child("Tags").setValue(selectedTags)*/
+            reference.child(uid.toString()).child("tag1").setValue(if (selectedTags.size >= 1) selectedTags[0] else "Empty")
+            reference.child(uid.toString()).child("tag2").setValue(if(selectedTags.size >= 2) selectedTags[1] else "Empty")
+            reference.child(uid.toString()).child("tag3").setValue(if(selectedTags.size >=3) selectedTags[2] else "Empty")
         }
 
         // Tags Selectors

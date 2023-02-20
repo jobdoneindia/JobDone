@@ -70,6 +70,48 @@
 
                     </LinearLayout>
 
+                    <HorizontalScrollView
+                        android:id="@+id/divTags"
+                        android:visibility="visible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/name_header"
+                        app:layout_constraintStart_toStartOf="@id/name_header">
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.chip.Chip
+                                android:clickable="false"
+                                android:id="@+id/tag1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Empty"
+                                style="@style/Widget.MaterialComponents.Chip.Choice"
+                                />
+
+                            <com.google.android.material.chip.Chip
+                                android:clickable="false"
+                                android:id="@+id/tag2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Empty"
+                                android:layout_marginStart="10dp"
+                                style="@style/Widget.MaterialComponents.Chip.Choice" />
+
+                            <com.google.android.material.chip.Chip
+                                android:clickable="false"
+                                android:id="@+id/tag3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Empty"
+                                android:layout_marginStart="10dp"
+                                style="@style/Widget.MaterialComponents.Chip.Choice" />
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
                     <ImageView
                         android:visibility="gone"
                         android:id="@+id/star"
@@ -195,7 +237,7 @@
                                 app:layout_constraintTop_toTopOf="parent">
 
                                 <LinearLayout
-                                    android:id="@+id/tag1"
+                                    android:id="@+id/tag1_"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     app:layout_constraintStart_toEndOf="@id/desc"
@@ -226,7 +268,7 @@
 
                                 </LinearLayout>
                                 <LinearLayout
-                                    android:id="@+id/tag2"
+                                    android:id="@+id/tag2_"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     app:layout_constraintTop_toBottomOf="@+id/tag1"
@@ -257,7 +299,7 @@
 
                                 </LinearLayout>
                                 <LinearLayout
-                                    android:id="@+id/tag3"
+                                    android:id="@+id/tag3_"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     app:layout_constraintTop_toBottomOf="@+id/tag2"
