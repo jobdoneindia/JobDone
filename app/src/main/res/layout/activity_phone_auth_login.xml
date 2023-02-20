@@ -71,8 +71,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
-                android:textSize="15dp"
-                android:text=" JobDone Terms &amp; Conditions "
+                android:textSize="17dp"
+                android:text=" Terms &amp; Conditions "
                 android:textAlignment="center" />
 
             <ImageButton
