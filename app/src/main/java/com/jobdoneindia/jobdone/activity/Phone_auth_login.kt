@@ -132,9 +132,9 @@ class Phone_auth_login : AppCompatActivity() {
         }
 
         //checkbox verification
-        binding.checkBox.setOnCheckedChangeListener { button, b ->
-            binding.otpSendBtn.isEnabled = binding.checkBox.isChecked==true
-        }
+//        binding.checkBox.setOnCheckedChangeListener { button, b ->
+//            binding.otpSendBtn.isEnabled = binding.checkBox.isChecked==true
+//        }
 
 
         //Terms&Conditions DialogBox Button
@@ -229,16 +229,25 @@ class Phone_auth_login : AppCompatActivity() {
 
         //phone Continue button listener
         binding.otpSendBtn.setOnClickListener {
-            timer.start()
 
             //input phone number
             val phone = "+91" + binding.phonEt.text.toString().trim()
 
-            //validate phone number
-            if(TextUtils.isEmpty(phone)){
-                Toast.makeText(this@Phone_auth_login,"Please enter phone number", Toast.LENGTH_SHORT).show()
-            }else{
-                startPhoneNumberVerification(phone)
+            if(phone.length < 13){
+                Toast.makeText(this, "Enter valid Phone Number", Toast.LENGTH_SHORT).show()
+            }else {
+                timer.start()
+
+                //validate phone number
+                if (TextUtils.isEmpty(phone)) {
+                    Toast.makeText(
+                        this@Phone_auth_login,
+                        "Please enter phone number",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    startPhoneNumberVerification(phone)
+                }
             }
         }
 

@@ -63,15 +63,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:gravity="center">
 
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:text="I have read and accept The Terms &amp; Conditions"
-            android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:textSize="15dp"
+                android:text=" JobDone Terms &amp; Conditions "
+                android:textAlignment="center" />
 
             <ImageButton
                 android:id="@+id/tcinfo"
@@ -79,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_info"
                 android:backgroundTint="@color/white"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="0dp"
                 />
 
         </LinearLayout>
@@ -89,9 +91,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:enabled="false"
-            android:text="Send OTP"/>
+            android:layout_marginTop="15dp"
+            android:text="Agree &amp; Continue"/>
 
     </LinearLayout>
 
