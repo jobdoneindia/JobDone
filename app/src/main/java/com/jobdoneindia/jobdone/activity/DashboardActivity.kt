@@ -58,7 +58,7 @@ class DashboardActivity : AppCompatActivity() {
 
         var counter = sharedPref.getInt("counter",0)
 
-        setBadge(counter)
+       /* setBadge(counter)*/
 
         // Perform item selected listener (bottom nav bar)
         bottomNavigationView.setOnItemSelectedListener {
@@ -106,7 +106,7 @@ class DashboardActivity : AppCompatActivity() {
 
 
     //notification badge counter
-    fun setBadge(counter: Int) {
+   /* fun setBadge(counter: Int) {
 
         if(counter == 0) {
             bottomNavigationView.removeBadge(R.id.menuChats)
@@ -118,7 +118,7 @@ class DashboardActivity : AppCompatActivity() {
         }
 
 
-    }
+    }*/
     // TO SHOW STATUS
     fun status(status : String) {
        mDbRef = FirebaseDatabase.getInstance().getReference("Users").child(firebase.uid)
