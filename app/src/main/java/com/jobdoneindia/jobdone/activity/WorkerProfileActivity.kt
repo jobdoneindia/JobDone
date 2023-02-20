@@ -142,10 +142,16 @@ class WorkerProfileActivity : AppCompatActivity() {
             editor.apply()
             editor.commit()
 
-            workerProfileLayout.startAnimation(animation)
+            /*workerProfileLayout.startAnimation(animation)*/
             finish()
             startActivity(Intent(applicationContext, ProfileActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
         }
     }
-
+    override fun onBackPressed() {
+        startActivity(Intent(applicationContext, WorkerDashboardActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+        onSuperBackPressed()
+    }
+    fun onSuperBackPressed() {
+        super.onBackPressed()
+    }
 }

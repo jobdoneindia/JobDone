@@ -143,4 +143,11 @@ class ProfileActivity : AppCompatActivity() {
         }
 
     }
+    override fun onBackPressed() {
+        startActivity(Intent(applicationContext, DashboardActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+        onSuperBackPressed()
+    }
+    fun onSuperBackPressed() {
+        super.onBackPressed()
+    }
 }
