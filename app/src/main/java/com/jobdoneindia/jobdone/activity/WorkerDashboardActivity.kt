@@ -80,8 +80,9 @@ class WorkerDashboardActivity : AppCompatActivity() {
         // Link Bank Account
         btnLinkBank = findViewById(R.id.btnLinkBank)
         btnLinkBank.setOnClickListener {
-            val intent = Intent(this, LinkBankActivity::class.java)
-            startActivity(intent)
+            
+//            val intent = Intent(this, LinkBankActivity::class.java)
+//            startActivity(intent)
         }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)

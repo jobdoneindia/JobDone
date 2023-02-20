@@ -4,9 +4,15 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.EditText
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import com.jobdoneindia.jobdone.R
+
+lateinit var acc_number : EditText
+lateinit var confirm_acc_number : EditText
+lateinit var input_ifsc : EditText
+lateinit var acc_name : EditText
 
 class LinkBankActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +22,8 @@ class LinkBankActivity : AppCompatActivity() {
         // Add back button in Action Bar
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        
 
     }
 

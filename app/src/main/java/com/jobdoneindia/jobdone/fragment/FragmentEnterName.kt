@@ -50,7 +50,7 @@ class FragmentEnterName : Fragment() {
             val database : FirebaseDatabase = FirebaseDatabase.getInstance()
             val uid = FirebaseAuth.getInstance().currentUser?.uid
             val reference : DatabaseReference = database.reference.child("Users").child(uid.toString())
-            inputName = root.findViewById<EditText>(R.id.input_name).text.toString().trim()
+            inputName = root.findViewById<EditText>(R.id.input_ifsc).text.toString().trim()
             val phone = firebaseAuth.currentUser?.phoneNumber
 
             // store data locally

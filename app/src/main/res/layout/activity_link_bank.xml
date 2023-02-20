@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Account Holder's Number:"
+        android:text="Account Holder's Name"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -49,13 +49,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Enter Account Number:"
+        android:text="Account Number:"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_accname" />
 
     <EditText
-        android:id="@+id/txt_account"
+        android:id="@+id/confirm_acc_num"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="XXXX XXXX XXXX"
@@ -68,10 +68,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Re-Enter Account Number:"
+        android:text="Confirm Account Number:"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_account" />
+        app:layout_constraintTop_toBottomOf="@id/confirm_acc_num" />
 
     <EditText
         android:id="@+id/reinput_account"
@@ -93,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@id/reinput_account" />
 
     <EditText
-        android:id="@+id/input_name"
+        android:id="@+id/input_ifsc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="SBINXXXXXXX"
@@ -113,12 +113,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/colorPrimary">
+        app:strokeColor="@color/colorPrimary"
+        android:visibility="gone"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/txt_name"
