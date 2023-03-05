@@ -80,7 +80,8 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="100dp">
 
                             <com.google.android.material.chip.Chip
                                 android:clickable="false"
