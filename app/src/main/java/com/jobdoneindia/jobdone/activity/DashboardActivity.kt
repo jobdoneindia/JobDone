@@ -21,6 +21,10 @@ import androidx.navigation.findNavController
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -30,6 +34,8 @@ import java.util.Objects
 
 class DashboardActivity : AppCompatActivity() {
 
+    private var appUpdate: AppUpdateManager? = null
+    private val REQUEST_CODE = 100
     private lateinit var mDbRef: DatabaseReference
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var fragment: FragmentContainerView
@@ -38,6 +44,9 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
+        appUpdate = AppUpdateManagerFactory.create(this)
+        checkUpdate()
 
         val sharedPref = getSharedPreferences("myPref", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
@@ -102,6 +111,26 @@ class DashboardActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    //APP UPDATE
+    fun checkUpdate(){
+        appUpdate?.appUpdateInfo?.addOnSuccessListener { updateInfo ->
+
+            if (updateInfo.updateAvailability()==UpdateAvailability.UPDATE_AVAILABLE
+                && updateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
+                appUpdate?.startUpdateFlowForResult(updateInfo,AppUpdateType.IMMEDIATE,this,REQUEST_CODE)
+            }
+        }
+    }
+
+    fun inProgressUpdate(){
+        appUpdate?.appUpdateInfo?.addOnSuccessListener { updateInfo ->
+
+            if (updateInfo.updateAvailability()==UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS){
+                appUpdate?.startUpdateFlowForResult(updateInfo,AppUpdateType.IMMEDIATE,this,REQUEST_CODE)
+            }
+        }
     }
 
 

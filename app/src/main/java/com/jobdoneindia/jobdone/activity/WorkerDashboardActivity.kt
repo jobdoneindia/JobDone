@@ -27,6 +27,10 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -40,6 +44,9 @@ data class CustomersPreview( val customers_name: String, val customer_message: S
 data class ScheduledJobsPreview(val workers_name: String, val schedule_date: String, val schedule_location: String, val time: String)
 
 class WorkerDashboardActivity : AppCompatActivity() {
+
+    private var appUpdate: AppUpdateManager? = null
+    private val REQUEST_CODE = 100
     private val customersPreview = mutableListOf<CustomersPreview>()
     private val scheduledJobsPreview = mutableListOf<ScheduledJobsPreview>()
 
@@ -69,6 +76,9 @@ class WorkerDashboardActivity : AppCompatActivity() {
         mainBinding = ActivityWorkerDashboardBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
         supportActionBar?.hide()
+
+        appUpdate = AppUpdateManagerFactory.create(this)
+        checkUpdate()
 
         // Display Earnings Spinner
         val spinner = findViewById<Spinner>(R.id.spinner)
@@ -216,6 +226,29 @@ class WorkerDashboardActivity : AppCompatActivity() {
             false
         }
 
+    }
+
+
+    //APP UPDATE
+    fun checkUpdate(){
+        appUpdate?.appUpdateInfo?.addOnSuccessListener { updateInfo ->
+
+            if (updateInfo.updateAvailability()== UpdateAvailability.UPDATE_AVAILABLE
+                && updateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
+                appUpdate?.startUpdateFlowForResult(updateInfo,
+                    AppUpdateType.IMMEDIATE,this,REQUEST_CODE)
+            }
+        }
+    }
+
+
+    fun inProgressUpdate(){
+        appUpdate?.appUpdateInfo?.addOnSuccessListener { updateInfo ->
+
+            if (updateInfo.updateAvailability()==UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS){
+                appUpdate?.startUpdateFlowForResult(updateInfo,AppUpdateType.IMMEDIATE,this,REQUEST_CODE)
+            }
+        }
     }
 
     // store location locally
