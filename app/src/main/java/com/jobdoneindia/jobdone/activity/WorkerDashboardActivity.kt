@@ -16,6 +16,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.firebase.geofire.GeoFire
@@ -29,8 +30,12 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.ktx.isFlexibleUpdateAllowed
+import com.google.android.play.core.ktx.isImmediateUpdateAllowed
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -38,14 +43,18 @@ import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.adapter.CustomerPreviewAdapter
 import com.jobdoneindia.jobdone.databinding.ActivityWorkerDashboardBinding
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.time.Duration.Companion.seconds
 
 data class CustomersPreview( val customers_name: String, val customer_message: String, val dp_url: String)
 data class ScheduledJobsPreview(val workers_name: String, val schedule_date: String, val schedule_location: String, val time: String)
 
 class WorkerDashboardActivity : AppCompatActivity() {
 
-    private var appUpdate: AppUpdateManager? = null
+    private lateinit var appUpdateManager: AppUpdateManager
+    private val updateType = AppUpdateType.IMMEDIATE
     private val REQUEST_CODE = 100
     private val customersPreview = mutableListOf<CustomersPreview>()
     private val scheduledJobsPreview = mutableListOf<ScheduledJobsPreview>()
@@ -77,8 +86,12 @@ class WorkerDashboardActivity : AppCompatActivity() {
         setContentView(mainBinding.root)
         supportActionBar?.hide()
 
-        appUpdate = AppUpdateManagerFactory.create(this)
-        checkUpdate()
+        //appUpdate
+        appUpdateManager = AppUpdateManagerFactory.create(applicationContext)
+        if (updateType == AppUpdateType.FLEXIBLE) {
+            appUpdateManager.registerListener(installStateUpdatedListener)
+        }
+        checkForUpdate()
 
         // Display Earnings Spinner
         val spinner = findViewById<Spinner>(R.id.spinner)
@@ -228,25 +241,70 @@ class WorkerDashboardActivity : AppCompatActivity() {
 
     }
 
-
-    //APP UPDATE
-    fun checkUpdate(){
-        appUpdate?.appUpdateInfo?.addOnSuccessListener { updateInfo ->
-
-            if (updateInfo.updateAvailability()== UpdateAvailability.UPDATE_AVAILABLE
-                && updateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
-                appUpdate?.startUpdateFlowForResult(updateInfo,
-                    AppUpdateType.IMMEDIATE,this,REQUEST_CODE)
+    private val installStateUpdatedListener = InstallStateUpdatedListener { state ->
+        if (state.installStatus() == InstallStatus.DOWNLOADED) {
+            Toast.makeText(
+                applicationContext,
+                "Download successful. Restarting app in 5 seconds.",
+                Toast.LENGTH_LONG
+            ).show()
+            lifecycleScope.launch {
+                delay(5.seconds)
+                appUpdateManager.completeUpdate()
             }
         }
     }
 
+    //APP UPDATE
+    private fun checkForUpdate() {
+        appUpdateManager.appUpdateInfo.addOnSuccessListener { updateInfo ->
+            val isUpdateAvailable =
+                updateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+            val isUpdateAllowed = when (updateType) {
+                AppUpdateType.FLEXIBLE -> updateInfo.isFlexibleUpdateAllowed
+                AppUpdateType.IMMEDIATE -> updateInfo.isImmediateUpdateAllowed
+                else -> false
+            }
 
-    fun inProgressUpdate(){
-        appUpdate?.appUpdateInfo?.addOnSuccessListener { updateInfo ->
+            if (isUpdateAvailable && isUpdateAllowed) {
+                appUpdateManager.startUpdateFlowForResult(
+                    updateInfo,
+                    updateType,
+                    this,
+                    123
+                )
+            }
 
-            if (updateInfo.updateAvailability()==UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS){
-                appUpdate?.startUpdateFlowForResult(updateInfo,AppUpdateType.IMMEDIATE,this,REQUEST_CODE)
+//            if (updateInfo.updateAvailability()==UpdateAvailability.UPDATE_AVAILABLE
+//                && updateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
+//                appUpdate?.startUpdateFlowForResult(updateInfo,AppUpdateType.IMMEDIATE,this,REQUEST_CODE)
+//            }
+        }
+    }
+
+    //APP UPDATE
+//    fun checkUpdate(){
+//        appUpdate?.appUpdateInfo?.addOnSuccessListener { updateInfo ->
+//
+//            if (updateInfo.updateAvailability()== UpdateAvailability.UPDATE_AVAILABLE
+//                && updateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
+//                appUpdate?.startUpdateFlowForResult(updateInfo,
+//                    AppUpdateType.IMMEDIATE,this,REQUEST_CODE)
+//            }
+//        }
+//    }
+
+
+    fun inProgressUpdate() {
+        appUpdateManager.appUpdateInfo.addOnSuccessListener { updateInfo ->
+
+            if (updateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                appUpdateManager.startUpdateFlowForResult(
+                    updateInfo,
+                    AppUpdateType.IMMEDIATE,
+                    this,
+                    REQUEST_CODE
+                )
             }
         }
     }
@@ -402,7 +460,22 @@ class WorkerDashboardActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        status("online")
+        if (updateType == AppUpdateType.IMMEDIATE) {
+            appUpdateManager.appUpdateInfo.addOnSuccessListener { updateInfo ->
+                if (updateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                    appUpdateManager.startUpdateFlowForResult(
+                        updateInfo,
+                        updateType,
+                        this,
+                        123
+                    )
+                }
+            }
+            status("online")
+        }
+
+
+
     }
 
     override fun onPause() {
@@ -420,9 +493,18 @@ class WorkerDashboardActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
 
+        if (updateType == AppUpdateType.FLEXIBLE) {
+            appUpdateManager.unregisterListener(installStateUpdatedListener)
+        }
         val mAuth = FirebaseAuth.getInstance()
-/*
-        mAuth?.removeAuthStateListener(mListener!!)
-*/
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 123) {
+            if (resultCode != RESULT_OK) {
+                println("Updating...")
+            }
+        }
     }
 }
