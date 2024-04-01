@@ -25,6 +25,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JobDone">
+        <activity
+            android:name=".activity.FirstPaymentActivity"
+            android:exported="false" />
 
         <service
             android:name=".firebase.FirebaseService"
