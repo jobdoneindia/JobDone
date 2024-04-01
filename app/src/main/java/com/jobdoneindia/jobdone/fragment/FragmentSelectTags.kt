@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
+import com.jobdoneindia.jobdone.activity.FirstPaymentActivity
 import com.jobdoneindia.jobdone.activity.WorkerDashboardActivity
 
 
@@ -115,7 +116,7 @@ class FragmentSelectTags : Fragment() {
             reference.child("tag2").setValue(if(selectedTags.size >= 2) selectedTags[1] else "Empty")
             reference.child("tag3").setValue(if(selectedTags.size >=3) selectedTags[2] else "Empty")
 
-            val intent = Intent(requireContext(), WorkerDashboardActivity::class.java)
+            val intent = Intent(requireContext(), FirstPaymentActivity::class.java)
             this.activity?.finishAffinity()
             startActivity(intent)
             // Navigation.findNavController(view).navigate(R.id.action_fragmentSelectTags_to_fragmentSetDP)
