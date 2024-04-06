@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.DashboardActivity
 
@@ -28,36 +30,39 @@ class FragmentChooseMode : Fragment() {
         exitTransition = transitionInflater.inflateTransition(R.transition.fade)
 
         // Customer Button
-        root.findViewById<Button>(R.id.customer_mode_btn).setOnClickListener {
-                view: View ->
+        root.findViewById<Button>(R.id.customer_mode_btn).setOnClickListener { view: View ->
+            // Update user role to "customer"
+            updateUserRole("customer")
 
-            // store data locally
-            val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = sharedPreferences.edit()
-            editor.putString("mode_key", "customer")
-            editor.apply()
-            editor.commit()
-
-            val intent = Intent(requireContext(),DashboardActivity::class.java)
+            // Proceed to DashboardActivity
+            val intent = Intent(requireContext(), DashboardActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            this.activity?.finishAffinity()
+            requireActivity().finishAffinity()
             startActivity(intent)
-
         }
 
-        root.findViewById<Button>(R.id.worker_mode_btn).setOnClickListener{
-                view: View ->
-            // store data locally
-            val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = sharedPreferences.edit()
-            editor.putString("mode_key", "worker")
-            editor.apply()
-            editor.commit()
+        // Worker Button
+        root.findViewById<Button>(R.id.worker_mode_btn).setOnClickListener { view: View ->
+            // Update user role to "worker"
+            updateUserRole("customer&worker")
 
+            // Navigate to fragmentSelectTags
             Navigation.findNavController(view).navigate(R.id.action_fragmentChooseMode_to_fragmentSelectTags)
         }
 
         return root
     }
 
+    private fun updateUserRole(role: String) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+        val userRef = FirebaseDatabase.getInstance().reference.child("Users").child(userId)
+        userRef.child("role").setValue(role)
+            .addOnSuccessListener {
+                // Role updated successfully
+            }
+            .addOnFailureListener { e ->
+                // Handle failure
+                // You can show an error message or log the error here
+            }
+    }
 }

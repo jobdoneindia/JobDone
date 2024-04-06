@@ -447,16 +447,16 @@ class WorkerDashboardActivity : AppCompatActivity() {
     }
 
     // TO SHOW STATUS
-    fun status(status : String) {
-        mDbRef = FirebaseDatabase.getInstance().getReference("Users").child(firebase.uid)
-
-        var map : HashMap<String , Any>
-                = HashMap<String ,Any>()
-
-        map.put("status" , status)
-        mDbRef.updateChildren(map as Map<String, Any>)
-
-    }
+//    fun status(status : String) {
+//        mDbRef = FirebaseDatabase.getInstance().getReference("Users").child(firebase.uid)
+//
+//        var map : HashMap<String , Any>
+//                = HashMap<String ,Any>()
+//
+//        map.put("status" , status)
+//        mDbRef.updateChildren(map as Map<String, Any>)
+//
+//    }
 
     override fun onResume() {
         super.onResume()
@@ -471,7 +471,7 @@ class WorkerDashboardActivity : AppCompatActivity() {
                     )
                 }
             }
-            status("online")
+//            status("online")
         }
 
 
@@ -480,7 +480,7 @@ class WorkerDashboardActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        status("offline")
+//        status("offline")
     }
 
     override fun onBackPressed() {

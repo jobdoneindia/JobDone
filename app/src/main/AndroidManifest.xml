@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.any" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <uses-feature
@@ -88,6 +89,26 @@
             android:label="Edit Profile"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.PendingActivity" />
+        <activity
+            android:name=".activity.AdhaarValidation"
+            android:exported="true"
+            android:label="Adhaar Validation"
+            android:screenOrientation="portrait"/>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileproviderpath"/>
+        </provider>
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".activity.WorkerDashboardActivity"
             android:exported="true"
