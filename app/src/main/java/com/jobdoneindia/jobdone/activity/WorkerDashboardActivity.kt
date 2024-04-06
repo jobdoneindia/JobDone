@@ -104,9 +104,9 @@ class WorkerDashboardActivity : AppCompatActivity() {
         btnLinkBank = findViewById(R.id.btnLinkBank)
         btnLinkBank.setOnClickListener {
             
-//            val intent = Intent(this, LinkBankActivity::class.java)
-//            startActivity(intent)
-            Toast.makeText(this, "We are working on this", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, LinkBankActivity::class.java)
+            startActivity(intent)
+//            Toast.makeText(this, "We are working on this", Toast.LENGTH_SHORT).show()
         }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)

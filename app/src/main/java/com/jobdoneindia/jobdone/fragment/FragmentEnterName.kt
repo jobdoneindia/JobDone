@@ -1,5 +1,6 @@
 package com.jobdoneindia.jobdone.fragment
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -53,16 +55,39 @@ class FragmentEnterName : Fragment() {
             inputName = root.findViewById<EditText>(R.id.input_ifsc).text.toString().trim()
             val phone = firebaseAuth.currentUser?.phoneNumber
 
-            // store data locally
-            val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("usersharedpreference", Context.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = sharedPreferences.edit()
-            editor.putString("name_key", inputName)
-            editor.apply()
-            editor.commit()
+            if(inputName != "") {
 
-            reference.setValue(User(uid.toString(),inputName,null,phone,null, status = null , Profession = null,
-                chatList = null, tag1 = null, tag2 = null, tag3 = null))
-            Navigation.findNavController(view).navigate(R.id.action_fragmentEnterName_to_fragmentSetDP)
+                // store data locally
+                val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences(
+                    "usersharedpreference",
+                    Context.MODE_PRIVATE
+                )
+                val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString("name_key", inputName)
+                editor.apply()
+                editor.commit()
+
+                reference.setValue(
+                    User(
+                        uid.toString(),
+                        inputName,
+                        null,
+                        phone,
+                        null,
+                        status = null,
+                        Profession = null,
+                        chatList = null,
+                        tag1 = null,
+                        tag2 = null,
+                        tag3 = null
+                    )
+                )
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_fragmentEnterName_to_fragmentSetDP)
+
+            } else {
+                Toast.makeText(this.activity, "Enter valid Name", Toast.LENGTH_LONG).show()
+            }
         }
 
         return root

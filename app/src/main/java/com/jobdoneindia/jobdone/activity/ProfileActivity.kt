@@ -138,8 +138,6 @@ class ProfileActivity : AppCompatActivity() {
             profileLayout.startAnimation(animation)
             finish()
             startActivity(Intent(applicationContext, WorkerProfileActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
-
-
         }
 
     }
