@@ -20,7 +20,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jobdoneindia.jobdone.R
 import com.jobdoneindia.jobdone.activity.AdhaarValidation
-import com.jobdoneindia.jobdone.activity.WorkerDashboardActivity
 
 
 class FragmentSelectTags : Fragment() {
@@ -115,7 +114,8 @@ class FragmentSelectTags : Fragment() {
             reference.child("tag1").setValue(if (selectedTags.size >= 1) selectedTags[0] else "Empty")
             reference.child("tag2").setValue(if(selectedTags.size >= 2) selectedTags[1] else "Empty")
             reference.child("tag3").setValue(if(selectedTags.size >=3) selectedTags[2] else "Empty")
-
+            
+            
             val intent = Intent(requireContext(), AdhaarValidation::class.java)
             this.activity?.finishAffinity()
             startActivity(intent)
