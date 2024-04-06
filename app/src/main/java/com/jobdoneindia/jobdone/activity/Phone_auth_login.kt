@@ -32,8 +32,11 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.jobdoneindia.jobdone.databinding.ActivityPhoneAuthLoginBinding
 import java.util.concurrent.TimeUnit
 
@@ -338,27 +341,64 @@ class Phone_auth_login : AppCompatActivity() {
     }
 
     private fun signInWithPhoneCredential(credential: PhoneAuthCredential) {
-        progressDialog.setMessage("Logging In")
+
 
         firebaseAuth.signInWithCredential(credential)
-            .addOnSuccessListener {
-                //login success
+            .addOnSuccessListener { authResult ->
+                // Login successful
                 progressDialog.dismiss()
-                val phone = firebaseAuth.currentUser?.phoneNumber
-                /*Toast.makeText(this,"Logged In as $phone", Toast.LENGTH_SHORT).show()*/
+                val user = authResult.user
 
+                // Check if the user data is available in the database
+                val usersRef = FirebaseDatabase.getInstance().getReference("Users").child(user!!.uid)
+                usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            // User data exists in the database
+                            val userData = dataSnapshot.getValue(User::class.java)
+                            if (userData != null) {
+                                // Check if phoneNumber and username are available
+                                val phoneNumber = userData.phoneNumber
+                                val username = userData.username
+                                if (!TextUtils.isEmpty(phoneNumber) && !TextUtils.isEmpty(username)) {
+                                    // Both phoneNumber and username are available
+                                    // Open the dashboard
+                                    progressDialog.setMessage("Logging In")
+                                    val intent = Intent(this@Phone_auth_login, DashboardActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                } else {
+                                    // Phone number or username is not available
+                                    progressDialog.setMessage("New Registration...")
+                                    Toast.makeText(this@Phone_auth_login, "Phone number or username is not available", Toast.LENGTH_SHORT).show()
+                                    // Navigate to the profile activity to complete registration
+                                    val intent = Intent(this@Phone_auth_login, RegistrationActivity::class.java)
+                                    startActivity(intent)
+                                }
+                            }
+                        } else {
+                            // User data does not exist in the database
+                            progressDialog.setMessage("New Registration...")
+                            val intent = Intent(this@Phone_auth_login, RegistrationActivity::class.java)
+                            startActivity(intent)
+                            Toast.makeText(this@Phone_auth_login, "New Registration", Toast.LENGTH_SHORT).show()
+                        }
+                    }
 
-                //start profile activity
-                val intent = Intent(this, RegistrationActivity::class.java)
-                startActivity(intent)
+                    override fun onCancelled(databaseError: DatabaseError) {
+                        // Handle error
+                        progressDialog.dismiss()
+                        Log.d(TAG, "Database error: ${databaseError.message}")
+                        Toast.makeText(this@Phone_auth_login, "Database error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
             }
             .addOnFailureListener { e ->
-                //login failed
+                // Login failed
                 progressDialog.dismiss()
-                Toast.makeText(this, "Error try again", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
-
-
     }
+
 
 }
