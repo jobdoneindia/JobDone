@@ -191,14 +191,14 @@ class DashboardActivity : AppCompatActivity() {
 
     }*/
     // TO SHOW STATUS
-    private fun status(status: String) {
-        val firebase: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-        firebase?.let { user ->
-            mDbRef = FirebaseDatabase.getInstance().getReference("Users").child(user.uid)
-            val map: HashMap<String, Any> = hashMapOf("status" to status)
-            mDbRef.updateChildren(map as Map<String, Any>)
-        }
-    }
+//    private fun status(status: String) {
+//        val firebase: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+//        firebase?.let { user ->
+//            mDbRef = FirebaseDatabase.getInstance().getReference("Users").child(user.uid)
+//            val map: HashMap<String, Any> = hashMapOf("status" to status)
+//            mDbRef.updateChildren(map as Map<String, Any>)
+//        }
+//    }
 
     override fun onResume() {
         super.onResume()
@@ -213,7 +213,7 @@ class DashboardActivity : AppCompatActivity() {
                     )
                 }
             }
-            status("online")
+//            status("online")
         }
 
 
@@ -221,7 +221,7 @@ class DashboardActivity : AppCompatActivity() {
     }
     override fun onPause() {
         super.onPause()
-        status("offline")
+//        status("offline")
     }
 
     override fun onBackPressed() {
