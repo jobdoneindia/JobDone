@@ -6,12 +6,12 @@ plugins {
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.jobdoneindia.jobdone"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 11
         versionName "1.4.2"
 
@@ -123,7 +123,7 @@ dependencies {
     implementation 'com.nex3z:notification-badge:1.0.4'
 
     //RazorPay SDK
-    implementation 'com.razorpay:checkout:1.6.25'
+    implementation 'com.razorpay:checkout:1.6.38'
 
     //fetch number for login
     implementation "com.google.android.gms:play-services-auth:17.0.0"
